@@ -2,6 +2,12 @@
 
 This is a project template for a greenfield Java project. It's named after the Java mascot _Duke_. Given below are instructions on how to use it.
 
+## AI use
+
+AI assistance was used to set up Beryl's repository workflow, consolidate the
+existing project guidance into Beryl's canonical agent files, and add this
+acknowledgement. AI has not implemented application behavior for this project.
+
 ## Setting up in Intellij
 
 Prerequisites: JDK 25, update Intellij to the most recent version.

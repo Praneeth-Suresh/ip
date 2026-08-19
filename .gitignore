@@ -2,6 +2,7 @@
 /.idea/
 /out/
 /*.iml
+*.class
 
 # Gradle build files
 /.gradle/
@@ -18,3 +19,5 @@ _temp/
 
 /text-ui-test/ACTUAL.TXT
 text-ui-test/EXPECTED-UNIX.TXT
+
+.beryl/agent/session-state.md
