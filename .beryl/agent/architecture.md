@@ -4,7 +4,7 @@
 
 | Context | Owns | Does Not Own | Public Entry Point |
 | --- | --- | --- | --- |
-| Personal assistant chatbot | Conversational interactions and the user's tracked information | Unspecified external integrations and persistence details | `src/main/java/Duke.java` |
+| Personal assistant chatbot | Conversational interactions and the user's tracked information | Unspecified external integrations and persistence details | `src/main/java/Odysseus.java` |
 
 ## Boundary Rules
 
@@ -18,7 +18,7 @@
 Each context exposes one explicit public entry point:
 
 - Java: the application entry point currently starts at
-  `src/main/java/Duke.java`. Introduce a small explicit public API for each
+  `src/main/java/Odysseus.java`. Introduce a small explicit public API for each
   additional context when it is created.
 
 ## Forbidden Import Policy
