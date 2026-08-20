@@ -11,7 +11,7 @@
 | Format | `not available yet` | unavailable | Add the project formatter command when configured |
 | Lint | `not available yet` | unavailable | Add the project lint command when configured |
 | Typecheck | `not available yet` | unavailable | Add the project typecheck command when configured |
-| Unit tests | `not available yet` | unavailable | Add the project unit test command when configured |
+| Unit tests | `bash tests/run-tests.sh` | available | Standard-library Java assertion harness |
 | Integration tests | `not available yet` | unavailable | Add the project integration test command when configured |
 | E2E smoke | `not available yet` | unavailable | When web runtime exists, use Microsoft Playwright MCP for deterministic browser feedback |
 

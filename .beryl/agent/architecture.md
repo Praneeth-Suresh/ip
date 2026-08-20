@@ -36,3 +36,8 @@ Keep this list small and high-signal. Add rules only after repeated boundary mis
 `Deadline`, and `Event` extend it to supply their type markers and, where
 needed, their date/time text. The console entry point stores and handles only
 the `Task` abstraction.
+
+`TaskList` owns the in-memory task array, count, capacity rule, and task-number
+validation. `OdysseusException` represents user-correctable command failures;
+the console entry point catches it per command so one mistake cannot end the
+conversation or partially mutate the task list.
