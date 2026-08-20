@@ -6,7 +6,7 @@
  */
 public abstract class Task {
     private final String description;
-    private boolean isDone;
+    private TaskStatus status;
 
     /**
      * Creates an incomplete task with the given description.
@@ -15,17 +15,17 @@ public abstract class Task {
      */
     protected Task(String description) {
         this.description = description;
-        this.isDone = false;
+        this.status = TaskStatus.NOT_DONE;
     }
 
     /** Marks this task as done. */
     public void markAsDone() {
-        isDone = true;
+        status = TaskStatus.DONE;
     }
 
     /** Marks this task as not done. */
     public void markAsNotDone() {
-        isDone = false;
+        status = TaskStatus.NOT_DONE;
     }
 
     /** Returns this task's description. */
@@ -44,7 +44,6 @@ public abstract class Task {
     /** Returns this task's type, status, description, and details for display. */
     @Override
     public final String toString() {
-        String status = isDone ? "[X]" : "[ ]";
-        return "[" + getTypeMarker() + "]" + status + " " + description + getDetails();
+        return "[" + getTypeMarker() + "]" + status.getMarker() + " " + description + getDetails();
     }
 }

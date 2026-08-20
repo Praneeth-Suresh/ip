@@ -21,6 +21,7 @@ categories, storage, and interaction rules remain open.
 | Tracked information is held only for the current session. | A dynamically sized in-memory `ArrayList<Task>` | 2026-08-20 | n/a |
 | Task types share completion behavior while owning their distinct details. | Abstract `Task` base class with `Todo`, `Deadline`, and `Event` subclasses | 2026-08-20 | n/a |
 | User command errors are recoverable. | `OdysseusException` is caught once per command; invalid commands do not mutate `TaskList` | 2026-08-20 | n/a |
+| Task states and existing-task actions are closed sets. | `TaskStatus` and `TaskAction` enums | 2026-08-20 | n/a |
 
 ## Pressure Points
 

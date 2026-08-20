@@ -8,5 +8,7 @@
 | ToDo | `Todo` | A task without date or time information. | Created by `todo <description>` and displayed with `[T]`. | Untimed `event` |
 | Deadline | `Deadline` | A task to be completed by supplied text. | Created by `deadline <description> /by <text>`; the text is not parsed. | Calendar event |
 | Event | `Event` | A task with supplied start and end text. | Created by `event <description> /from <text> /to <text>`; the text is not parsed. | Deadline |
+| Task Status | `TaskStatus` | The completion state of a task. | `NOT_DONE` displays `[ ]`; `DONE` displays `[X]`. | Boolean completion flag |
+| Task Action | `TaskAction` | A command that targets a task by one-based number. | Supports `mark`, `unmark`, and `delete`. | Free-form action string |
 | Command Error | `OdysseusException` | A user-correctable invalid command. | Explains the correction, leaves the task list unchanged, and does not end the conversation. | System failure |
 | Conversation | TBD | The exchange through which the user interacts with the chatbot. | Must remain understandable to the user. | `request` when a domain term is needed |

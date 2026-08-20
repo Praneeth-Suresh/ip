@@ -34,8 +34,9 @@ Keep this list small and high-signal. Add rules only after repeated boundary mis
 
 `Task` is the abstract model for completion state and shared rendering. `Todo`,
 `Deadline`, and `Event` extend it to supply their type markers and, where
-needed, their date/time text. The console entry point stores and handles only
-the `Task` abstraction.
+needed, their date/time text. `TaskStatus` owns the completion-state markers,
+while `TaskAction` owns the fixed existing-task command keywords. The console
+entry point stores and handles only the `Task` abstraction.
 
 `TaskList` owns an `ArrayList<Task>`, task count, one-based task-number
 validation, and deletion. `OdysseusException` represents user-correctable command failures;

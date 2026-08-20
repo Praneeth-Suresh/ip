@@ -43,18 +43,18 @@ public class Odysseus {
             try {
                 if (command.equals("list")) {
                     printTaskList(tasks, output);
-                } else if (command.equals("mark") || command.startsWith("mark ")) {
-                    Task task = tasks.getTask(parseTaskNumber(command, "mark"));
+                } else if (TaskAction.MARK.matches(command)) {
+                    Task task = tasks.getTask(parseTaskNumber(command, TaskAction.MARK));
                     task.markAsDone();
                     output.println("Well sailed! I've marked this task as done:");
                     output.println("  " + task);
-                } else if (command.equals("unmark") || command.startsWith("unmark ")) {
-                    Task task = tasks.getTask(parseTaskNumber(command, "unmark"));
+                } else if (TaskAction.UNMARK.matches(command)) {
+                    Task task = tasks.getTask(parseTaskNumber(command, TaskAction.UNMARK));
                     task.markAsNotDone();
                     output.println("This task awaits its hour again:");
                     output.println("  " + task);
-                } else if (command.equals("delete") || command.startsWith("delete ")) {
-                    Task task = tasks.deleteTask(parseTaskNumber(command, "delete"));
+                } else if (TaskAction.DELETE.matches(command)) {
+                    Task task = tasks.deleteTask(parseTaskNumber(command, TaskAction.DELETE));
                     output.println("The waves have carried this task from our log:");
                     output.println("  " + task);
                     printTaskCount(tasks, output);
@@ -94,15 +94,16 @@ public class Odysseus {
     }
 
     /** Parses a one-based task number from a mark or unmark command. */
-    private static int parseTaskNumber(String command, String action) throws OdysseusException {
-        String numberText = command.substring(action.length()).trim();
+    private static int parseTaskNumber(String command, TaskAction action) throws OdysseusException {
+        String actionWord = action.getCommandWord();
+        String numberText = command.substring(actionWord.length()).trim();
         if (numberText.isEmpty()) {
-            throw new OdysseusException("Name the task to " + action + ", for example: " + action + " 2.");
+            throw new OdysseusException("Name the task to " + actionWord + ", for example: " + actionWord + " 2.");
         }
         try {
             return Integer.parseInt(numberText);
         } catch (NumberFormatException exception) {
-            throw new OdysseusException("Use a task number after " + action + ", for example: " + action + " 2.");
+            throw new OdysseusException("Use a task number after " + actionWord + ", for example: " + actionWord + " 2.");
         }
     }
 
