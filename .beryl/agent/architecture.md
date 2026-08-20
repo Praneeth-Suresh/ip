@@ -29,3 +29,10 @@ Record concrete forbidden import patterns here once contexts exist:
 - `[from] -> [to/infrastructure/**]`
 
 Keep this list small and high-signal. Add rules only after repeated boundary mistakes.
+
+## Task Model
+
+`Task` is the abstract model for completion state and shared rendering. `Todo`,
+`Deadline`, and `Event` extend it to supply their type markers and, where
+needed, their date/time text. The console entry point stores and handles only
+the `Task` abstraction.

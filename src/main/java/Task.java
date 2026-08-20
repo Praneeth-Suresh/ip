@@ -4,7 +4,7 @@
  * <p>A task owns its description and completion state so callers need not manage
  * the two pieces of information separately.</p>
  */
-public class Task {
+public abstract class Task {
     private final String description;
     private boolean isDone;
 
@@ -13,7 +13,7 @@ public class Task {
      *
      * @param description text describing the task
      */
-    public Task(String description) {
+    protected Task(String description) {
         this.description = description;
         this.isDone = false;
     }
@@ -28,14 +28,23 @@ public class Task {
         isDone = false;
     }
 
-    /**
-     * Returns this task's status and description for display.
-     *
-     * @return the task in the form {@code [ ] description} or {@code [X] description}
-     */
+    /** Returns this task's description. */
+    protected String getDescription() {
+        return description;
+    }
+
+    /** Returns this task's one-letter type marker. */
+    protected abstract String getTypeMarker();
+
+    /** Returns type-specific details for display. */
+    protected String getDetails() {
+        return "";
+    }
+
+    /** Returns this task's type, status, description, and details for display. */
     @Override
-    public String toString() {
+    public final String toString() {
         String status = isDone ? "[X]" : "[ ]";
-        return status + " " + description;
+        return "[" + getTypeMarker() + "]" + status + " " + description + getDetails();
     }
 }

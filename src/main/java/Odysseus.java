@@ -54,14 +54,53 @@ public class Odysseus {
                 System.out.println("This task awaits its hour again:");
                 System.out.println("  " + task);
             } else {
-                tasks[taskCount] = new Task(command);
-                taskCount++;
-                System.out.println("Added to my ship's log: " + command);
+                Task task = createTask(command);
+                if (task == null) {
+                    System.out.println("The winds do not recognize that command, traveler.");
+                } else {
+                    tasks[taskCount] = task;
+                    taskCount++;
+                    System.out.println("Well charted. I've added this task:");
+                    System.out.println("  " + task);
+                    System.out.println("Our voyage now holds " + taskCount + " task"
+                            + (taskCount == 1 ? "." : "s."));
+                }
             }
             System.out.println(DIVIDER);
         }
 
         System.out.println("Farewell, traveler. May Athena guide your voyage until we meet again.");
         System.out.println(DIVIDER);
+    }
+
+    /**
+     * Creates a typed task from a supported task command.
+     *
+     * @param command the user's command
+     * @return the created task, or {@code null} when the command is unsupported or malformed
+     */
+    private static Task createTask(String command) {
+        if (command.startsWith("todo ")) {
+            return new Todo(command.substring(5));
+        }
+        if (command.startsWith("deadline ")) {
+            int byIndex = command.indexOf(" /by ");
+            if (byIndex > 9) {
+                String description = command.substring(9, byIndex);
+                String by = command.substring(byIndex + 5);
+                return new Deadline(description, by);
+            }
+        }
+        if (command.startsWith("event ")) {
+            int fromIndex = command.indexOf(" /from ");
+            int toIndex = command.indexOf(" /to ");
+            if (fromIndex > 6 && toIndex > fromIndex) {
+                String description = command.substring(6, fromIndex);
+                String from = command.substring(fromIndex + 7, toIndex);
+                String to = command.substring(toIndex + 5);
+                return new Event(description, from, to);
+            }
+        }
+        return null;
     }
 }

@@ -31,39 +31,45 @@ Prerequisites: JDK 25, update Intellij to the most recent version.
    What course shall we chart together?
    ____________________________________________________________
 
-   read book
+   todo read book
    ____________________________________________________________
-   Added to my ship's log: read book
-   ____________________________________________________________
-
-   return book
-   ____________________________________________________________
-   Added to my ship's log: return book
+   Well charted. I've added this task:
+     [T][ ] read book
+   Our voyage now holds 1 task.
    ____________________________________________________________
 
-   buy bread
+   deadline return book /by Sunday
    ____________________________________________________________
-   Added to my ship's log: buy bread
+   Well charted. I've added this task:
+     [D][ ] return book (by: Sunday)
+   Our voyage now holds 2 tasks.
+   ____________________________________________________________
+
+   event project meeting /from Mon 2pm /to 4pm
+   ____________________________________________________________
+   Well charted. I've added this task:
+     [E][ ] project meeting (from: Mon 2pm to: 4pm)
+   Our voyage now holds 3 tasks.
    ____________________________________________________________
 
    list
    ____________________________________________________________
    Here are the tasks on our voyage, traveler:
-   1. [ ] read book
-   2. [ ] return book
-   3. [ ] buy bread
+   1. [T][ ] read book
+   2. [D][ ] return book (by: Sunday)
+   3. [E][ ] project meeting (from: Mon 2pm to: 4pm)
    ____________________________________________________________
 
    mark 2
    ____________________________________________________________
    Well sailed! I've marked this task as done:
-     [X] return book
+     [D][X] return book (by: Sunday)
    ____________________________________________________________
 
    unmark 2
    ____________________________________________________________
    This task awaits its hour again:
-     [ ] return book
+     [D][ ] return book (by: Sunday)
    ____________________________________________________________
 
    bye

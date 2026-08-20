@@ -78,6 +78,8 @@ stakeholder.
 7. For web app or HTML/CSS tasks, use Microsoft Playwright MCP for browser verification instead of screenshot-only assumptions.
 8. Do not use sub-agents unless the user explicitly asks for them.
 9. Do not expose feature-slice bookkeeping to the user.
+10. Structure code with appropriate OOP models, using encapsulation and inheritance
+    where they clarify domain behavior.
 
 ## Deletion And Consolidation Safeguard
 
