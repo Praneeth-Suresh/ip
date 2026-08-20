@@ -72,6 +72,13 @@ Prerequisites: JDK 25, update Intellij to the most recent version.
      [D][ ] return book (by: Sunday)
    ____________________________________________________________
 
+   delete 3
+   ____________________________________________________________
+   The waves have carried this task from our log:
+     [E][ ] project meeting (from: Mon 2pm to: 4pm)
+   Our voyage now holds 2 tasks.
+   ____________________________________________________________
+
    bye
    ____________________________________________________________
    Farewell, traveler. May Athena guide your voyage until we meet again.

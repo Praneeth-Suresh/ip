@@ -7,7 +7,8 @@ import java.util.Scanner;
 public class OdysseusTest {
     public static void main(String[] args) throws Exception {
         rejectsInvalidCommandsWithoutChangingTasks();
-        rejectsTheOneHundredAndFirstTask();
+        deletesTasksAndRenumbersTheList();
+        growsBeyondTheOriginalArrayLimit();
     }
 
     private static void rejectsInvalidCommandsWithoutChangingTasks() {
@@ -38,17 +39,33 @@ public class OdysseusTest {
         assertNotContains(output, "4. [");
     }
 
-    private static void rejectsTheOneHundredAndFirstTask() throws Exception {
+    private static void deletesTasksAndRenumbersTheList() {
+        String output = run("""
+                todo read book
+                deadline return book /by Sunday
+                event project meeting /from Mon 2pm /to 4pm
+                mark 3
+                delete 2
+                delete 9
+                list
+                bye
+                """);
+
+        assertContains(output, "The waves have carried this task from our log:");
+        assertContains(output, "[D][ ] return book (by: Sunday)");
+        assertContains(output, "There is no task 9.");
+        assertContains(output, "1. [T][ ] read book");
+        assertContains(output, "2. [E][X] project meeting (from: Mon 2pm to: 4pm)");
+        assertNotContains(output, "3. [");
+    }
+
+    private static void growsBeyondTheOriginalArrayLimit() throws Exception {
         TaskList tasks = new TaskList();
-        for (int i = 0; i < 100; i++) {
+        for (int i = 0; i < 101; i++) {
             tasks.addTask(new Todo("task " + i));
         }
-
-        try {
-            tasks.addTask(new Todo("one too many"));
-            throw new AssertionError("Expected the 101st task to be rejected");
-        } catch (OdysseusException exception) {
-            assertContains(exception.getMessage(), "already holds 100 tasks");
+        if (tasks.getTaskCount() != 101) {
+            throw new AssertionError("Expected the task list to grow beyond 100 tasks");
         }
     }
 

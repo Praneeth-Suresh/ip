@@ -53,13 +53,17 @@ public class Odysseus {
                     task.markAsNotDone();
                     output.println("This task awaits its hour again:");
                     output.println("  " + task);
+                } else if (command.equals("delete") || command.startsWith("delete ")) {
+                    Task task = tasks.deleteTask(parseTaskNumber(command, "delete"));
+                    output.println("The waves have carried this task from our log:");
+                    output.println("  " + task);
+                    printTaskCount(tasks, output);
                 } else {
                     Task task = createTask(command);
                     tasks.addTask(task);
                     output.println("Well charted. I've added this task:");
                     output.println("  " + task);
-                    output.println("Our voyage now holds " + tasks.getTaskCount() + " task"
-                            + (tasks.getTaskCount() == 1 ? "." : "s."));
+                    printTaskCount(tasks, output);
                 }
             } catch (OdysseusException exception) {
                 output.println(exception.getMessage());
@@ -81,6 +85,12 @@ public class Odysseus {
         for (int taskNumber = 1; taskNumber <= tasks.getTaskCount(); taskNumber++) {
             output.println(taskNumber + ". " + tasks.getTask(taskNumber));
         }
+    }
+
+    /** Prints the current number of tasks in the voyage log. */
+    private static void printTaskCount(TaskList tasks, PrintStream output) {
+        output.println("Our voyage now holds " + tasks.getTaskCount() + " task"
+                + (tasks.getTaskCount() == 1 ? "." : "s."));
     }
 
     /** Parses a one-based task number from a mark or unmark command. */
