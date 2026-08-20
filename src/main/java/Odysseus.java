@@ -6,5 +6,8 @@ public class Odysseus {
                 + "| |_| | | |_| |  | |    ___) | ___) | |___ | |_| | ___) |\n"
                 + " \\___/  |____/   |_|   |____/ |____/|_____| \\___/ |____/\n";
         System.out.println(banner);
+        System.out.println("Ahoy, traveler! I am Odysseus, long tested by sea and fate.");
+        System.out.println("What course shall we chart together?");
+        System.out.println("Farewell, traveler. May Athena guide your voyage until we meet again.");
     }
 }
