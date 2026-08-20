@@ -1,14 +1,14 @@
 import java.util.Scanner;
 
 /**
- * A console personal assistant that records a traveler's voyage log for the current session.
+ * A console personal assistant that records a traveler's tasks for the current session.
  */
 public class Odysseus {
-    private static final int MAX_LOG_ENTRIES = 100;
+    private static final int MAX_TASKS = 100;
     private static final String DIVIDER = "____________________________________________________________";
 
     /**
-     * Starts Odysseus and processes voyage-log commands until the traveler says goodbye.
+     * Starts Odysseus and processes task commands until the traveler says goodbye.
      *
      * @param args command-line arguments, which are not used
      */
@@ -24,8 +24,8 @@ public class Odysseus {
         System.out.println(DIVIDER);
 
         Scanner scanner = new Scanner(System.in);
-        String[] voyageLog = new String[MAX_LOG_ENTRIES];
-        int logEntryCount = 0;
+        Task[] tasks = new Task[MAX_TASKS];
+        int taskCount = 0;
         while (scanner.hasNextLine()) {
             String command = scanner.nextLine();
             System.out.println(DIVIDER);
@@ -33,16 +33,29 @@ public class Odysseus {
                 break;
             }
             if (command.equals("list")) {
-                if (logEntryCount == 0) {
+                if (taskCount == 0) {
                     System.out.println("My ship's log is clear, traveler.");
                 } else {
-                    for (int i = 0; i < logEntryCount; i++) {
-                        System.out.println((i + 1) + ". " + voyageLog[i]);
+                    System.out.println("Here are the tasks on our voyage, traveler:");
+                    for (int i = 0; i < taskCount; i++) {
+                        System.out.println((i + 1) + ". " + tasks[i]);
                     }
                 }
+            } else if (command.startsWith("mark ")) {
+                int taskNumber = Integer.parseInt(command.substring(5));
+                Task task = tasks[taskNumber - 1];
+                task.markAsDone();
+                System.out.println("Well sailed! I've marked this task as done:");
+                System.out.println("  " + task);
+            } else if (command.startsWith("unmark ")) {
+                int taskNumber = Integer.parseInt(command.substring(7));
+                Task task = tasks[taskNumber - 1];
+                task.markAsNotDone();
+                System.out.println("This task awaits its hour again:");
+                System.out.println("  " + task);
             } else {
-                voyageLog[logEntryCount] = command;
-                logEntryCount++;
+                tasks[taskCount] = new Task(command);
+                taskCount++;
                 System.out.println("Added to my ship's log: " + command);
             }
             System.out.println(DIVIDER);

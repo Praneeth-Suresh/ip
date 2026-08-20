@@ -18,7 +18,7 @@ categories, storage, and interaction rules remain open.
 | Decision | Choice | Date | ADR |
 | --- | --- | --- | --- |
 | Java 25 is required for build and run tasks. | Java 25 | 2026-08-20 | n/a |
-| Tracked information is held only for the current session. | An in-memory voyage log with up to 100 text entries | 2026-08-20 | n/a |
+| Tracked information is held only for the current session. | An in-memory task list with up to 100 `Task` entries | 2026-08-20 | n/a |
 
 ## Pressure Points
 

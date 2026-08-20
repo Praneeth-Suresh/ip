@@ -41,10 +41,29 @@ Prerequisites: JDK 25, update Intellij to the most recent version.
    Added to my ship's log: return book
    ____________________________________________________________
 
+   buy bread
+   ____________________________________________________________
+   Added to my ship's log: buy bread
+   ____________________________________________________________
+
    list
    ____________________________________________________________
-   1. read book
-   2. return book
+   Here are the tasks on our voyage, traveler:
+   1. [ ] read book
+   2. [ ] return book
+   3. [ ] buy bread
+   ____________________________________________________________
+
+   mark 2
+   ____________________________________________________________
+   Well sailed! I've marked this task as done:
+     [X] return book
+   ____________________________________________________________
+
+   unmark 2
+   ____________________________________________________________
+   This task awaits its hour again:
+     [ ] return book
    ____________________________________________________________
 
    bye
