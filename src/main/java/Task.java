@@ -28,6 +28,11 @@ public abstract class Task {
         status = TaskStatus.NOT_DONE;
     }
 
+    /** Returns whether this task has been completed. */
+    protected boolean isDone() {
+        return status == TaskStatus.DONE;
+    }
+
     /** Returns this task's description. */
     protected String getDescription() {
         return description;

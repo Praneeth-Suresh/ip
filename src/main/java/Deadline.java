@@ -22,4 +22,9 @@ public class Deadline extends Task {
     protected String getDetails() {
         return " (by: " + by + ")";
     }
+
+    /** Returns the saved deadline text. */
+    protected String getBy() {
+        return by;
+    }
 }
