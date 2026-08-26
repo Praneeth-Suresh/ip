@@ -1,3 +1,5 @@
+package odysseus;
+
 /** The completion state of a task and its display marker. */
 public enum TaskStatus {
     NOT_DONE("[ ]"),
