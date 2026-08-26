@@ -2,6 +2,7 @@
 /.idea/
 /out/
 /*.iml
+*.class
 
 # Gradle build files
 /.gradle/
@@ -13,14 +14,10 @@ src/main/resources/docs/
 *.iml
 bin/
 
-# AI Agents
-AGENTS.md
-CLAUDE.md
-/.claude/
-/.codex/
-
 # Temp files
 _temp/
 
 /text-ui-test/ACTUAL.TXT
 text-ui-test/EXPECTED-UNIX.TXT
+
+.beryl/agent/session-state.md
