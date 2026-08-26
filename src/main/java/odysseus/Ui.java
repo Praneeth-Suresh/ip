@@ -11,7 +11,12 @@ public class Ui {
         this.output = output;
     }
 
-    /** Shows a task list. */
+    /**
+     * Shows a task list in its existing one-based order.
+     *
+     * @param tasks tasks to display
+     * @throws OdysseusException if a task cannot be retrieved for display
+     */
     public void showTaskList(TaskList tasks) throws OdysseusException {
         if (tasks.getTaskCount() == 0) {
             output.println("My ship's log is clear, traveler.");

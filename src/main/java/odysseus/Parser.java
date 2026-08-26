@@ -5,7 +5,14 @@ import java.time.format.DateTimeParseException;
 
 /** Converts user command text into task operations and task values. */
 public class Parser {
-    /** Parses a one-based task number following an existing-task action. */
+    /**
+     * Parses the one-based task number that follows an existing-task action.
+     *
+     * @param command complete user command
+     * @param action action that owns the command prefix
+     * @return validated one-based task number
+     * @throws OdysseusException if no valid task number follows the action
+     */
     public int parseTaskNumber(String command, TaskAction action) throws OdysseusException {
         String actionWord = action.getCommandWord();
         String numberText = command.substring(actionWord.length()).trim();
@@ -19,7 +26,13 @@ public class Parser {
         }
     }
 
-    /** Creates a task from a supported creation command. */
+    /**
+     * Creates a task from a supported creation command.
+     *
+     * @param command complete user command
+     * @return task described by the command
+     * @throws OdysseusException if the command is malformed or unsupported
+     */
     public Task parseTask(String command) throws OdysseusException {
         if (command.equals("todo") || command.startsWith("todo ")) {
             String description = command.length() == 4 ? "" : command.substring(5);
