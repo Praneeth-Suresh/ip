@@ -22,7 +22,8 @@ public class OdysseusTest {
                 mark two
                 mark 2
                 deadline return book /by
-                deadline return book /by Sunday
+                deadline return book /by 15-10-2019
+                deadline return book /by 2019-10-15
                 event project meeting /from /to 4pm
                 event project meeting /from Mon 2pm /to 4pm
                 unmark 4
@@ -35,10 +36,11 @@ public class OdysseusTest {
         assertContains(output, "Use a task number after mark");
         assertContains(output, "There is no task 2.");
         assertContains(output, "A deadline needs /by <date or time>.");
+        assertContains(output, "Deadline dates use yyyy-MM-dd");
         assertContains(output, "Give both an event start after /from and an end after /to.");
         assertContains(output, "There is no task 4.");
         assertContains(output, "1. [T][X] read book");
-        assertContains(output, "2. [D][ ] return book (by: Sunday)");
+        assertContains(output, "2. [D][ ] return book (by: Oct 15 2019)");
         assertContains(output, "3. [E][ ] project meeting (from: Mon 2pm to: 4pm)");
         assertNotContains(output, "4. [");
     }
@@ -46,7 +48,7 @@ public class OdysseusTest {
     private static void deletesTasksAndRenumbersTheList() throws Exception {
         String output = run("""
                 todo read book
-                deadline return book /by Sunday
+                deadline return book /by 2019-10-15
                 event project meeting /from Mon 2pm /to 4pm
                 mark 3
                 delete 2
@@ -56,7 +58,7 @@ public class OdysseusTest {
                 """);
 
         assertContains(output, "The waves have carried this task from our log:");
-        assertContains(output, "[D][ ] return book (by: Sunday)");
+        assertContains(output, "[D][ ] return book (by: Oct 15 2019)");
         assertContains(output, "There is no task 9.");
         assertContains(output, "1. [T][ ] read book");
         assertContains(output, "2. [E][X] project meeting (from: Mon 2pm to: 4pm)");
@@ -77,7 +79,7 @@ public class OdysseusTest {
         Path storagePath = Files.createTempDirectory("odysseus-test").resolve("data").resolve("tasks.txt");
         run("""
                 todo read book
-                deadline return book /by Sunday
+                deadline return book /by 2019-10-15
                 mark 1
                 bye
                 """, storagePath);
@@ -88,8 +90,9 @@ public class OdysseusTest {
                 """, storagePath);
 
         assertContains(Files.readString(storagePath), "T | 1 | read book");
+        assertContains(Files.readString(storagePath), "D | 0 | return book | 2019-10-15");
         assertContains(output, "1. [T][X] read book");
-        assertContains(output, "2. [D][ ] return book (by: Sunday)");
+        assertContains(output, "2. [D][ ] return book (by: Oct 15 2019)");
     }
 
     private static void startsWithAnEmptyLogWhenNoSaveFileExists() throws Exception {

@@ -2,6 +2,8 @@ import java.io.PrintStream;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
+import java.time.LocalDate;
+import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
@@ -134,7 +136,11 @@ public class Odysseus {
             if (parts.length != 4) {
                 throw new OdysseusException("Invalid saved deadline");
             }
-            task = new Deadline(parts[2], parts[3]);
+            try {
+                task = new Deadline(parts[2], LocalDate.parse(parts[3]));
+            } catch (DateTimeParseException exception) {
+                throw new OdysseusException("Invalid saved deadline");
+            }
             break;
         case "E":
             if (parts.length != 5) {
@@ -226,7 +232,11 @@ public class Odysseus {
             if (by.isBlank()) {
                 throw new OdysseusException("Name when the task is due after /by.");
             }
-            return new Deadline(description, by);
+            try {
+                return new Deadline(description, LocalDate.parse(by));
+            } catch (DateTimeParseException exception) {
+                throw new OdysseusException("Deadline dates use yyyy-MM-dd, for example: 2019-10-15.");
+            }
         }
         if (command.equals("event") || command.startsWith("event ")) {
             int fromIndex = command.indexOf(" /from ");
