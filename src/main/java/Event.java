@@ -25,4 +25,14 @@ public class Event extends Task {
     protected String getDetails() {
         return " (from: " + from + " to: " + to + ")";
     }
+
+    /** Returns the saved event start text. */
+    protected String getFrom() {
+        return from;
+    }
+
+    /** Returns the saved event end text. */
+    protected String getTo() {
+        return to;
+    }
 }

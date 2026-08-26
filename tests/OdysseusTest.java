@@ -1,6 +1,8 @@
 import java.io.ByteArrayOutputStream;
 import java.io.PrintStream;
 import java.nio.charset.StandardCharsets;
+import java.nio.file.Files;
+import java.nio.file.Path;
 import java.util.Scanner;
 
 /** Deterministic behavior tests for valid and invalid Odysseus commands. */
@@ -9,9 +11,11 @@ public class OdysseusTest {
         rejectsInvalidCommandsWithoutChangingTasks();
         deletesTasksAndRenumbersTheList();
         growsBeyondTheOriginalArrayLimit();
+        savesAndLoadsTasksAcrossConversations();
+        startsWithAnEmptyLogWhenNoSaveFileExists();
     }
 
-    private static void rejectsInvalidCommandsWithoutChangingTasks() {
+    private static void rejectsInvalidCommandsWithoutChangingTasks() throws Exception {
         String output = run("""
                 todo
                 todo read book
@@ -39,7 +43,7 @@ public class OdysseusTest {
         assertNotContains(output, "4. [");
     }
 
-    private static void deletesTasksAndRenumbersTheList() {
+    private static void deletesTasksAndRenumbersTheList() throws Exception {
         String output = run("""
                 todo read book
                 deadline return book /by Sunday
@@ -69,11 +73,45 @@ public class OdysseusTest {
         }
     }
 
-    private static String run(String commands) {
+    private static void savesAndLoadsTasksAcrossConversations() throws Exception {
+        Path storagePath = Files.createTempDirectory("odysseus-test").resolve("data").resolve("tasks.txt");
+        run("""
+                todo read book
+                deadline return book /by Sunday
+                mark 1
+                bye
+                """, storagePath);
+
+        String output = run("""
+                list
+                bye
+                """, storagePath);
+
+        assertContains(Files.readString(storagePath), "T | 1 | read book");
+        assertContains(output, "1. [T][X] read book");
+        assertContains(output, "2. [D][ ] return book (by: Sunday)");
+    }
+
+    private static void startsWithAnEmptyLogWhenNoSaveFileExists() throws Exception {
+        Path storagePath = Files.createTempDirectory("odysseus-test").resolve("missing").resolve("tasks.txt");
+        String output = run("""
+                list
+                bye
+                """, storagePath);
+
+        assertContains(output, "My ship's log is clear, traveler.");
+    }
+
+    private static String run(String commands) throws Exception {
+        Path storagePath = Files.createTempDirectory("odysseus-test").resolve("tasks.txt");
+        return run(commands, storagePath);
+    }
+
+    private static String run(String commands, Path storagePath) {
         ByteArrayOutputStream capturedOutput = new ByteArrayOutputStream();
         try (PrintStream output = new PrintStream(capturedOutput, true, StandardCharsets.UTF_8);
                 Scanner scanner = new Scanner(commands)) {
-            Odysseus.run(scanner, output);
+            Odysseus.run(scanner, output, storagePath);
         }
         return capturedOutput.toString(StandardCharsets.UTF_8);
     }

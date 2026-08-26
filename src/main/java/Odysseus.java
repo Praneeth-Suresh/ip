@@ -1,4 +1,9 @@
 import java.io.PrintStream;
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Scanner;
 
 /**
@@ -6,6 +11,7 @@ import java.util.Scanner;
  */
 public class Odysseus {
     private static final String DIVIDER = "____________________________________________________________";
+    private static final Path DEFAULT_STORAGE_PATH = Path.of("data", "odysseus.txt");
 
     /**
      * Starts Odysseus and processes task commands until the traveler says goodbye.
@@ -13,7 +19,7 @@ public class Odysseus {
      * @param args command-line arguments, which are not used
      */
     public static void main(String[] args) {
-        run(new Scanner(System.in), System.out);
+        run(new Scanner(System.in), System.out, DEFAULT_STORAGE_PATH);
     }
 
     /**
@@ -22,7 +28,7 @@ public class Odysseus {
      * @param scanner source of user commands
      * @param output destination for chatbot responses
      */
-    static void run(Scanner scanner, PrintStream output) {
+    static void run(Scanner scanner, PrintStream output, Path storagePath) {
         String banner = "  ___    ____  __   __  ____   ____  _____  _   _  ____\n"
                 + " / _ \\  |  _ \\ \\ \\ / / / ___| / ___|| ____|| | | |/ ___|\n"
                 + "| | | | | | | | \\ V /  \\___ \\ \\___ \\|  _|  | | | |\\___ \\\n"
@@ -33,7 +39,7 @@ public class Odysseus {
         output.println("What course shall we chart together?");
         output.println(DIVIDER);
 
-        TaskList tasks = new TaskList();
+        TaskList tasks = loadTasks(storagePath, output);
         while (scanner.hasNextLine()) {
             String command = scanner.nextLine();
             output.println(DIVIDER);
@@ -46,21 +52,25 @@ public class Odysseus {
                 } else if (TaskAction.MARK.matches(command)) {
                     Task task = tasks.getTask(parseTaskNumber(command, TaskAction.MARK));
                     task.markAsDone();
+                    saveTasks(tasks, storagePath, output);
                     output.println("Well sailed! I've marked this task as done:");
                     output.println("  " + task);
                 } else if (TaskAction.UNMARK.matches(command)) {
                     Task task = tasks.getTask(parseTaskNumber(command, TaskAction.UNMARK));
                     task.markAsNotDone();
+                    saveTasks(tasks, storagePath, output);
                     output.println("This task awaits its hour again:");
                     output.println("  " + task);
                 } else if (TaskAction.DELETE.matches(command)) {
                     Task task = tasks.deleteTask(parseTaskNumber(command, TaskAction.DELETE));
+                    saveTasks(tasks, storagePath, output);
                     output.println("The waves have carried this task from our log:");
                     output.println("  " + task);
                     printTaskCount(tasks, output);
                 } else {
                     Task task = createTask(command);
                     tasks.addTask(task);
+                    saveTasks(tasks, storagePath, output);
                     output.println("Well charted. I've added this task:");
                     output.println("  " + task);
                     printTaskCount(tasks, output);
@@ -73,6 +83,87 @@ public class Odysseus {
 
         output.println("Farewell, traveler. May Athena guide your voyage until we meet again.");
         output.println(DIVIDER);
+    }
+
+    /** Loads saved tasks, returning an empty list when no usable save file exists. */
+    private static TaskList loadTasks(Path storagePath, PrintStream output) {
+        TaskList tasks = new TaskList();
+        if (Files.notExists(storagePath)) {
+            return tasks;
+        }
+        try {
+            for (String line : Files.readAllLines(storagePath)) {
+                tasks.addTask(readTask(line));
+            }
+            return tasks;
+        } catch (IOException | OdysseusException exception) {
+            output.println("I could not load the ship's log. Starting with an empty log.");
+            return new TaskList();
+        }
+    }
+
+    /** Saves all tasks to the configured relative storage path. */
+    private static void saveTasks(TaskList tasks, Path storagePath, PrintStream output) {
+        List<String> lines = new ArrayList<>();
+        try {
+            for (int taskNumber = 1; taskNumber <= tasks.getTaskCount(); taskNumber++) {
+                lines.add(writeTask(tasks.getTask(taskNumber)));
+            }
+            Path parent = storagePath.getParent();
+            if (parent != null) {
+                Files.createDirectories(parent);
+            }
+            Files.write(storagePath, lines);
+        } catch (IOException | OdysseusException exception) {
+            output.println("I could not save the ship's log.");
+        }
+    }
+
+    /** Converts one saved task line back into a task. */
+    private static Task readTask(String line) throws OdysseusException {
+        String[] parts = line.split(" \\| ", -1);
+        if (parts.length < 3 || (!parts[1].equals("0") && !parts[1].equals("1"))) {
+            throw new OdysseusException("Invalid saved task");
+        }
+        Task task;
+        switch (parts[0]) {
+        case "T":
+            task = new Todo(parts[2]);
+            break;
+        case "D":
+            if (parts.length != 4) {
+                throw new OdysseusException("Invalid saved deadline");
+            }
+            task = new Deadline(parts[2], parts[3]);
+            break;
+        case "E":
+            if (parts.length != 5) {
+                throw new OdysseusException("Invalid saved event");
+            }
+            task = new Event(parts[2], parts[3], parts[4]);
+            break;
+        default:
+            throw new OdysseusException("Invalid saved task type");
+        }
+        if (parts[1].equals("1")) {
+            task.markAsDone();
+        }
+        return task;
+    }
+
+    /** Converts a task into one line in the ship's log file. */
+    private static String writeTask(Task task) {
+        String completion = task.isDone() ? "1" : "0";
+        if (task instanceof Deadline) {
+            return "D | " + completion + " | " + task.getDescription() + " | "
+                    + ((Deadline) task).getBy();
+        }
+        if (task instanceof Event) {
+            Event event = (Event) task;
+            return "E | " + completion + " | " + task.getDescription() + " | "
+                    + event.getFrom() + " | " + event.getTo();
+        }
+        return "T | " + completion + " | " + task.getDescription();
     }
 
     /** Prints the current task list in insertion order. */
