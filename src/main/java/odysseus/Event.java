@@ -1,3 +1,5 @@
+package odysseus;
+
 /** A task with start and end date or time strings. */
 public class Event extends Task {
     private final String from;

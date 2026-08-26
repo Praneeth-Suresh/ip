@@ -1,3 +1,5 @@
+package odysseus;
+
 /** A command that targets an existing task by its one-based number. */
 public enum TaskAction {
     MARK("mark"),

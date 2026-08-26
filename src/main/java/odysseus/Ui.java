@@ -1,3 +1,5 @@
+package odysseus;
+
 import java.io.PrintStream;
 
 /** Handles messages shown to the traveler. */

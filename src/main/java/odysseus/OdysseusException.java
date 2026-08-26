@@ -1,3 +1,5 @@
+package odysseus;
+
 /** An exception for a user-correctable Odysseus command error. */
 public class OdysseusException extends Exception {
     /**
