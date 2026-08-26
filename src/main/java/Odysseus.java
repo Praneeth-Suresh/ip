@@ -41,7 +41,8 @@ public class Odysseus {
         output.println("What course shall we chart together?");
         output.println(DIVIDER);
 
-        TaskList tasks = loadTasks(storagePath, output);
+        Ui ui = new Ui(output);
+        TaskList tasks = loadTasks(storagePath, ui);
         while (scanner.hasNextLine()) {
             String command = scanner.nextLine();
             output.println(DIVIDER);
@@ -50,35 +51,31 @@ public class Odysseus {
             }
             try {
                 if (command.equals("list")) {
-                    printTaskList(tasks, output);
+                    ui.showTaskList(tasks);
                 } else if (TaskAction.MARK.matches(command)) {
                     Task task = tasks.getTask(parseTaskNumber(command, TaskAction.MARK));
                     task.markAsDone();
-                    saveTasks(tasks, storagePath, output);
-                    output.println("Well sailed! I've marked this task as done:");
-                    output.println("  " + task);
+                    saveTasks(tasks, storagePath, ui);
+                    ui.showTask("Well sailed! I've marked this task as done:", task);
                 } else if (TaskAction.UNMARK.matches(command)) {
                     Task task = tasks.getTask(parseTaskNumber(command, TaskAction.UNMARK));
                     task.markAsNotDone();
-                    saveTasks(tasks, storagePath, output);
-                    output.println("This task awaits its hour again:");
-                    output.println("  " + task);
+                    saveTasks(tasks, storagePath, ui);
+                    ui.showTask("This task awaits its hour again:", task);
                 } else if (TaskAction.DELETE.matches(command)) {
                     Task task = tasks.deleteTask(parseTaskNumber(command, TaskAction.DELETE));
-                    saveTasks(tasks, storagePath, output);
-                    output.println("The waves have carried this task from our log:");
-                    output.println("  " + task);
+                    saveTasks(tasks, storagePath, ui);
+                    ui.showTask("The waves have carried this task from our log:", task);
                     printTaskCount(tasks, output);
                 } else {
                     Task task = createTask(command);
                     tasks.addTask(task);
-                    saveTasks(tasks, storagePath, output);
-                    output.println("Well charted. I've added this task:");
-                    output.println("  " + task);
+                    saveTasks(tasks, storagePath, ui);
+                    ui.showTask("Well charted. I've added this task:", task);
                     printTaskCount(tasks, output);
                 }
             } catch (OdysseusException exception) {
-                output.println(exception.getMessage());
+                ui.show(exception.getMessage());
             }
             output.println(DIVIDER);
         }
@@ -88,7 +85,7 @@ public class Odysseus {
     }
 
     /** Loads saved tasks, returning an empty list when no usable save file exists. */
-    private static TaskList loadTasks(Path storagePath, PrintStream output) {
+    private static TaskList loadTasks(Path storagePath, Ui ui) {
         TaskList tasks = new TaskList();
         if (Files.notExists(storagePath)) {
             return tasks;
@@ -99,13 +96,13 @@ public class Odysseus {
             }
             return tasks;
         } catch (IOException | OdysseusException exception) {
-            output.println("I could not load the ship's log. Starting with an empty log.");
+            ui.show("I could not load the ship's log. Starting with an empty log.");
             return new TaskList();
         }
     }
 
     /** Saves all tasks to the configured relative storage path. */
-    private static void saveTasks(TaskList tasks, Path storagePath, PrintStream output) {
+    private static void saveTasks(TaskList tasks, Path storagePath, Ui ui) {
         List<String> lines = new ArrayList<>();
         try {
             for (int taskNumber = 1; taskNumber <= tasks.getTaskCount(); taskNumber++) {
@@ -117,7 +114,7 @@ public class Odysseus {
             }
             Files.write(storagePath, lines);
         } catch (IOException | OdysseusException exception) {
-            output.println("I could not save the ship's log.");
+            ui.show("I could not save the ship's log.");
         }
     }
 
