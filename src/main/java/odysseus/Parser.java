@@ -15,7 +15,8 @@ public class Parser {
         try {
             return Integer.parseInt(numberText);
         } catch (NumberFormatException exception) {
-            throw new OdysseusException("Use a task number after " + actionWord + ", for example: " + actionWord + " 2.");
+            throw new OdysseusException("Use a task number after " + actionWord
+                    + ", for example: " + actionWord + " 2.");
         }
     }
 
@@ -31,7 +32,8 @@ public class Parser {
         if (command.equals("deadline") || command.startsWith("deadline ")) {
             int byIndex = command.indexOf(" /by ");
             if (byIndex < 0) {
-                throw new OdysseusException("A deadline needs /by <date or time>. Try: deadline return book /by Sunday.");
+                throw new OdysseusException("A deadline needs /by <date or time>. Try: deadline return"
+                        + " book /by Sunday.");
             }
             String description = command.substring(9, byIndex);
             String by = command.substring(byIndex + 5);
@@ -48,7 +50,8 @@ public class Parser {
             int fromIndex = command.indexOf(" /from ");
             int toIndex = command.indexOf(" /to ");
             if (fromIndex < 0 || toIndex < 0 || toIndex < fromIndex) {
-                throw new OdysseusException("An event needs /from <start> /to <end>. Try: event meeting /from 2pm /to 4pm.");
+                throw new OdysseusException("An event needs /from <start> /to <end>. Try: event meeting"
+                        + " /from 2pm /to 4pm.");
             }
             if (toIndex <= fromIndex + 7) {
                 throw new OdysseusException("Give both an event start after /from and an end after /to.");
@@ -61,6 +64,7 @@ public class Parser {
             }
             return new Event(description, from, to);
         }
-        throw new OdysseusException("I cannot chart a course from that command. Try todo, deadline, event, list, mark, unmark, or bye.");
+        throw new OdysseusException("I cannot chart a course from that command. Try todo, deadline,"
+                + " event, list, mark, unmark, or bye.");
     }
 }
