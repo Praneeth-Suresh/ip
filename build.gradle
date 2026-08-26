@@ -37,7 +37,13 @@ test {
 }
 
 application {
-    mainClass = 'seedu.duke.Duke'
+    mainClass = 'odysseus.Odysseus'
+}
+
+sourceSets {
+    test {
+        java.srcDirs = ['tests', 'src/test/java']
+    }
 }
 
 jar {
@@ -48,7 +54,7 @@ jar {
 }
 
 shadowJar {
-    archiveFileName = 'duke.jar'
+    archiveFileName = 'odysseus.jar'
 }
 
 run {
