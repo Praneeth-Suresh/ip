@@ -1,6 +1,7 @@
 package odysseus;
 
 import java.io.PrintStream;
+import java.util.List;
 
 /** Handles messages shown to the traveler. */
 public class Ui {
@@ -20,6 +21,14 @@ public class Ui {
         output.println("Here are the tasks on our voyage, traveler:");
         for (int number = 1; number <= tasks.getTaskCount(); number++) {
             output.println(number + ". " + tasks.getTask(number));
+        }
+    }
+
+    /** Shows the tasks that match a keyword, retaining their task numbers. */
+    public void showMatchingTasks(TaskList tasks, List<Integer> matchingNumbers) throws OdysseusException {
+        output.println("Here are the matching tasks in your list:");
+        for (int taskNumber : matchingNumbers) {
+            output.println(taskNumber + ". " + tasks.getTask(taskNumber));
         }
     }
 

@@ -3,6 +3,8 @@ package odysseus;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
+import java.util.List;
+
 import org.junit.jupiter.api.Test;
 
 /** Tests task-list indexing and deletion behavior. */
@@ -26,5 +28,16 @@ class TaskListTest {
 
         assertThrows(OdysseusException.class, () -> tasks.getTask(0));
         assertThrows(OdysseusException.class, () -> tasks.getTask(1));
+    }
+
+    @Test
+    void findTaskNumbers_matchesDescriptionsIgnoringCase() {
+        TaskList tasks = new TaskList();
+        tasks.addTask(new Todo("read Book"));
+        tasks.addTask(new Todo("pay bills"));
+        tasks.addTask(new Todo("return book"));
+
+        assertEquals(List.of(1, 3), tasks.findTaskNumbers("BOOK"));
+        assertEquals(List.of(), tasks.findTaskNumbers("meeting"));
     }
 }

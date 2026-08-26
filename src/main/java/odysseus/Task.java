@@ -1,5 +1,7 @@
 package odysseus;
 
+import java.util.Locale;
+
 /**
  * A task recorded in Odysseus's voyage log.
  *
@@ -38,6 +40,11 @@ public abstract class Task {
     /** Returns this task's description. */
     protected String getDescription() {
         return description;
+    }
+
+    /** Returns whether this task's description contains the keyword, ignoring case. */
+    protected boolean hasDescriptionContaining(String keyword) {
+        return description.toLowerCase(Locale.ROOT).contains(keyword.toLowerCase(Locale.ROOT));
     }
 
     /** Returns this task's one-letter type marker. */
