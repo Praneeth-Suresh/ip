@@ -71,10 +71,10 @@ public class Storage {
             throw new OdysseusException("Invalid saved task");
         }
         Task task = switch (parts[0]) {
-        case "T" -> new Todo(parts[2]);
-        case "D" -> deadlineFrom(parts);
-        case "E" -> eventFrom(parts);
-        default -> throw new OdysseusException("Invalid saved task type");
+            case "T" -> new Todo(parts[2]);
+            case "D" -> deadlineFrom(parts);
+            case "E" -> eventFrom(parts);
+            default -> throw new OdysseusException("Invalid saved task type");
         };
         if (parts[1].equals("1")) {
             task.markAsDone();
