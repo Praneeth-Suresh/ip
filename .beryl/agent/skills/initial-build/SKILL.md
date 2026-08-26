@@ -24,13 +24,13 @@ whether they want to pause or abandon that build.
 
 Read these files before making a plan or changing code:
 
-- `.beryl/agent/project-brief.md`
-- `.beryl/agent/design-tree.md`
-- `.beryl/agent/architecture.md`
-- `.beryl/agent/ubiquitous-language.md`
-- `.beryl/agent/testing-policy.md`
-- `.beryl/agent/agent-rules.md`
-- `.beryl/agent/task-routing.md`
+* `.beryl/agent/project-brief.md`
+* `.beryl/agent/design-tree.md`
+* `.beryl/agent/architecture.md`
+* `.beryl/agent/ubiquitous-language.md`
+* `.beryl/agent/testing-policy.md`
+* `.beryl/agent/agent-rules.md`
+* `.beryl/agent/task-routing.md`
 
 Then inspect the repository's source tree, package/build configuration, existing
 tests, entry points, deployment configuration, and relevant documentation. Use
@@ -57,11 +57,11 @@ asking another. Prefer a recommended default when a choice is not already
 settled by the repository. Cover the decisions that materially affect the
 build, including:
 
-- primary users, outcomes, and highest-value workflows;
-- required platforms, integrations, data ownership, and security or privacy
+* primary users, outcomes, and highest-value workflows;
+* required platforms, integrations, data ownership, and security or privacy
   constraints;
-- scope boundaries, non-goals, rollout assumptions, and delivery constraints;
-- acceptance criteria, operational expectations, and required checks.
+* scope boundaries, non-goals, rollout assumptions, and delivery constraints;
+* acceptance criteria, operational expectations, and required checks.
 
 Do not ask questions whose answers can be discovered from the repository. Keep
 answers in the conversation until they become durable project knowledge.
@@ -89,9 +89,9 @@ request to keep planning is not ratification.
 
 Before ratification:
 
-- do not create `.beryl/agent/hierarchy.md`;
-- do not edit application code or build configuration;
-- do not claim that implementation has started.
+* do not create `.beryl/agent/hierarchy.md`;
+* do not edit application code or build configuration;
+* do not claim that implementation has started.
 
 If the user changes scope, update the proposal and seek ratification again.
 
@@ -191,20 +191,20 @@ node and ask one focused question.
 
 ## Completion Checklist
 
-- [ ] The request was explicitly classified as a large or greenfield initial build.
-- [ ] Repository discovery happened before the hierarchy was proposed.
-- [ ] Clarification questions were asked one at a time.
-- [ ] Scope, non-goals, hierarchy, dependencies, deliverables, checks, and
+* [ ] The request was explicitly classified as a large or greenfield initial build.
+* [ ] Repository discovery happened before the hierarchy was proposed.
+* [ ] Clarification questions were asked one at a time.
+* [ ] Scope, non-goals, hierarchy, dependencies, deliverables, checks, and
       context targets were explicitly ratified.
-- [ ] `hierarchy.md` was created only after ratification and was Git-tracked.
-- [ ] The hierarchy entered the first authorized build commit and its updates
+* [ ] `hierarchy.md` was created only after ratification and was Git-tracked.
+* [ ] The hierarchy entered the first authorized build commit and its updates
       were committed with their implementation slices.
-- [ ] Nodes were implemented only after their dependencies completed.
-- [ ] Hierarchy statuses and evidence were updated after each slice.
-- [ ] Durable context was promoted to canonical Markdown as it changed.
-- [ ] Every node and required check passed before deletion.
-- [ ] `hierarchy.md` was deleted only after the previous conditions passed.
-- [ ] The deletion was committed with the final durable context promotions.
+* [ ] Nodes were implemented only after their dependencies completed.
+* [ ] Hierarchy statuses and evidence were updated after each slice.
+* [ ] Durable context was promoted to canonical Markdown as it changed.
+* [ ] Every node and required check passed before deletion.
+* [ ] `hierarchy.md` was deleted only after the previous conditions passed.
+* [ ] The deletion was committed with the final durable context promotions.
 
 ## Output Contract
 

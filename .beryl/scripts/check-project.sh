@@ -29,3 +29,5 @@ case "${mode}" in
     exit 1
     ;;
 esac
+
+"${REPO_ROOT}/scripts/check-style.sh"

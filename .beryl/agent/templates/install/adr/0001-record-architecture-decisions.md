@@ -14,6 +14,6 @@ Use ADR files in `.beryl/agent/adr/` for decisions that change architecture boun
 
 ## Consequences
 
-- **Benefit:** Future contributors and agents can recover rationale quickly.
-- **Tradeoff:** Small overhead when recording durable decisions.
-- **Follow-up:** Link new ADRs from `.beryl/agent/design-tree.md` settled decisions.
+* **Benefit:** Future contributors and agents can recover rationale quickly.
+* **Tradeoff:** Small overhead when recording durable decisions.
+* **Follow-up:** Link new ADRs from `.beryl/agent/design-tree.md` settled decisions.

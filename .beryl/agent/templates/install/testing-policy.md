@@ -31,10 +31,10 @@ For static-site changes, source inspection is not enough. Always verify generate
 
 Check affected:
 
-- Relevant `dist` HTML or equivalent built pages.
-- Sitemap, robots, search index, feed, or structured data output.
-- Copied assets when asset handling changed.
-- Browser behavior when UI, routing, or layout changed.
+* Relevant `dist` HTML or equivalent built pages.
+* Sitemap, robots, search index, feed, or structured data output.
+* Copied assets when asset handling changed.
+* Browser behavior when UI, routing, or layout changed.
 
 If generated output is unavailable, explain why and run the closest deterministic build or inspection command.
 
@@ -42,12 +42,12 @@ If generated output is unavailable, explain why and run the closest deterministi
 
 Commit-time tests run through the affected test gate so developers get fast feedback without choosing test subsets manually.
 
-- The pre-commit hook sets `CHECK_AFFECTED_MODE=staged` and runs `./.beryl/scripts/check.sh`.
-- Manual `./.beryl/scripts/check.sh` uses worktree mode by default and selects from all changes relative to `HEAD`.
-- `.beryl/scripts/check-affected.sh` reads `.beryl/agent/affected-tests.conf`.
-- Changes to broad configuration, dependency, hook, or test-strategy files force `FULL_TEST_CMD` when configured.
-- Source and test changes run `RELATED_TEST_CMD` with changed files appended when configured.
-- If no project test runner is configured yet, the gate reports that no project tests are available and exits successfully.
+* The pre-commit hook sets `CHECK_AFFECTED_MODE=staged` and runs `./.beryl/scripts/check.sh`.
+* Manual `./.beryl/scripts/check.sh` uses worktree mode by default and selects from all changes relative to `HEAD`.
+* `.beryl/scripts/check-affected.sh` reads `.beryl/agent/affected-tests.conf`.
+* Changes to broad configuration, dependency, hook, or test-strategy files force `FULL_TEST_CMD` when configured.
+* Source and test changes run `RELATED_TEST_CMD` with changed files appended when configured.
+* If no project test runner is configured yet, the gate reports that no project tests are available and exits successfully.
 
 Recommended project configurations:
 
@@ -75,10 +75,10 @@ Intentional test changes are allowed only when all conditions are met:
 
 ## Immutability Enforcement Scope
 
-- The SHA manifest mechanism provides deterministic change detection, not cryptographic immutability guarantees against privileged users.
-- Enforce stronger controls in CI/review policy, such as branch protection, required status checks, and code review.
+* The SHA manifest mechanism provides deterministic change detection, not cryptographic immutability guarantees against privileged users.
+* Enforce stronger controls in CI/review policy, such as branch protection, required status checks, and code review.
 
 ## Mocking Rules
 
-- Mock external systems such as network, clocks, randomness, payment providers, and email providers.
-- Do not mock domain logic in the same bounded context.
+* Mock external systems such as network, clocks, randomness, payment providers, and email providers.
+* Do not mock domain logic in the same bounded context.

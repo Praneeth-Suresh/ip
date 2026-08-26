@@ -45,7 +45,7 @@ md_parse_fence() {
   md_fence_trailing="${line:$((offset + length))}"
 }
 
-md_files="$(cd "${REPO_ROOT}" && find . -type f -name '*.md' -not -path './.git/*' | LC_ALL=C sort)"
+md_files="$(cd "${REPO_ROOT}" && find . -type f -name '*.md' -not -path './.git/*' -not -path './node_modules/*' | LC_ALL=C sort)"
 
 if [[ -z "${md_files}" ]]; then
   printf "check-md: no markdown files found (skipping)\n"

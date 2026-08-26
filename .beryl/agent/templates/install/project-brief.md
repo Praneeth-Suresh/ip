@@ -12,8 +12,8 @@ Build **[application]** for **[primary users]** so they can **[core outcome]**.
 
 ## Non-Goals
 
-- [Explicitly out of scope now]
-- [Explicitly out of scope now]
+* [Explicitly out of scope now]
+* [Explicitly out of scope now]
 
 ## External Systems
 

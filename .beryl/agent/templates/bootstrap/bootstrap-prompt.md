@@ -14,19 +14,21 @@ repo-specific context:
 {required_files}
 
 Use this strict scope:
-- Read and edit **only** files under `.beryl/agent/` with extension `.md`.
-- Do not create, modify, or remove files outside `.beryl/agent/*.md`.
-- Do not modify files outside this scope.
+
+* Read and edit **only** files under `.beryl/agent/` with extension `.md`.
+* Do not create, modify, or remove files outside `.beryl/agent/*.md`.
+* Do not modify files outside this scope.
 
 For each required file, replace install template placeholders with concrete
 repository-specific details:
-- project-brief.md
-- architecture.md
-- design-tree.md
-- testing-policy.md
-- ubiquitous-language.md
-- agent-rules.md
-- task-routing.md
+
+* project-brief.md
+* architecture.md
+* design-tree.md
+* testing-policy.md
+* ubiquitous-language.md
+* agent-rules.md
+* task-routing.md
 
 After writing, leave them with complete content and no placeholder bracket tokens.
 

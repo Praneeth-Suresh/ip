@@ -14,6 +14,7 @@ These defaults apply in every agent session even when the user does not restate 
 8. Do not use sub-agents unless the user explicitly asks for sub-agents, parallel agents, reviewer agents, or competing agent implementations.
 9. For an explicit large or greenfield application request, load the `initial-build` workflow. Discover the repository, ask clarification questions one at a time, and obtain plan ratification before creating `.beryl/agent/hierarchy.md` or editing build code.
 10. Treat `.beryl/agent/hierarchy.md` as Git-tracked active-build state. Resume it when present, update it after each dependency-ordered slice, and delete it only after every node and check passes and durable context has been promoted.
+11. Follow `.beryl/agent/style-policy.md`; run the available style checks before finishing a change.
 
 ## Preserved Project Guidance
 
@@ -29,28 +30,28 @@ stakeholder.
 
 ### Student Profile
 
-- Prior knowledge: basic Java and OOP concepts.
-- Programming experience level: to be filled.
-- IDE and expertise level: to be filled.
+* Prior knowledge: basic Java and OOP concepts.
+* Programming experience level: to be filled.
+* IDE and expertise level: to be filled.
 
 ### Teaching Guidance
 
-- Explain the rationale for significant actions briefly and instructively.
-- When suggesting a Git command, explain what it does.
-- Add explanatory Javadoc to all classes and to nontrivial methods and fields
+* Explain the rationale for significant actions briefly and instructively.
+* When suggesting a Git command, explain what it does.
+* Add explanatory Javadoc to all classes and to nontrivial methods and fields
   when their purpose or behavior is not obvious.
-- Keep generated code self-explanatory and use comments where they improve
+* Keep generated code self-explanatory and use comments where they improve
   understanding.
-- Choose the simplest design sufficient for the requirements, and briefly
+* Choose the simplest design sufficient for the requirements, and briefly
   explain relevant more advanced alternatives.
 
 ### Java And Git
 
-- Use Java 25 for application and build tasks. On macOS, use
+* Use Java 25 for application and build tasks. On macOS, use
   `sdk use java 25.0.3.fx-zulu` when a Java-version switch is needed.
-- Use lightweight Git tags unless the user requests an annotated tag.
-- Commit messages must explain the rationale for a change.
-- Do not commit or push unless the user explicitly asks.
+* Use lightweight Git tags unless the user requests an annotated tag.
+* Commit messages must explain the rationale for a change.
+* Do not commit or push unless the user explicitly asks.
 
 ## Before Coding
 
@@ -119,12 +120,12 @@ After a long product run, if the user asks for cleanup or extraction review:
 
 Final response must include:
 
-- What changed.
-- Map each changed file to the intended commit boundary.
-- Flag any changed file that does not belong to a stated commit boundary.
-- Which checks ran.
-- Which checks were skipped or unavailable.
-- Whether tests changed.
-- Whether `tests/.manifest.sha256` changed.
-- Which skill(s) were used.
-- Whether temporary session state was cleared or why it remains.
+* What changed.
+* Map each changed file to the intended commit boundary.
+* Flag any changed file that does not belong to a stated commit boundary.
+* Which checks ran.
+* Which checks were skipped or unavailable.
+* Whether tests changed.
+* Whether `tests/.manifest.sha256` changed.
+* Which skill(s) were used.
+* Whether temporary session state was cleared or why it remains.

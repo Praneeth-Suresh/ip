@@ -6,11 +6,11 @@ Run a pre-flight design critique before non-trivial implementation.
 
 ## Trigger Conditions
 
-- Non-trivial feature work
-- Architecture or boundary changes
-- Cross-context changes
-- Ambiguous bug fixes
-- Security-sensitive behavior
+* Non-trivial feature work
+* Architecture or boundary changes
+* Cross-context changes
+* Ambiguous bug fixes
+* Security-sensitive behavior
 
 ## Input Contract (required)
 
@@ -62,10 +62,10 @@ notes: "<short rationale>"
 
 ## Success Criteria
 
-- Output uses the exact template keys.
-- At least one rejected alternative is recorded.
-- First internal step and checks are concrete and executable.
-- Design update decisions are explicit booleans.
+* Output uses the exact template keys.
+* At least one rejected alternative is recorded.
+* First internal step and checks are concrete and executable.
+* Design update decisions are explicit booleans.
 
 ## Refusal / Abort Conditions
 
@@ -82,11 +82,11 @@ required_user_input: "<single next clarification>"
 
 Abort if:
 
-- `requested_outcome`, `bounded_context`, or `candidate_public_interface` is missing.
-- The change spans multiple contexts without clear ownership.
-- Security/reliability constraints are unknown for a security-sensitive change.
+* `requested_outcome`, `bounded_context`, or `candidate_public_interface` is missing.
+* The change spans multiple contexts without clear ownership.
+* Security/reliability constraints are unknown for a security-sensitive change.
 
 ## File Update Permissions
 
-- May update: `.beryl/agent/design-tree.md`, `.beryl/agent/architecture.md`, `.beryl/agent/ubiquitous-language.md`, `.beryl/agent/adr/*`
-- Must not edit implementation code directly as part of this skill output phase
+* May update: `.beryl/agent/design-tree.md`, `.beryl/agent/architecture.md`, `.beryl/agent/ubiquitous-language.md`, `.beryl/agent/adr/*`
+* Must not edit implementation code directly as part of this skill output phase
