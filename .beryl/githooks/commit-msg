@@ -1,0 +1,14 @@
+#!/usr/bin/env bash
+set -euo pipefail
+
+REPO_ROOT="$(git rev-parse --show-toplevel 2>/dev/null || true)"
+if [[ -z "${REPO_ROOT}" ]]; then
+  exit 0
+fi
+
+cd "${REPO_ROOT}"
+if command -v cmd.exe >/dev/null 2>&1; then
+  cmd.exe /d /c gitlint --config .gitlint --msg-filename "$1"
+else
+  gitlint --config .gitlint --msg-filename "$1"
+fi
