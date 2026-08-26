@@ -33,6 +33,9 @@ public class Odysseus {
             try {
                 if (command.equals("list")) {
                     ui.showTaskList(tasks);
+                } else if (command.equals("find") || command.startsWith("find ")) {
+                    String keyword = parser.parseFindKeyword(command);
+                    ui.showMatchingTasks(tasks, tasks.findTaskNumbers(keyword));
                 } else if (TaskAction.MARK.matches(command)) {
                     Task task = tasks.getTask(parser.parseTaskNumber(command, TaskAction.MARK));
                     task.markAsDone();

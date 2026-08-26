@@ -6,6 +6,21 @@ import java.time.format.DateTimeParseException;
 /** Converts user command text into task operations and task values. */
 public class Parser {
     /**
+     * Parses the non-empty keyword that follows a find command.
+     *
+     * @param command complete user command
+     * @return keyword to search for
+     * @throws OdysseusException if the command does not contain a keyword
+     */
+    public String parseFindKeyword(String command) throws OdysseusException {
+        String keyword = command.substring("find".length()).trim();
+        if (keyword.isEmpty()) {
+            throw new OdysseusException("Provide a keyword after find, for example: find book.");
+        }
+        return keyword;
+    }
+
+    /**
      * Parses the one-based task number that follows an existing-task action.
      *
      * @param command complete user command

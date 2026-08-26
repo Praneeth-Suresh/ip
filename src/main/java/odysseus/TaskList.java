@@ -31,4 +31,15 @@ public class TaskList {
     public int getTaskCount() {
         return tasks.size();
     }
+
+    /** Returns the one-based numbers of tasks whose descriptions contain the keyword. */
+    public List<Integer> findTaskNumbers(String keyword) {
+        List<Integer> matchingNumbers = new ArrayList<>();
+        for (int taskNumber = 1; taskNumber <= tasks.size(); taskNumber++) {
+            if (tasks.get(taskNumber - 1).hasDescriptionContaining(keyword)) {
+                matchingNumbers.add(taskNumber);
+            }
+        }
+        return matchingNumbers;
+    }
 }
