@@ -8,9 +8,9 @@ This skill is adapted from Matt Pocock's productivity `grill-me` skill, but is i
 
 ## Trigger Conditions
 
-- `grill-me` aborts because required user judgment is missing.
-- `grill-me` returns an assumption that cannot be validated from repository files.
-- A plan has multiple viable branches and the choice depends on product, UX, delivery, or risk preference.
+* `grill-me` aborts because required user judgment is missing.
+* `grill-me` returns an assumption that cannot be validated from repository files.
+* A plan has multiple viable branches and the choice depends on product, UX, delivery, or risk preference.
 
 Do not use this skill for facts that can be discovered by reading code, tests, configs, logs, or canonical agent files.
 
@@ -38,9 +38,9 @@ next_action: "<continue-plan|rerun-grill-me|block>"
 
 ## Rules
 
-- Ask one question at a time.
-- Prefer a recommended default over open-ended questioning.
-- Keep questions concrete and tied to the current plan.
-- Do not ask the user to answer repository facts.
-- Do not update implementation code.
-- Do not use sub-agents unless the user explicitly asks for them.
+* Ask one question at a time.
+* Prefer a recommended default over open-ended questioning.
+* Keep questions concrete and tied to the current plan.
+* Do not ask the user to answer repository facts.
+* Do not update implementation code.
+* Do not use sub-agents unless the user explicitly asks for them.

@@ -15,8 +15,8 @@ implementing application behavior.
 
 ## Non-Goals
 
-- Product requirements beyond the stated personal-assistant purpose.
-- External service integrations, until a requirement explicitly introduces one.
+* Product requirements beyond the stated personal-assistant purpose.
+* External service integrations, until a requirement explicitly introduces one.
 
 ## External Systems
 

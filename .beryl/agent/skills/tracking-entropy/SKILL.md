@@ -6,12 +6,12 @@ Find high-risk change hotspots and define small, targeted refactoring actions.
 
 ## Trigger Conditions
 
-- Weekly maintainability review
-- After a long product run
-- Request for one safe extraction slice
-- Before major feature work
-- Repeated edits in the same files
-- Request to assess technical debt or complexity
+* Weekly maintainability review
+* After a long product run
+* Request for one safe extraction slice
+* Before major feature work
+* Repeated edits in the same files
+* Request to assess technical debt or complexity
 
 ## Input Contract (required)
 
@@ -40,11 +40,11 @@ Use this mode when the user references a long product run, changed files, cleanu
 
 Rules:
 
-- Do not implement new features.
-- Read the changed files before proposing the extraction slice.
-- Consider dead selectors, repeated CSS patterns, rendering functions that should be split, generated artifacts that should not be hand-edited, and tests missing for known regressions.
-- Return one safe extraction slice only.
-- If there is no safe extraction slice, return `status: abort` with `reason_code: "no-safe-extraction-slice"`.
+* Do not implement new features.
+* Read the changed files before proposing the extraction slice.
+* Consider dead selectors, repeated CSS patterns, rendering functions that should be split, generated artifacts that should not be hand-edited, and tests missing for known regressions.
+* Return one safe extraction slice only.
+* If there is no safe extraction slice, return `status: abort` with `reason_code: "no-safe-extraction-slice"`.
 
 ## Output Template (required)
 
@@ -79,12 +79,12 @@ notes: "<short rationale>"
 
 ## Success Criteria
 
-- Output uses the exact template keys.
-- Hotspot list and chosen hotspot are both present.
-- Next refactor step is concrete and bounded.
-- Safe extraction slice is concrete, bounded, and behavior-preserving when post-run extraction mode is used.
-- Tests to protect the refactor are identified.
-- Post-run findings are based on changed-file evidence when post-run extraction mode is used.
+* Output uses the exact template keys.
+* Hotspot list and chosen hotspot are both present.
+* Next refactor step is concrete and bounded.
+* Safe extraction slice is concrete, bounded, and behavior-preserving when post-run extraction mode is used.
+* Tests to protect the refactor are identified.
+* Post-run findings are based on changed-file evidence when post-run extraction mode is used.
 
 ## Refusal / Abort Conditions
 
@@ -101,12 +101,12 @@ required_user_input: "<single next clarification>"
 
 Abort if:
 
-- Repository history is unavailable for churn analysis.
-- No meaningful hotspot can be identified in the requested window.
-- Refactor request is broad and cannot be reduced to one safe step.
-- Post-run extraction review cannot identify a behavior-preserving slice from changed files.
+* Repository history is unavailable for churn analysis.
+* No meaningful hotspot can be identified in the requested window.
+* Refactor request is broad and cannot be reduced to one safe step.
+* Post-run extraction review cannot identify a behavior-preserving slice from changed files.
 
 ## File Update Permissions
 
-- May update: `.beryl/agent/design-tree.md`, `.beryl/agent/adr/*`
-- Must not perform broad implementation changes in the same step unless explicitly requested
+* May update: `.beryl/agent/design-tree.md`, `.beryl/agent/adr/*`
+* Must not perform broad implementation changes in the same step unless explicitly requested

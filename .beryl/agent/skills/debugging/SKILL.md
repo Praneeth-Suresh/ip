@@ -26,30 +26,30 @@ Use `.beryl/agent/session-state.md` for current-session debugging history only.
 
 Keep it bounded:
 
-- Keep at most 5 failure entries.
-- Keep each entry to about 10 lines or fewer.
-- Prefer summaries over raw output.
-- Record the failing command, short error summary, suspected bounded context, and next diagnostic step.
-- Replace stale entries instead of appending indefinitely.
-- Clear entries after the bug is fixed, the failure is no longer relevant, or the session ends.
+* Keep at most 5 failure entries.
+* Keep each entry to about 10 lines or fewer.
+* Prefer summaries over raw output.
+* Record the failing command, short error summary, suspected bounded context, and next diagnostic step.
+* Replace stale entries instead of appending indefinitely.
+* Clear entries after the bug is fixed, the failure is no longer relevant, or the session ends.
 
 Never store secrets, tokens, credentials, raw production data, or full logs in `.beryl/agent/session-state.md`.
 
 ## Rules
 
-- Treat tool output as the source of truth.
-- Do not rewrite broad areas while debugging a narrow failure.
-- Do not weaken existing tests unless a ratified design change explains why expected behavior changed.
-- Do not store debugging history in canonical agent files.
-- Do not use sub-agents unless the user explicitly asks for them.
+* Treat tool output as the source of truth.
+* Do not rewrite broad areas while debugging a narrow failure.
+* Do not weaken existing tests unless a ratified design change explains why expected behavior changed.
+* Do not store debugging history in canonical agent files.
+* Do not use sub-agents unless the user explicitly asks for them.
 
 ## Final Response
 
-- Root cause
-- Fix made
-- Whether the success checks were met
-- Checks run
-- Checks skipped or unavailable
-- Whether tests changed
-- Whether session error history was updated or cleared
-- Design files or ADRs updated
+* Root cause
+* Fix made
+* Whether the success checks were met
+* Checks run
+* Checks skipped or unavailable
+* Whether tests changed
+* Whether session error history was updated or cleared
+* Design files or ADRs updated

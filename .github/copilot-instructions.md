@@ -19,12 +19,12 @@ Before changing code or tests, read `.beryl/agent/task-routing.md`, classify the
 
 Then read the smallest relevant set of canonical files requested by that workflow:
 
-- `.beryl/agent/project-brief.md`
-- `.beryl/agent/design-tree.md`
-- `.beryl/agent/architecture.md`
-- `.beryl/agent/ubiquitous-language.md`
-- `.beryl/agent/testing-policy.md`
-- `.beryl/agent/agent-rules.md`
+* `.beryl/agent/project-brief.md`
+* `.beryl/agent/design-tree.md`
+* `.beryl/agent/architecture.md`
+* `.beryl/agent/ubiquitous-language.md`
+* `.beryl/agent/testing-policy.md`
+* `.beryl/agent/agent-rules.md`
 
 Load additional files only when relevant.
 
@@ -32,20 +32,21 @@ Load additional files only when relevant.
 
 These operating defaults apply in every agent session even when the user does not restate them. Users only need to speak up when they want to opt out of or override a default for the current prompt, such as explicitly allowing sub-agents.
 
-- Route work through `.beryl/agent/task-routing.md` and the matching workflow skill before editing.
-- Treat ratified feature implementation as `adding-features` work by default.
-- Use `.beryl/agent/session-state.md` only as internal temporary state when needed, and clear it when the feature, repair, or debugging thread is complete.
-- After edits in this Beryl source checkout, run the formatter command if one is configured, then narrow checks, then the broader deterministic gate `./.beryl/scripts/check.sh --development`. Installed projects run `./.beryl/scripts/check.sh`.
-- Treat installed readiness as lock-aware: report an explicitly preserved root
+* Route work through `.beryl/agent/task-routing.md` and the matching workflow skill before editing.
+* Treat ratified feature implementation as `adding-features` work by default.
+* Use `.beryl/agent/session-state.md` only as internal temporary state when needed, and clear it when the feature, repair, or debugging thread is complete.
+* After edits in this Beryl source checkout, run the formatter command if one is configured, then narrow checks, then the broader deterministic gate `./.beryl/scripts/check.sh --development`. Installed projects run `./.beryl/scripts/check.sh`.
+* Treat installed readiness as lock-aware: report an explicitly preserved root
   contract or hook as external ownership, never as silent Beryl enforcement.
-- Use `install.sh --bootstrap-agent` only as a standalone action after a locked
+* Use `install.sh --bootstrap-agent` only as a standalone action after a locked
   lifecycle operation. Its external-agent mutations are outside Beryl's file
   transaction.
-- Never weaken tests to make implementation pass.
-- If tests change intentionally, run `./.beryl/scripts/update-test-manifest.sh` and explain why the test and manifest changes were required.
-- Do not use sub-agents unless the user explicitly asks for sub-agents, parallel agents, reviewer agents, or competing agent implementations.
-- For an explicit large or greenfield application request, load the `initial-build` workflow. Discover the repository, ask clarification questions one at a time, and obtain plan ratification before creating `.beryl/agent/hierarchy.md` or editing build code.
-- Treat `.beryl/agent/hierarchy.md` as Git-tracked active-build state. Resume it when present, update it after each dependency-ordered slice, and delete it only after every node and check passes and durable context has been promoted.
+* Never weaken tests to make implementation pass.
+* If tests change intentionally, run `./.beryl/scripts/update-test-manifest.sh` and explain why the test and manifest changes were required.
+* Follow `.beryl/agent/style-policy.md` and run its available style checks before finishing a change.
+* Do not use sub-agents unless the user explicitly asks for sub-agents, parallel agents, reviewer agents, or competing agent implementations.
+* For an explicit large or greenfield application request, load the `initial-build` workflow. Discover the repository, ask clarification questions one at a time, and obtain plan ratification before creating `.beryl/agent/hierarchy.md` or editing build code.
+* Treat `.beryl/agent/hierarchy.md` as Git-tracked active-build state. Resume it when present, update it after each dependency-ordered slice, and delete it only after every node and check passes and durable context has been promoted.
 
 ## Skill Use
 
@@ -53,20 +54,20 @@ Skills live in `.beryl/agent/skills/<skill-name>/SKILL.md`.
 
 Task workflows:
 
-- `planning`: plans, designs, approaches, and feature planning gates.
-- `initial-build`: clarifies, plans, ratifies, and implements large or greenfield applications through a tracked transient hierarchy.
-- `adding-features`: feature implementation after a user-ratified plan.
-- `debugging`: bugs, failures, regressions, exceptions, and failing checks.
-- `explaining-codebase`: codebase walkthroughs and explanations without edits.
+* `planning`: plans, designs, approaches, and feature planning gates.
+* `initial-build`: clarifies, plans, ratifies, and implements large or greenfield applications through a tracked transient hierarchy.
+* `adding-features`: feature implementation after a user-ratified plan.
+* `debugging`: bugs, failures, regressions, exceptions, and failing checks.
+* `explaining-codebase`: codebase walkthroughs and explanations without edits.
 
 Supporting skills:
 
-- `grill-me`: non-trivial feature, architecture change, cross-context change, ambiguous bug fix.
-- `interview-me`: one-question-at-a-time user interview when `grill-me` leaves unresolved user-judgment decisions.
-- `testing-vertical-slices`: feature/bug behavior implementation.
-- `improving-architecture`: shallow modules, unclear boundaries, recurring coupling.
-- `tracking-entropy`: maintainability review, post-run cleanup, hotspots, refactoring priority.
-- `frontend-design`: distinctive, intentional visual design for new UI or UI reshaping.
+* `grill-me`: non-trivial feature, architecture change, cross-context change, ambiguous bug fix.
+* `interview-me`: one-question-at-a-time user interview when `grill-me` leaves unresolved user-judgment decisions.
+* `testing-vertical-slices`: feature/bug behavior implementation.
+* `improving-architecture`: shallow modules, unclear boundaries, recurring coupling.
+* `tracking-entropy`: maintainability review, post-run cleanup, hotspots, refactoring priority.
+* `frontend-design`: distinctive, intentional visual design for new UI or UI reshaping.
 
 When using a skill, follow its required inputs/outputs exactly.
 
@@ -93,16 +94,16 @@ For post-run cleanup prompts, do not implement new features. Read changed files 
 
 ## Engineering Rules
 
-- Prefer existing project patterns over new abstractions.
-- Keep public interfaces small and explicit.
-- Do not import internals from another bounded context.
-- Keep external systems behind adapters.
-- Use terms from `.beryl/agent/ubiquitous-language.md`.
-- Do not weaken tests to make implementation pass.
-- Do not edit unrelated files.
-- Do not store secrets in repo files, prompts, or logs.
-- Do not let temporary implementation notes accumulate in canonical agent files.
-- Keep session debugging history bounded in `.beryl/agent/session-state.md`; summarize failures, cap entries, and clear resolved errors.
+* Prefer existing project patterns over new abstractions.
+* Keep public interfaces small and explicit.
+* Do not import internals from another bounded context.
+* Keep external systems behind adapters.
+* Use terms from `.beryl/agent/ubiquitous-language.md`.
+* Do not weaken tests to make implementation pass.
+* Do not edit unrelated files.
+* Do not store secrets in repo files, prompts, or logs.
+* Do not let temporary implementation notes accumulate in canonical agent files.
+* Keep session debugging history bounded in `.beryl/agent/session-state.md`; summarize failures, cap entries, and clear resolved errors.
 
 Before deleting or consolidating root planning or documentation files, list every file, what is preserved, what is lost, and where replacement content lives, then wait for explicit approval.
 
@@ -113,9 +114,9 @@ extend this exception to other planning or documentation files.
 
 ## Browser Verification Rule
 
-- For web app, HTML, or CSS tasks, prefer **Microsoft Playwright MCP** as the browser tool.
-- Use browser state/tool output (for example accessibility snapshots and DOM state) as the source of truth for UI verification.
-- Do not mark browser-related work complete until the behavior is confirmed through Playwright MCP checks.
+* For web app, HTML, or CSS tasks, prefer **Microsoft Playwright MCP** as the browser tool.
+* Use browser state/tool output (for example accessibility snapshots and DOM state) as the source of truth for UI verification.
+* Do not mark browser-related work complete until the behavior is confirmed through Playwright MCP checks.
 
 For static-site changes, source inspection is not enough. Verify affected generated output such as `dist` HTML, sitemap, robots, search index, feeds, copied assets, and browser behavior when relevant.
 
@@ -125,10 +126,10 @@ Run checks required by `.beryl/agent/testing-policy.md` and local project toolin
 
 Final response must include:
 
-- What changed.
-- Map each changed file to the intended commit boundary.
-- Flag any changed file that does not belong to a stated commit boundary.
-- Checks run.
-- Checks skipped or unavailable.
-- Design files/ADR updates.
-- Whether temporary session state was cleared or why it remains.
+* What changed.
+* Map each changed file to the intended commit boundary.
+* Flag any changed file that does not belong to a stated commit boundary.
+* Checks run.
+* Checks skipped or unavailable.
+* Design files/ADR updates.
+* Whether temporary session state was cleared or why it remains.

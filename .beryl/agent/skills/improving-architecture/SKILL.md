@@ -6,11 +6,11 @@ Reduce coupling and context sprawl by improving module boundaries.
 
 ## Trigger Conditions
 
-- A feature touches too many unrelated files
-- Ownership or module boundaries are unclear
-- Repeated illegal or fragile cross-context imports
-- Shallow pass-through modules
-- Post-run extraction slice needs a clearer boundary before implementation
+* A feature touches too many unrelated files
+* Ownership or module boundaries are unclear
+* Repeated illegal or fragile cross-context imports
+* Shallow pass-through modules
+* Post-run extraction slice needs a clearer boundary before implementation
 
 ## Input Contract (required)
 
@@ -61,10 +61,10 @@ notes: "<short rationale>"
 
 ## Success Criteria
 
-- Output uses the exact template keys.
-- Public API is explicitly smaller or clearer than before.
-- Boundary tests are identified.
-- ADR decision is explicit with reason.
+* Output uses the exact template keys.
+* Public API is explicitly smaller or clearer than before.
+* Boundary tests are identified.
+* ADR decision is explicit with reason.
 
 ## Refusal / Abort Conditions
 
@@ -81,11 +81,11 @@ required_user_input: "<single next clarification>"
 
 Abort if:
 
-- Ownership is unclear across contexts.
-- No coherent boundary can be identified from current code.
-- Requested refactor scope is too broad for one internal implementation step and cannot be split safely.
+* Ownership is unclear across contexts.
+* No coherent boundary can be identified from current code.
+* Requested refactor scope is too broad for one internal implementation step and cannot be split safely.
 
 ## File Update Permissions
 
-- May update: implementation files, `.beryl/agent/architecture.md`, `.beryl/agent/design-tree.md`, `.beryl/agent/adr/*`
-- Must keep changes scoped to one internal implementation step per iteration
+* May update: implementation files, `.beryl/agent/architecture.md`, `.beryl/agent/design-tree.md`, `.beryl/agent/adr/*`
+* Must keep changes scoped to one internal implementation step per iteration

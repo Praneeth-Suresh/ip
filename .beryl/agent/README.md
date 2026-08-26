@@ -29,13 +29,13 @@ The important move is ownership: the repository carries the contract, not a chat
 
 Fill these files before feature implementation:
 
-- `project-brief.md`
-- `ubiquitous-language.md`
-- `design-tree.md`
-- `architecture.md`
-- `testing-policy.md`
-- `agent-rules.md`
-- `task-routing.md`
+* `project-brief.md`
+* `ubiquitous-language.md`
+* `design-tree.md`
+* `architecture.md`
+* `testing-policy.md`
+* `agent-rules.md`
+* `task-routing.md`
 
 Then run:
 
@@ -50,14 +50,14 @@ Then run:
 
 Configure test immutability detection in `.beryl/agent/test-manifest.conf`.
 
-- `INCLUDE_GLOBS`: which test files are tracked
-- `EXCLUDE_GLOBS`: ignored paths
-- `MANIFEST_PATH`: where the hash manifest is stored
+* `INCLUDE_GLOBS`: which test files are tracked
+* `EXCLUDE_GLOBS`: ignored paths
+* `MANIFEST_PATH`: where the hash manifest is stored
 
 ## Decision recording rule
 
-- Use `design-tree.md` for evolving or unresolved design choices.
-- Use `.beryl/agent/adr/` when a decision changes durable architecture, boundaries, terminology, data shape, or test strategy.
+* Use `design-tree.md` for evolving or unresolved design choices.
+* Use `.beryl/agent/adr/` when a decision changes durable architecture, boundaries, terminology, data shape, or test strategy.
 
 ## Adding skills
 
@@ -77,24 +77,24 @@ mention, `sync-agent-env.sh` re-run).
 
 ## Skill naming alias
 
-- `grill-me` is the shorthand alias.
-- `grill-me` is the canonical skill contract.
-- `interview-me` is the user-interview fallback for unresolved `grill-me` decisions.
+* `grill-me` is the shorthand alias.
+* `grill-me` is the canonical skill contract.
+* `interview-me` is the user-interview fallback for unresolved `grill-me` decisions.
 
 ## Task routing
 
-- `task-routing.md` maps the user's current intent to one workflow skill.
-- Load one task workflow first: `planning`, `initial-build`, `adding-features`, `debugging`, or `explaining-codebase`.
-- Feature implementation requires a user-ratified plan. If no approved plan exists, plan first and stop.
-- Feature-slice bookkeeping is internal and temporary. Use ignored `session-state.md` only when needed for resume.
-- Use sub-agents only when the user explicitly asks for them.
-- Keep debugging error history session-scoped and bounded in `session-state.md`.
+* `task-routing.md` maps the user's current intent to one workflow skill.
+* Load one task workflow first: `planning`, `initial-build`, `adding-features`, `debugging`, or `explaining-codebase`.
+* Feature implementation requires a user-ratified plan. If no approved plan exists, plan first and stop.
+* Feature-slice bookkeeping is internal and temporary. Use ignored `session-state.md` only when needed for resume.
+* Use sub-agents only when the user explicitly asks for them.
+* Keep debugging error history session-scoped and bounded in `session-state.md`.
 
 ## Context hygiene
 
-- Keep temporary implementation state out of canonical files.
-- Clear `.beryl/agent/session-state.md` after a feature is complete.
-- Promote only durable decisions to `design-tree.md`, `architecture.md`, `ubiquitous-language.md`, or `adr/`.
+* Keep temporary implementation state out of canonical files.
+* Clear `.beryl/agent/session-state.md` after a feature is complete.
+* Promote only durable decisions to `design-tree.md`, `architecture.md`, `ubiquitous-language.md`, or `adr/`.
 
 ## Initial Builds
 

@@ -17,16 +17,16 @@
 
 Each context exposes one explicit public entry point:
 
-- Java: the application entry point currently starts at
-  `src/main/java/Odysseus.java`. Introduce a small explicit public API for each
+* Java: the application entry point currently starts at
+  `src/main/java/odysseus/Odysseus.java`. Introduce a small explicit public API for each
   additional context when it is created.
 
 ## Forbidden Import Policy
 
 Record concrete forbidden import patterns here once contexts exist:
 
-- `[from] -> [to/internal/**]`
-- `[from] -> [to/infrastructure/**]`
+* `[from] -> [to/internal/**]`
+* `[from] -> [to/infrastructure/**]`
 
 Keep this list small and high-signal. Add rules only after repeated boundary mistakes.
 

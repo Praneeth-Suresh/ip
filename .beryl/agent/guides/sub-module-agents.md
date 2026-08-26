@@ -4,14 +4,14 @@ Use this when a project has multiple complex sub-modules that each need their ow
 
 ## When To Use
 
-- Monorepo with 3+ independently deployable services or packages.
-- Sub-modules with different tech stacks or domain vocabularies.
-- A single root `.beryl/agent/` has become too broad for agents to load efficiently.
+* Monorepo with 3+ independently deployable services or packages.
+* Sub-modules with different tech stacks or domain vocabularies.
+* A single root `.beryl/agent/` has become too broad for agents to load efficiently.
 
 ## When NOT To Use
 
-- Projects with fewer than 3 bounded contexts (the root `.beryl/agent/` is sufficient).
-- Sub-modules that share the same domain language, architecture, and test commands.
+* Projects with fewer than 3 bounded contexts (the root `.beryl/agent/` is sufficient).
+* Sub-modules that share the same domain language, architecture, and test commands.
 
 **Enforced**: `init-module-agent.sh` refuses to create sub-module agents unless 3+ bounded contexts are declared in root `.beryl/agent/architecture.md`. `module-doctor.sh` warns if fewer than 3 module agents exist.
 

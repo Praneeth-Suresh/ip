@@ -6,9 +6,9 @@ Select and enforce the smallest useful behavior test before implementation.
 
 ## Trigger Conditions
 
-- Feature implementation
-- Bug fixes with behavior impact
-- Refactors that risk boundary behavior
+* Feature implementation
+* Bug fixes with behavior impact
+* Refactors that risk boundary behavior
 
 ## Input Contract (required)
 
@@ -25,10 +25,10 @@ edge_case: "<most likely failure mode>"
 
 1. Define behavior in domain language.
 2. Choose minimal useful test level:
-   - Unit for pure rules
-   - Integration for adapter/persistence behavior
-   - E2E smoke for critical workflow
-   - Property-based for invariants
+   * Unit for pure rules
+   * Integration for adapter/persistence behavior
+   * E2E smoke for critical workflow
+   * Property-based for invariants
 3. Write or identify failing test/check first.
 4. Implement only enough to pass.
 5. Add one edge-case test.
@@ -56,11 +56,11 @@ notes: "<short rationale>"
 
 ## Success Criteria
 
-- Output uses the exact template keys.
-- Test level is one of the allowed enum values.
-- Narrow and broader commands are executable.
-- `success_checks` includes at least one artifact or behavior proof and at least one command.
-- `manifest_update_required` is accurate when test files change.
+* Output uses the exact template keys.
+* Test level is one of the allowed enum values.
+* Narrow and broader commands are executable.
+* `success_checks` includes at least one artifact or behavior proof and at least one command.
+* `manifest_update_required` is accurate when test files change.
 
 ## Refusal / Abort Conditions
 
@@ -77,12 +77,12 @@ required_user_input: "<single next clarification>"
 
 Abort if:
 
-- Behavior is not specific enough to test.
-- Bounded context is not identified.
-- No deterministic test/check surface exists and no allowed path to add one is provided.
+* Behavior is not specific enough to test.
+* Bounded context is not identified.
+* No deterministic test/check surface exists and no allowed path to add one is provided.
 
 ## File Update Permissions
 
-- May update: test files and test fixtures
-- Must update manifest with `./.beryl/scripts/update-test-manifest.sh` when test files change intentionally
-- Must not weaken existing assertions without explicit behavior-change rationale
+* May update: test files and test fixtures
+* Must update manifest with `./.beryl/scripts/update-test-manifest.sh` when test files change intentionally
+* Must not weaken existing assertions without explicit behavior-change rationale

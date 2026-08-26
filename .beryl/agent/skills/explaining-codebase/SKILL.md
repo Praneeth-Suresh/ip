@@ -15,14 +15,14 @@ Explain how a codebase area works without changing files.
 
 ## Rules
 
-- Do not edit files.
-- Do not load unrelated workflows.
-- Do not use sub-agents unless the user explicitly asks for them.
+* Do not edit files.
+* Do not load unrelated workflows.
+* Do not use sub-agents unless the user explicitly asks for them.
 
 ## Final Response
 
-- Short answer
-- Key files and responsibilities
-- Runtime or data flow
-- Tests/checks that cover the behavior, if found
-- Open questions or risks
+* Short answer
+* Key files and responsibilities
+* Runtime or data flow
+* Tests/checks that cover the behavior, if found
+* Open questions or risks

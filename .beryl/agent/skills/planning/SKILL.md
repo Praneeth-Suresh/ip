@@ -6,9 +6,9 @@ Turn a requested change into a small, reviewable plan before implementation.
 
 ## Use When
 
-- The user asks for a plan, design, approach, or breakdown.
-- A feature request has no approved implementation plan yet.
-- The change is non-trivial, cross-context, security-sensitive, or architecturally ambiguous.
+* The user asks for a plan, design, approach, or breakdown.
+* A feature request has no approved implementation plan yet.
+* The change is non-trivial, cross-context, security-sensitive, or architecturally ambiguous.
 
 ## Initial Build Handoff
 
@@ -32,26 +32,26 @@ active `.beryl/agent/hierarchy.md` exists, resume the initial-build workflow.
 
 ## Internal State
 
-- Do not ask the user to manage feature slices.
-- Do not put temporary feature-slice state in `.beryl/agent/design-tree.md`.
-- If interruption or resume support is needed, write the smallest internal checklist to `.beryl/agent/session-state.md`.
-- `.beryl/agent/session-state.md` is session-specific and gitignored.
-- Remove or clear `.beryl/agent/session-state.md` when the feature is complete.
-- Move only durable decisions into `.beryl/agent/design-tree.md`, `.beryl/agent/architecture.md`, `.beryl/agent/ubiquitous-language.md`, or `.beryl/agent/adr/*`.
+* Do not ask the user to manage feature slices.
+* Do not put temporary feature-slice state in `.beryl/agent/design-tree.md`.
+* If interruption or resume support is needed, write the smallest internal checklist to `.beryl/agent/session-state.md`.
+* `.beryl/agent/session-state.md` is session-specific and gitignored.
+* Remove or clear `.beryl/agent/session-state.md` when the feature is complete.
+* Move only durable decisions into `.beryl/agent/design-tree.md`, `.beryl/agent/architecture.md`, `.beryl/agent/ubiquitous-language.md`, or `.beryl/agent/adr/*`.
 
 ## Output
 
-- Requested outcome
-- Bounded context
-- Implementation paths for non-trivial work
-- Proposed approach, or explicit request for user path approval
-- Implementation approach, summarized without slice IDs
-- Success checks before implementation
-- Commit boundaries before implementation
-- Risks: scope, architecture, and UX when applicable
-- Tests/checks to run
-- Design files or ADRs likely to change
-- Open questions or assumptions
+* Requested outcome
+* Bounded context
+* Implementation paths for non-trivial work
+* Proposed approach, or explicit request for user path approval
+* Implementation approach, summarized without slice IDs
+* Success checks before implementation
+* Commit boundaries before implementation
+* Risks: scope, architecture, and UX when applicable
+* Tests/checks to run
+* Design files or ADRs likely to change
+* Open questions or assumptions
 
 For non-trivial implementation tasks, include these headings before coding:
 

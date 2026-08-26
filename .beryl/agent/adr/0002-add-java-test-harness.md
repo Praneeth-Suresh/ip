@@ -17,9 +17,9 @@ for source and test changes.
 
 ## Consequences
 
-- **Benefit:** Tests run without downloading dependencies and cover console
+* **Benefit:** Tests run without downloading dependencies and cover console
   flows that interleave invalid and valid commands.
-- **Tradeoff:** Assertions and test discovery are maintained manually until a
+* **Tradeoff:** Assertions and test discovery are maintained manually until a
   build tool is introduced.
-- **Follow-up:** Replace the harness only when the project adopts a build tool
+* **Follow-up:** Replace the harness only when the project adopts a build tool
   and a test framework.

@@ -31,13 +31,13 @@ For the explicit pinned recovery fallback, obtain the SHA/digest pair from the
    Beryl into or beside the target unless the user explicitly asks for a local
    Beryl checkout workflow.
 2. Inventory existing repository state before install:
-   - application code, tests, package/build files, and docs
-   - existing `.beryl/`
-   - existing agent instruction files such as `AGENTS.md`, `CLAUDE.md`,
+   * application code, tests, package/build files, and docs
+   * existing `.beryl/`
+   * existing agent instruction files such as `AGENTS.md`, `CLAUDE.md`,
      `.codex/AGENTS.md`, `.cursor/rules/agent-rules.md`,
      `.github/copilot-instructions.md`, `.cursorrules`, `.windsurfrules`, and
      similar tool-specific files
-   - existing workflow files under `.github/workflows/`
+   * existing workflow files under `.github/workflows/`
 3. Install Beryl. Prefer the approved versioned bootstrap for automatic release
    selection. If the user has provided `beryl-bootstrap.sh` or you can download
    it from the [GitHub Releases page](https://github.com/Praneeth-Suresh/Beryl/releases),
@@ -84,15 +84,15 @@ For the explicit pinned recovery fallback, obtain the SHA/digest pair from the
    context. It is a standalone action and external-agent edits are outside the
    file transaction.
 4. Consolidate existing agent guidance into Beryl:
-   - Treat `.beryl/agent/` as the canonical home for durable agent rules,
+   * Treat `.beryl/agent/` as the canonical home for durable agent rules,
      project brief, architecture, testing policy, vocabulary, and workflow
      routing.
-   - Move or summarize durable guidance from pre-existing agent files into the
+   * Move or summarize durable guidance from pre-existing agent files into the
      smallest matching `.beryl/agent/` canonical file. Preserve project-specific
      meaning; do not paste stale or tool-specific boilerplate wholesale.
-   - Keep application code, tests, docs, package files, and unrelated workflows
+   * Keep application code, tests, docs, package files, and unrelated workflows
      outside Beryl.
-   - Do not delete or overwrite existing non-Beryl files without explicit user
+   * Do not delete or overwrite existing non-Beryl files without explicit user
      approval. If a root agent file conflicts, preserve its content first, then
      ask before replacing it with a generated Beryl shim.
 5. Regenerate Beryl-managed agent shims after consolidation:
@@ -107,6 +107,7 @@ For the explicit pinned recovery fallback, obtain the SHA/digest pair from the
    ```bash
    BERYL_SHIM_CONFLICT=overwrite ./.beryl/agent/scripts/sync-agent-env.sh
    ```
+
 6. Configure tests only from discovered project commands. Do not invent host
    project test commands or configuration.
 7. Run checks from the target repository:
@@ -203,8 +204,8 @@ root/hook contract; never present it as Beryl-managed enforcement.
 
 ## References
 
-- Remote README shape:
+* Remote README shape:
   `https://raw.githubusercontent.com/Praneeth-Suresh/Beryl/<trusted-ref>/README.md`
-- Remote scripts reference shape:
+* Remote scripts reference shape:
   `https://raw.githubusercontent.com/Praneeth-Suresh/Beryl/<trusted-ref>/.beryl/scripts/README.md`
-- Installed agent control plane: `.beryl/agent/README.md`
+* Installed agent control plane: `.beryl/agent/README.md`

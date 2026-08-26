@@ -79,9 +79,9 @@ before execution, and do not call a moving branch an immutable release.
 
 Profiles are named component sets from `.beryl/beryl.components.json`:
 
-- `minimal`: agent instructions and root tool shims.
-- `standard`: minimal plus deterministic checks and githooks.
-- `full`: standard plus CI and `.beryl/driver/` workflows.
+* `minimal`: agent instructions and root tool shims.
+* `standard`: minimal plus deterministic checks and githooks.
+* `full`: standard plus CI and `.beryl/driver/` workflows.
 
 Install a known profile:
 
@@ -236,36 +236,36 @@ sh beryl-install.sh \
 
 Useful flags:
 
-- `--profile minimal|standard|full`: install a named profile. Default:
+* `--profile minimal|standard|full`: install a named profile. Default:
   `standard`.
-- `--components a,b`: install explicit components plus dependencies.
-- `--update`: refresh an existing locked installation while preserving
+* `--components a,b`: install explicit components plus dependencies.
+* `--update`: refresh an existing locked installation while preserving
   target-owned paths; requires `TARGET/.beryl/lock.json`.
-- `--restore BACKUP_ID`: restore one retained update backup; requires explicit
+* `--restore BACKUP_ID`: restore one retained update backup; requires explicit
   historical `--profile` or `--components`, and may require
   `--current-source-dir` plus `--current-profile` or `--current-components`
   before current-only paths are removed.
-- `--current-profile NAME` / `--current-components a,b`: explicit current
+* `--current-profile NAME` / `--current-components a,b`: explicit current
   restore authorization before removing files only present in the newer surface.
-- `--uninstall`: requires explicit `--profile` or `--components`; removes only
+* `--uninstall`: requires explicit `--profile` or `--components`; removes only
   unchanged, digest-proven selected Beryl-managed files.
-- `--adopt-existing`: record an identical unlocked Beryl surface from a Git
+* `--adopt-existing`: record an identical unlocked Beryl surface from a Git
   checkout without replacing target content.
-- `--target DIR`: install into a target directory. Default: current directory.
-- `--source-dir DIR`: use a local Beryl Git checkout only; it never copies an
+* `--target DIR`: install into a target directory. Default: current directory.
+* `--source-dir DIR`: use a local Beryl Git checkout only; it never copies an
   arbitrary source directory.
-- `--interactive`: prompt for profile/components and agent bootstrap.
-- `--bootstrap-agent`: standalone post-transaction action against a locked
+* `--interactive`: prompt for profile/components and agent bootstrap.
+* `--bootstrap-agent`: standalone post-transaction action against a locked
   target; it cannot be combined with install or update.
-- `--root-conflict fail|skip|overwrite`: explicit policy for existing root
+* `--root-conflict fail|skip|overwrite`: explicit policy for existing root
   contracts. The default is refusal and the choice is persisted in the lock.
-- `--enable-githooks`: request Beryl's hook integration. With a pre-existing
+* `--enable-githooks`: request Beryl's hook integration. With a pre-existing
   `core.hooksPath`, select `--hook-conflict fail|preserve|replace`; Beryl never
   silently takes ownership of another hook manager.
-- `--agent-fallback on|off`: continue or fail when bootstrap cannot run.
-- `--agent-runner codex|claude|custom|off`: choose the bootstrap runner.
-- `--agent-command-template TPL`: command template for a custom runner.
-- `--expected-sha256 "$BERYL_ARCHIVE_SHA256"`: verify the downloaded archive
+* `--agent-fallback on|off`: continue or fail when bootstrap cannot run.
+* `--agent-runner codex|claude|custom|off`: choose the bootstrap runner.
+* `--agent-command-template TPL`: command template for a custom runner.
+* `--expected-sha256 "$BERYL_ARCHIVE_SHA256"`: verify the downloaded archive
   against a digest from a trusted release channel. Required with every remote
   lifecycle command; recorded as `expectedSourceSha256` and reused by a locked
   remote update unless an explicit replacement SHA/digest is supplied.
@@ -288,10 +288,10 @@ one lifecycle transaction to `install.sh`.
 
 The interactive setup asks which component set to install:
 
-- standard profile
-- minimal profile
-- full profile, explicitly including driver workflows
-- custom comma-separated components, for example `agent-core,checks,driver`
+* standard profile
+* minimal profile
+* full profile, explicitly including driver workflows
+* custom comma-separated components, for example `agent-core,checks,driver`
 
 It also asks whether a coding agent should help fill Beryl project context
 after the lifecycle has committed. `--non-interactive` never reads stdin and
@@ -349,9 +349,9 @@ Single entrypoint:
 
 The gate reads `.beryl/agent/affected-tests.conf`.
 
-- Configure `RELATED_TEST_CMD` for test runners that can select tests from changed files.
-- Configure `FULL_TEST_CMD` for broad changes that should run the whole project test suite.
-- Leave both empty until the project has a real test runner; the gate will report that no project tests are configured and keep the deterministic checks passing.
+* Configure `RELATED_TEST_CMD` for test runners that can select tests from changed files.
+* Configure `FULL_TEST_CMD` for broad changes that should run the whole project test suite.
+* Leave both empty until the project has a real test runner; the gate will report that no project tests are configured and keep the deterministic checks passing.
 
 Examples:
 
@@ -369,12 +369,12 @@ FULL_TEST_CMD=(pytest)
 
 This repo uses a committed SHA-256 manifest over a configurable test scope.
 
-- Scope is configured in `.beryl/agent/test-manifest.conf` via:
-  - `MANIFEST_PATH`
-  - `INCLUDE_GLOBS`
-  - `EXCLUDE_GLOBS`
-- `./.beryl/scripts/check-tests-unchanged.sh` fails if any file in the configured scope differs from the manifest.
-- If a test change is intentional, update the manifest:
+* Scope is configured in `.beryl/agent/test-manifest.conf` via:
+  * `MANIFEST_PATH`
+  * `INCLUDE_GLOBS`
+  * `EXCLUDE_GLOBS`
+* `./.beryl/scripts/check-tests-unchanged.sh` fails if any file in the configured scope differs from the manifest.
+* If a test change is intentional, update the manifest:
 
 ```bash
 ./.beryl/scripts/update-test-manifest.sh
@@ -395,19 +395,20 @@ The hook runs `./.beryl/scripts/check.sh` with `CHECK_AFFECTED_MODE=staged`, so 
 
 Hook setup requires:
 
-- Running inside a Git repository, or after `git init`.
-- Permission to write `.git/config`.
-- The `githooks` component installed, normally through the `standard` or `full`
+* Running inside a Git repository, or after `git init`.
+* Permission to write `.git/config`.
+* The `githooks` component installed, normally through the `standard` or `full`
   profile.
 
 Common failures:
 
-- `fatal: not a git repository`: run the command after `cd` into a repository.
-- `fatal: could not lock config file ...`: `.git/config` is read-only or locked
+* `fatal: not a git repository`: run the command after `cd` into a repository.
+* `fatal: could not lock config file ...`: `.git/config` is read-only or locked
   by filesystem permissions.
 
 When hook setup is blocked, keep the path install complete and rerun the hook
 command after fixing repository write access.
+
 ## Installed Readiness
 
 Run `./.beryl/scripts/check.sh` from an installed target. It runs the

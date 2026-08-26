@@ -17,15 +17,15 @@
 
 Each context exposes one explicit public entry point:
 
-- TypeScript: `src/<context>/index.ts`
-- Python: `src/<context>/__init__.py`
-- Go: exported symbols in `internal/<context>` via deliberate package API
+* TypeScript: `src/<context>/index.ts`
+* Python: `src/<context>/__init__.py`
+* Go: exported symbols in `internal/<context>` via deliberate package API
 
 ## Forbidden Import Policy
 
 Record concrete forbidden import patterns here once contexts exist:
 
-- `[from] -> [to/internal/**]`
-- `[from] -> [to/infrastructure/**]`
+* `[from] -> [to/internal/**]`
+* `[from] -> [to/infrastructure/**]`
 
 Keep this list small and high-signal. Add rules only after repeated boundary mistakes.

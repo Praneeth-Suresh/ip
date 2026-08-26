@@ -8,18 +8,18 @@
 | Test manifest immutability check | `./.beryl/scripts/check-tests-unchanged.sh` | available | Detects changes in configured test scope from `.beryl/agent/test-manifest.conf` |
 | Affected test gate | `./.beryl/scripts/check-affected.sh --worktree` | available | Selects related tests from changed files and uses full-test fallback for broad changes |
 | Aggregate deterministic gate | `./.beryl/scripts/check.sh` | available | Runs all deterministic checks |
-| Format | `not available yet` | unavailable | Add the project formatter command when configured |
-| Lint | `not available yet` | unavailable | Add the project lint command when configured |
+| Java style | `./gradlew checkstyleMain checkstyleTest` | available | Checkstyle with the SE-EDU configuration |
+| Markdown style | `npx --no-install markdownlint-cli2` | available | Enforces the documented Markdown rules |
+| Git commit style | `gitlint --config .gitlint --commits HEAD^..HEAD` | available | Enforces mechanically checkable commit-message rules |
 | Typecheck | `not available yet` | unavailable | Add the project typecheck command when configured |
-| Unit tests | `bash tests/run-tests.sh` | available | Standard-library Java assertion harness |
+| Unit tests | `./gradlew test` | available | JUnit 5 tests through Gradle |
 | Integration tests | `not available yet` | unavailable | Add the project integration test command when configured |
 | E2E smoke | `not available yet` | unavailable | When web runtime exists, use Microsoft Playwright MCP for deterministic browser feedback |
 
 ## Java Requirement
 
-Use Java 25 for application and build tasks. No project build tool or Java test
-command has been configured yet, so do not invent one; add it to the command
-matrix when the project introduces it.
+Use Java 25 for application and build tasks. Gradle 9.1 is supplied through the
+Gradle Wrapper to run Checkstyle and JUnit 5 tests.
 
 ## Default Loop
 
@@ -37,10 +37,10 @@ For static-site changes, source inspection is not enough. Always verify generate
 
 Check affected:
 
-- Relevant `dist` HTML or equivalent built pages.
-- Sitemap, robots, search index, feed, or structured data output.
-- Copied assets when asset handling changed.
-- Browser behavior when UI, routing, or layout changed.
+* Relevant `dist` HTML or equivalent built pages.
+* Sitemap, robots, search index, feed, or structured data output.
+* Copied assets when asset handling changed.
+* Browser behavior when UI, routing, or layout changed.
 
 If generated output is unavailable, explain why and run the closest deterministic build or inspection command.
 
@@ -48,12 +48,12 @@ If generated output is unavailable, explain why and run the closest deterministi
 
 Commit-time tests run through the affected test gate so developers get fast feedback without choosing test subsets manually.
 
-- The pre-commit hook sets `CHECK_AFFECTED_MODE=staged` and runs `./.beryl/scripts/check.sh`.
-- Manual `./.beryl/scripts/check.sh` uses worktree mode by default and selects from all changes relative to `HEAD`.
-- `.beryl/scripts/check-affected.sh` reads `.beryl/agent/affected-tests.conf`.
-- Changes to broad configuration, dependency, hook, or test-strategy files force `FULL_TEST_CMD` when configured.
-- Source and test changes run `RELATED_TEST_CMD` with changed files appended when configured.
-- If no project test runner is configured yet, the gate reports that no project tests are available and exits successfully.
+* The pre-commit hook sets `CHECK_AFFECTED_MODE=staged` and runs `./.beryl/scripts/check.sh`.
+* Manual `./.beryl/scripts/check.sh` uses worktree mode by default and selects from all changes relative to `HEAD`.
+* `.beryl/scripts/check-affected.sh` reads `.beryl/agent/affected-tests.conf`.
+* Changes to broad configuration, dependency, hook, or test-strategy files force `FULL_TEST_CMD` when configured.
+* Source and test changes run `RELATED_TEST_CMD` with changed files appended when configured.
+* If no project test runner is configured yet, the gate reports that no project tests are available and exits successfully.
 
 Recommended project configurations:
 
@@ -81,10 +81,10 @@ Intentional test changes are allowed only when all conditions are met:
 
 ## Immutability Enforcement Scope
 
-- The SHA manifest mechanism provides deterministic change detection, not cryptographic immutability guarantees against privileged users.
-- Enforce stronger controls in CI/review policy, such as branch protection, required status checks, and code review.
+* The SHA manifest mechanism provides deterministic change detection, not cryptographic immutability guarantees against privileged users.
+* Enforce stronger controls in CI/review policy, such as branch protection, required status checks, and code review.
 
 ## Mocking Rules
 
-- Mock external systems such as network, clocks, randomness, payment providers, and email providers.
-- Do not mock domain logic in the same bounded context.
+* Mock external systems such as network, clocks, randomness, payment providers, and email providers.
+* Do not mock domain logic in the same bounded context.
