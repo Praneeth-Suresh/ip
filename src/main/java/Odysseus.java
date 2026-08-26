@@ -43,6 +43,7 @@ public class Odysseus {
 
         Ui ui = new Ui(output);
         Storage storage = new Storage(storagePath);
+        Parser parser = new Parser();
         TaskList tasks = loadTasks(storage, ui);
         while (scanner.hasNextLine()) {
             String command = scanner.nextLine();
@@ -54,22 +55,22 @@ public class Odysseus {
                 if (command.equals("list")) {
                     ui.showTaskList(tasks);
                 } else if (TaskAction.MARK.matches(command)) {
-                    Task task = tasks.getTask(parseTaskNumber(command, TaskAction.MARK));
+                    Task task = tasks.getTask(parser.parseTaskNumber(command, TaskAction.MARK));
                     task.markAsDone();
                     saveTasks(tasks, storage, ui);
                     ui.showTask("Well sailed! I've marked this task as done:", task);
                 } else if (TaskAction.UNMARK.matches(command)) {
-                    Task task = tasks.getTask(parseTaskNumber(command, TaskAction.UNMARK));
+                    Task task = tasks.getTask(parser.parseTaskNumber(command, TaskAction.UNMARK));
                     task.markAsNotDone();
                     saveTasks(tasks, storage, ui);
                     ui.showTask("This task awaits its hour again:", task);
                 } else if (TaskAction.DELETE.matches(command)) {
-                    Task task = tasks.deleteTask(parseTaskNumber(command, TaskAction.DELETE));
+                    Task task = tasks.deleteTask(parser.parseTaskNumber(command, TaskAction.DELETE));
                     saveTasks(tasks, storage, ui);
                     ui.showTask("The waves have carried this task from our log:", task);
                     printTaskCount(tasks, output);
                 } else {
-                    Task task = createTask(command);
+                    Task task = parser.parseTask(command);
                     tasks.addTask(task);
                     saveTasks(tasks, storage, ui);
                     ui.showTask("Well charted. I've added this task:", task);
