@@ -42,7 +42,8 @@ public class Odysseus {
         output.println(DIVIDER);
 
         Ui ui = new Ui(output);
-        TaskList tasks = loadTasks(storagePath, ui);
+        Storage storage = new Storage(storagePath);
+        TaskList tasks = loadTasks(storage, ui);
         while (scanner.hasNextLine()) {
             String command = scanner.nextLine();
             output.println(DIVIDER);
@@ -55,22 +56,22 @@ public class Odysseus {
                 } else if (TaskAction.MARK.matches(command)) {
                     Task task = tasks.getTask(parseTaskNumber(command, TaskAction.MARK));
                     task.markAsDone();
-                    saveTasks(tasks, storagePath, ui);
+                    saveTasks(tasks, storage, ui);
                     ui.showTask("Well sailed! I've marked this task as done:", task);
                 } else if (TaskAction.UNMARK.matches(command)) {
                     Task task = tasks.getTask(parseTaskNumber(command, TaskAction.UNMARK));
                     task.markAsNotDone();
-                    saveTasks(tasks, storagePath, ui);
+                    saveTasks(tasks, storage, ui);
                     ui.showTask("This task awaits its hour again:", task);
                 } else if (TaskAction.DELETE.matches(command)) {
                     Task task = tasks.deleteTask(parseTaskNumber(command, TaskAction.DELETE));
-                    saveTasks(tasks, storagePath, ui);
+                    saveTasks(tasks, storage, ui);
                     ui.showTask("The waves have carried this task from our log:", task);
                     printTaskCount(tasks, output);
                 } else {
                     Task task = createTask(command);
                     tasks.addTask(task);
-                    saveTasks(tasks, storagePath, ui);
+                    saveTasks(tasks, storage, ui);
                     ui.showTask("Well charted. I've added this task:", task);
                     printTaskCount(tasks, output);
                 }
@@ -82,6 +83,25 @@ public class Odysseus {
 
         output.println("Farewell, traveler. May Athena guide your voyage until we meet again.");
         output.println(DIVIDER);
+    }
+
+    /** Loads tasks through the storage adapter and reports recoverable failures. */
+    private static TaskList loadTasks(Storage storage, Ui ui) {
+        try {
+            return storage.load();
+        } catch (OdysseusException exception) {
+            ui.show("I could not load the ship's log. Starting with an empty log.");
+            return new TaskList();
+        }
+    }
+
+    /** Saves tasks through the storage adapter and reports recoverable failures. */
+    private static void saveTasks(TaskList tasks, Storage storage, Ui ui) {
+        try {
+            storage.save(tasks);
+        } catch (OdysseusException exception) {
+            ui.show("I could not save the ship's log.");
+        }
     }
 
     /** Loads saved tasks, returning an empty list when no usable save file exists. */
