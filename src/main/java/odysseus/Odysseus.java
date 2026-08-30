@@ -7,6 +7,12 @@ import java.util.Scanner;
 /** A console personal assistant that records a traveler's tasks. */
 public class Odysseus {
     private static final String DIVIDER = "____________________________________________________________";
+    private static final String INTRO_ART = String.join(System.lineSeparator(),
+            " ___    ____  __   __  ____   ____  _____  _   _  ____",
+            " / _ \\  |  _ \\ \\ \\ / / / ___| / ___|| ____|| | | |/ ___|",
+            "| | | | | | | | \\ V /  \\___ \\ \\___ \\|  _|  | | | |\\___ \\",
+            "| |_| | | |_| |  | |    ___) | ___) | |___ | |_| | ___) |",
+            " \\___/  |____/   |_|   |____/ |____/|_____| \\___/ |____/");
     private static final Path DEFAULT_STORAGE_PATH = Path.of("data", "odysseus.txt");
 
     /** Starts Odysseus and processes commands until the traveler says goodbye. */
@@ -16,6 +22,7 @@ public class Odysseus {
 
     /** Runs an Odysseus conversation using the supplied input, output, and storage path. */
     static void run(Scanner scanner, PrintStream output, Path storagePath) {
+        output.println(INTRO_ART);
         output.println("Ahoy, traveler! I am Odysseus, long tested by sea and fate.");
         output.println("What course shall we chart together?");
         output.println(DIVIDER);

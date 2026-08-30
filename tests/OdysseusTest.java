@@ -10,11 +10,23 @@ import java.util.Scanner;
 /** Deterministic behavior tests for valid and invalid Odysseus commands. */
 public class OdysseusTest {
     public static void main(String[] args) throws Exception {
+        printsIntroArtAndAcceptsDateTimeDeadlines();
         rejectsInvalidCommandsWithoutChangingTasks();
         deletesTasksAndRenumbersTheList();
         growsBeyondTheOriginalArrayLimit();
         savesAndLoadsTasksAcrossConversations();
         startsWithAnEmptyLogWhenNoSaveFileExists();
+    }
+
+    private static void printsIntroArtAndAcceptsDateTimeDeadlines() throws Exception {
+        String output = run("""
+                deadline return book /by 2019-11-02 1800
+                bye
+                """);
+
+        assertContains(output, "___    ____  __   __  ____   ____  _____  _   _  ____");
+        assertContains(output, "1. [D][ ] return book (by: Nov 02 2019)");
+        assertNotContains(output, "Deadline dates use yyyy-MM-dd");
     }
 
     private static void rejectsInvalidCommandsWithoutChangingTasks() throws Exception {

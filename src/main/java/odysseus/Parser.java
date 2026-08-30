@@ -43,6 +43,23 @@ public class Parser {
     }
 
     /**
+     * Parses the date portion of a deadline, accepting an optional trailing time.
+     *
+     * @param by user-provided deadline value
+     * @return date represented by the deadline
+     */
+    private LocalDate parseDeadlineDate(String by) {
+        String trimmed = by.trim();
+        String dateText = trimmed;
+        if (trimmed.contains(" ")) {
+            dateText = trimmed.split("\\s+")[0];
+        } else if (trimmed.contains("T")) {
+            dateText = trimmed.substring(0, trimmed.indexOf('T'));
+        }
+        return LocalDate.parse(dateText);
+    }
+
+    /**
      * Creates a task from a supported creation command.
      *
      * @param command complete user command
@@ -69,7 +86,7 @@ public class Parser {
                 throw new OdysseusException("A deadline needs a description and a date.");
             }
             try {
-                return new Deadline(description, LocalDate.parse(by));
+                return new Deadline(description, parseDeadlineDate(by));
             } catch (DateTimeParseException exception) {
                 throw new OdysseusException("Deadline dates use yyyy-MM-dd, for example: 2019-10-15.");
             }
