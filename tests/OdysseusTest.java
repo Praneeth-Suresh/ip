@@ -25,7 +25,8 @@ public class OdysseusTest {
                 """);
 
         assertContains(output, "___    ____  __   __  ____   ____  _____  _   _  ____");
-        assertContains(output, "1. [D][ ] return book (by: Nov 02 2019)");
+        assertContains(output, "[D][ ] return book (by: Nov 02 2019)");
+        assertContains(output, "Our voyage now holds 1 task.");
         assertNotContains(output, "Deadline dates use yyyy-MM-dd");
     }
 

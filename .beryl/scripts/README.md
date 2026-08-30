@@ -384,14 +384,22 @@ Commit both the test changes and the updated manifest together.
 
 This mechanism provides deterministic detection of test changes. It does not create absolute immutability against privileged repository writes.
 
-## Run On Every Commit (Optional)
+## Git Hooks (Optional)
 
-This repo includes a git hook at `.beryl/githooks/pre-commit`.
+This repo includes fast pre-commit and branch-aware pre-push hooks under
+`.beryl/githooks/`.
 
 Enable it through `install.sh --enable-githooks` or setup's
 `--enable-githooks`. Do not overwrite an existing hook manager manually.
 
-The hook runs `./.beryl/scripts/check.sh` with `CHECK_AFFECTED_MODE=staged`, so project tests are selected from the files staged for that commit. Manual `./.beryl/scripts/check.sh` uses worktree mode and selects from all changes relative to `HEAD`.
+The pre-commit hook runs `./.beryl/scripts/check.sh --fast` with
+`CHECK_AFFECTED_MODE=staged`. It checks Markdown, staged secrets, and the test
+manifest without resolving the agent workspace or running project tests.
+
+The pre-push hook runs the full `./.beryl/scripts/check.sh` only when the push
+targets `main`. Pushes to other branches skip slow checks. Manual
+`./.beryl/scripts/check.sh` uses worktree mode and selects from all changes
+relative to `HEAD`.
 
 Hook setup requires:
 

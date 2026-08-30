@@ -10,11 +10,17 @@ fail() {
 # no-follow verifier for managed code and configuration, so it establishes its
 # roots from the lexical invocation path only after every existing component is
 # proven not to be a symlink.
+is_absolute_path() {
+  local path="$1"
+  [[ "${path}" == /* ]] || [[ "${path}" =~ ^[A-Za-z]:[/\\] ]]
+}
+
 validate_lexical_path() {
   local path="$1" current="" segment
   local -a segments=()
 
-  [[ "${path}" == /* ]] || fail "invoked script path must be absolute after lexical expansion"
+  is_absolute_path "${path}" || fail "invoked script path must be absolute after lexical expansion"
+  path="${path//\\//}"
   IFS='/' read -r -a segments <<< "${path#/}"
   for segment in "${segments[@]}"; do
     [[ -n "${segment}" ]] || continue
@@ -27,10 +33,11 @@ validate_lexical_path() {
 }
 
 SCRIPT_PATH="${BASH_SOURCE[0]}"
+SCRIPT_PATH="${SCRIPT_PATH//\\//}"
 while [[ "${SCRIPT_PATH}" == ./* ]]; do
   SCRIPT_PATH="${SCRIPT_PATH#./}"
 done
-if [[ "${SCRIPT_PATH}" == /* ]]; then
+if is_absolute_path "${SCRIPT_PATH}"; then
   SCRIPT_ABS="${SCRIPT_PATH}"
 else
   SCRIPT_ABS="${PWD%/}/${SCRIPT_PATH}"
@@ -505,6 +512,7 @@ check_checks_component() {
 
 check_githooks_component() {
   check_exec "${BERYL_ROOT}/githooks/pre-commit"
+  check_exec "${BERYL_ROOT}/githooks/pre-push"
 }
 
 check_ci_component() {

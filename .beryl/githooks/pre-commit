@@ -7,4 +7,4 @@ if [[ -z "${REPO_ROOT}" ]]; then
   exit 0
 fi
 
-CHECK_AFFECTED_MODE=staged "${REPO_ROOT}/.beryl/scripts/check.sh"
+CHECK_AFFECTED_MODE=staged "${REPO_ROOT}/.beryl/scripts/check.sh" --fast

@@ -9,11 +9,17 @@ fail() {
 # Validate the lexical invocation path before resolving directories or
 # sourcing paths.sh. This keeps a target's .beryl symlink from redirecting the
 # aggregate gate into an external tree.
+is_absolute_path() {
+  local path="$1"
+  [[ "${path}" == /* ]] || [[ "${path}" =~ ^[A-Za-z]:[/\\] ]]
+}
+
 validate_lexical_path() {
   local path="$1" current="" segment
   local -a segments=()
 
-  [[ "${path}" == /* ]] || fail "invoked script path must be absolute after lexical expansion"
+  is_absolute_path "${path}" || fail "invoked script path must be absolute after lexical expansion"
+  path="${path//\\//}"
   IFS='/' read -r -a segments <<< "${path#/}"
   for segment in "${segments[@]}"; do
     [[ -n "${segment}" ]] || continue
@@ -26,10 +32,11 @@ validate_lexical_path() {
 }
 
 SCRIPT_PATH="${BASH_SOURCE[0]}"
+SCRIPT_PATH="${SCRIPT_PATH//\\//}"
 while [[ "${SCRIPT_PATH}" == ./* ]]; do
   SCRIPT_PATH="${SCRIPT_PATH#./}"
 done
-if [[ "${SCRIPT_PATH}" == /* ]]; then
+if is_absolute_path "${SCRIPT_PATH}"; then
   SCRIPT_ABS="${SCRIPT_PATH}"
 else
   SCRIPT_ABS="${PWD%/}/${SCRIPT_PATH}"
@@ -46,14 +53,17 @@ validate_lexical_path "${BERYL_ROOT}"
 validate_lexical_path "${REPO_ROOT}"
 
 DEVELOPMENT_MODE="0"
+FAST_MODE="0"
 
 usage() {
   cat <<'USAGE'
-Usage: .beryl/scripts/check.sh [--development]
+Usage: .beryl/scripts/check.sh [--development] [--fast]
 
 --development  Run source-checkout-only validation. Requires Beryl's tracked
                .beryl/source-checkout.marker; installed targets use lock-backed
                readiness validation by default.
+--fast         Run only quick checks suitable for a pre-commit hook. Skips
+               agent-workspace validation, component checks, and project tests.
 USAGE
 }
 
@@ -69,6 +79,7 @@ parse_args() {
   while (($#)); do
     case "$1" in
       --development) DEVELOPMENT_MODE="1" ;;
+      --fast) FAST_MODE="1" ;;
       -h|--help) usage; exit 0 ;;
       *) fail "unknown argument: $1" ;;
     esac
@@ -79,6 +90,21 @@ parse_args() {
 parse_args "$@"
 if [[ "${DEVELOPMENT_MODE}" == "1" ]]; then
   development_marker_valid
+fi
+
+if [[ "${FAST_MODE}" == "1" ]]; then
+  printf "Running fast checks...\n"
+
+  "${BERYL_ROOT}/scripts/check-md.sh"
+  if [[ "${CHECK_AFFECTED_MODE:-worktree}" == "staged" ]]; then
+    "${BERYL_ROOT}/scripts/check-secrets.sh" --staged
+  else
+    "${BERYL_ROOT}/scripts/check-secrets.sh" --worktree
+  fi
+  "${BERYL_ROOT}/scripts/check-tests-unchanged.sh"
+
+  printf "OK\n"
+  exit 0
 fi
 
 # The doctor validates every selected managed executable and its source/load
