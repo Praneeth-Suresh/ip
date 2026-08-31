@@ -64,7 +64,7 @@ test {
 }
 
 application {
-    mainClass = 'odysseus.HelloWorld'
+    mainClass = 'odysseus.Launcher'
 }
 
 sourceSets {
