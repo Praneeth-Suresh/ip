@@ -12,6 +12,13 @@ public class TaskList {
         tasks.add(task);
     }
 
+    /** Adds multiple tasks to this list using a variable number of arguments. */
+    public void addTasks(Task... tasksToAdd) {
+        for (Task task : tasksToAdd) {
+            addTask(task);
+        }
+    }
+
     /** Returns the requested one-based task number. */
     public Task getTask(int taskNumber) throws OdysseusException {
         if (taskNumber < 1 || taskNumber > tasks.size()) {
