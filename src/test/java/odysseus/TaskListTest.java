@@ -31,7 +31,7 @@ class TaskListTest {
     }
 
     @Test
-    void addTasks_addsMultipleTasksInOrder() {
+    void addTasks_addsMultipleTasksInOrder() throws OdysseusException {
         TaskList tasks = new TaskList();
 
         tasks.addTasks(new Todo("first"), new Todo("second"));
