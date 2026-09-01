@@ -31,6 +31,17 @@ class TaskListTest {
     }
 
     @Test
+    void addTasks_addsMultipleTasksInOrder() throws OdysseusException {
+        TaskList tasks = new TaskList();
+
+        tasks.addTasks(new Todo("first"), new Todo("second"));
+
+        assertEquals(2, tasks.getTaskCount());
+        assertEquals("[T][ ] first", tasks.getTask(1).toString());
+        assertEquals("[T][ ] second", tasks.getTask(2).toString());
+    }
+
+    @Test
     void findTaskNumbers_matchesDescriptionsIgnoringCase() {
         TaskList tasks = new TaskList();
         tasks.addTask(new Todo("read Book"));
