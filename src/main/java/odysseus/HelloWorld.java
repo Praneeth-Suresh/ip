@@ -1,22 +1,38 @@
 package odysseus;
 
+import java.io.IOException;
+
 import javafx.application.Application;
+import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
-import javafx.scene.control.Label;
-import javafx.scene.layout.StackPane;
+import javafx.scene.layout.BorderPane;
 import javafx.stage.Stage;
 
-/** A minimal JavaFX application that shows a Hello World message. */
+/** Launches Odysseus's JavaFX conversation window. */
 public class HelloWorld extends Application {
+    private static final double INITIAL_WIDTH = 1040;
+    private static final double INITIAL_HEIGHT = 720;
+
     @Override
     public void start(Stage stage) {
-        Label helloWorld = new Label("Hello World!");
-        StackPane root = new StackPane(helloWorld);
-        Scene scene = new Scene(root, 320, 240);
+        try {
+            FXMLLoader loader = new FXMLLoader(HelloWorld.class.getResource("/view/MainWindow.fxml"));
+            BorderPane root = loader.load();
+            Scene scene = new Scene(root, INITIAL_WIDTH, INITIAL_HEIGHT);
+            scene.getStylesheets().add(HelloWorld.class.getResource("/view/odysseus.css").toExternalForm());
 
-        stage.setTitle("Odysseus");
-        stage.setScene(scene);
-        stage.show();
+            MainWindow mainWindow = loader.getController();
+            mainWindow.setOdysseus(new Odysseus());
+            mainWindow.showWelcome();
+
+            stage.setTitle("Odysseus — Ship's Log");
+            stage.setMinWidth(680);
+            stage.setMinHeight(560);
+            stage.setScene(scene);
+            stage.show();
+        } catch (IOException exception) {
+            throw new IllegalStateException("Odysseus could not load its conversation window.", exception);
+        }
     }
 
     /** Launches the JavaFX application. */
