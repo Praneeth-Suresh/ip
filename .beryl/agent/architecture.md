@@ -42,3 +42,12 @@ entry point stores and handles only the `Task` abstraction.
 validation, and deletion. `OdysseusException` represents user-correctable command failures;
 the console entry point catches it per command so one mistake cannot end the
 conversation or partially mutate the task list.
+
+## JavaFX Presentation Adapter
+
+`HelloWorld` loads the FXML view and injects the `Odysseus` public entry point
+into `MainWindow`. `MainWindow` owns only JavaFX event handling and rendering;
+it delegates every command to `Odysseus#getResponse(String)`. `DialogBox` is a
+reusable FXML control for one ship-log entry, while `odysseus.css` owns the
+warm editorial visual system. The frontend must not access `TaskList`,
+`Parser`, or `Storage` directly.

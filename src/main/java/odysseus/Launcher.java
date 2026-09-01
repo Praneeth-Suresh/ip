@@ -2,9 +2,9 @@ package odysseus;
 
 import javafx.application.Application;
 
-/** A launcher class to work around JavaFX classpath issues. */
+/** A launcher class that starts Odysseus's JavaFX conversation window. */
 public class Launcher {
-    /** Starts the HelloWorld JavaFX application. */
+    /** Starts the Odysseus JavaFX application. */
     public static void main(String[] args) {
         Application.launch(HelloWorld.class, args);
     }

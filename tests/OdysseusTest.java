@@ -16,6 +16,7 @@ public class OdysseusTest {
         growsBeyondTheOriginalArrayLimit();
         savesAndLoadsTasksAcrossConversations();
         startsWithAnEmptyLogWhenNoSaveFileExists();
+        respondsToGuiCommandsAndKeepsGoingAfterAnError();
     }
 
     private static void printsIntroArtAndAcceptsDateTimeDeadlines() throws Exception {
@@ -118,6 +119,21 @@ public class OdysseusTest {
                 """, storagePath);
 
         assertContains(output, "My ship's log is clear, traveler.");
+    }
+
+    private static void respondsToGuiCommandsAndKeepsGoingAfterAnError() throws Exception {
+        Path storagePath = Files.createTempDirectory("odysseus-test").resolve("tasks.txt");
+        Odysseus odysseus = new Odysseus(storagePath);
+
+        String addedTask = odysseus.getResponse("todo mend the sail");
+        String rejectedTask = odysseus.getResponse("mark six");
+        String listedTasks = odysseus.getResponse("list");
+
+        assertContains(addedTask, "Well charted. I've added this task:");
+        assertContains(addedTask, "[T][ ] mend the sail");
+        assertContains(rejectedTask, "Use a task number after mark");
+        assertContains(listedTasks, "1. [T][ ] mend the sail");
+        assertContains(Files.readString(storagePath), "T | 0 | mend the sail");
     }
 
     private static String run(String commands) throws Exception {

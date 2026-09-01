@@ -22,6 +22,8 @@ categories, storage, and interaction rules remain open.
 | Task types share completion behavior while owning their distinct details. | Abstract `Task` base class with `Todo`, `Deadline`, and `Event` subclasses | 2026-08-20 | n/a |
 | User command errors are recoverable. | `OdysseusException` is caught once per command; invalid commands do not mutate `TaskList` | 2026-08-20 | n/a |
 | Task states and existing-task actions are closed sets. | `TaskStatus` and `TaskAction` enums | 2026-08-20 | n/a |
+| The chatbot has a native conversation frontend. | JavaFX FXML views styled by one local CSS stylesheet | 2026-09-02 | n/a |
+| The console and JavaFX frontend share command behavior. | `Odysseus#getResponse(String)` owns command execution and reply text | 2026-09-02 | n/a |
 
 ## Pressure Points
 

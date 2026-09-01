@@ -1,0 +1,141 @@
+.app-shell {
+    -fx-background-color: #F8F0DD;
+    -fx-font-family: "Segoe UI";
+}
+
+.masthead {
+    -fx-background-color: #F1E1C4;
+    -fx-border-color: transparent transparent #C2924A transparent;
+    -fx-border-width: 0 0 1 0;
+    -fx-padding: 26 42 19 42;
+}
+
+.brand {
+    -fx-font-family: "Palatino Linotype";
+    -fx-font-size: 18px;
+    -fx-font-weight: bold;
+    -fx-letter-spacing: 2px;
+    -fx-text-fill: #302A20;
+}
+
+.headline {
+    -fx-font-family: "Palatino Linotype";
+    -fx-font-size: 29px;
+    -fx-text-fill: #302A20;
+}
+
+.utility-label, .speaker-label, .composer-hint {
+    -fx-font-family: "Cascadia Mono";
+    -fx-font-size: 10px;
+    -fx-font-weight: bold;
+    -fx-letter-spacing: 1px;
+    -fx-text-fill: #6A5943;
+}
+
+.route-caption {
+    -fx-padding: 0 2 0 2;
+}
+
+.conversation-scroll {
+    -fx-background: #F8F0DD;
+    -fx-background-color: transparent;
+    -fx-border-color: transparent;
+    -fx-padding: 0;
+}
+
+.conversation-scroll > .viewport {
+    -fx-background-color: #F8F0DD;
+}
+
+.dialog-container {
+    -fx-padding: 28 42 28 42;
+    -fx-spacing: 22;
+}
+
+.odysseus-dialog, .user-dialog {
+    -fx-padding: 0;
+}
+
+.odysseus-dialog {
+    -fx-border-color: transparent transparent transparent #C2924A;
+    -fx-border-width: 0 0 0 1;
+    -fx-padding: 0 0 0 15;
+}
+
+.monogram {
+    -fx-alignment: center;
+    -fx-background-color: #495F42;
+    -fx-min-height: 30;
+    -fx-min-width: 30;
+    -fx-pref-height: 30;
+    -fx-pref-width: 30;
+}
+
+.user-dialog .monogram {
+    -fx-background-color: #A7442B;
+}
+
+.monogram-letter {
+    -fx-font-family: "Palatino Linotype";
+    -fx-font-size: 15px;
+    -fx-font-weight: bold;
+    -fx-text-fill: #F8F0DD;
+}
+
+.message-bubble {
+    -fx-max-width: 480;
+    -fx-padding: 2 0 2 0;
+}
+
+.user-bubble {
+    -fx-alignment: top-right;
+    -fx-background-color: #E7C59A;
+    -fx-padding: 13 16 13 16;
+}
+
+.message-text {
+    -fx-font-size: 14px;
+    -fx-line-spacing: 3px;
+    -fx-text-fill: #302A20;
+}
+
+.composer-area {
+    -fx-background-color: #F1E1C4;
+    -fx-border-color: #C2924A transparent transparent transparent;
+    -fx-border-width: 1 0 0 0;
+    -fx-padding: 16 42 22 42;
+}
+
+.text-field {
+    -fx-background-color: #FFF9EC;
+    -fx-background-insets: 0;
+    -fx-border-color: #8F7858;
+    -fx-border-width: 1;
+    -fx-font-size: 14px;
+    -fx-padding: 12 13 12 13;
+    -fx-text-fill: #302A20;
+}
+
+.text-field:focused {
+    -fx-border-color: #A7442B;
+    -fx-border-width: 2;
+}
+
+.send-button {
+    -fx-background-color: #A7442B;
+    -fx-background-radius: 0;
+    -fx-font-family: "Segoe UI";
+    -fx-font-size: 13px;
+    -fx-font-weight: bold;
+    -fx-text-fill: #FFF9EC;
+    -fx-padding: 11 18 11 18;
+}
+
+.send-button:hover {
+    -fx-background-color: #84341F;
+}
+
+.send-button:focused {
+    -fx-border-color: #302A20;
+    -fx-border-width: 2;
+}
