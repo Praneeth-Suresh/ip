@@ -94,3 +94,15 @@ Prerequisites: JDK 25, update Intellij to the most recent version.
 Odysseus keeps sailing after a mistake and explains how to correct it. For
 example, enter `todo borrow book` rather than `todo`, and use `mark 2` rather
 than `mark` when marking the second task complete.
+
+## Launching the JavaFX GUI
+
+Make sure JDK 25 is configured, then run the following command from the project
+root:
+
+```powershell
+.\gradlew.bat run
+```
+
+Alternatively, in IntelliJ, open `src/main/java/odysseus/Launcher.java` and run
+`Launcher.main()`. This opens the Odysseus JavaFX conversation window.

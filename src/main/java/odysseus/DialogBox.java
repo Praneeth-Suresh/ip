@@ -1,11 +1,11 @@
 package odysseus;
 
 import java.io.IOException;
-import java.util.Collections;
 
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.geometry.Pos;
+import javafx.scene.Node;
 import javafx.scene.control.Label;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
@@ -65,7 +65,8 @@ public class DialogBox extends HBox {
     private void configureTravelerEntry() {
         speaker.setText("TRAVELER");
         initial.setText("Y");
-        Collections.reverse(getChildren());
+        Node monogram = getChildren().getFirst();
+        getChildren().setAll(messageBubble, monogram);
         setAlignment(Pos.TOP_RIGHT);
         getStyleClass().add("user-dialog");
         messageBubble.getStyleClass().add("user-bubble");
