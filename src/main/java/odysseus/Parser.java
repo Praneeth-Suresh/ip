@@ -49,6 +49,7 @@ public class Parser {
      * @return date represented by the deadline
      */
     private LocalDate parseDeadlineDate(String by) {
+        assert !by.isBlank() : "Deadline text must be present after command validation";
         String trimmed = by.trim();
         String dateText = trimmed;
         if (trimmed.contains(" ")) {

@@ -70,6 +70,7 @@ public class Storage {
         if (parts.length < 3 || (!parts[1].equals("0") && !parts[1].equals("1"))) {
             throw new OdysseusException("Invalid saved task");
         }
+        assert parts.length >= 3 : "A validated saved task has type, status, and description fields";
         Task task = switch (parts[0]) {
             case "T" -> new Todo(parts[2]);
             case "D" -> deadlineFrom(parts);
