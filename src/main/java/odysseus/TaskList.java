@@ -5,6 +5,7 @@ import java.util.List;
 
 /** An in-memory collection of tasks for the current voyage. */
 public class TaskList {
+    private static final int FIRST_TASK_NUMBER = 1;
     private final List<Task> tasks = new ArrayList<>();
 
     /** Adds a task to this list. */
@@ -21,18 +22,19 @@ public class TaskList {
 
     /** Returns the requested one-based task number. */
     public Task getTask(int taskNumber) throws OdysseusException {
-        if (taskNumber < 1 || taskNumber > tasks.size()) {
+        if (!isValidTaskNumber(taskNumber)) {
             throw new OdysseusException("There is no task " + taskNumber
                     + ". Use list to see the tasks on our voyage.");
         }
-        return tasks.get(taskNumber - 1);
+        return tasks.get(toTaskIndex(taskNumber));
     }
 
     /** Removes and returns the requested one-based task number. */
     public Task deleteTask(int taskNumber) throws OdysseusException {
         Task task = getTask(taskNumber);
-        assert task == tasks.get(taskNumber - 1) : "A validated task number identifies the task to remove";
-        return tasks.remove(taskNumber - 1);
+        int taskIndex = toTaskIndex(taskNumber);
+        assert task == tasks.get(taskIndex) : "A validated task number identifies the task to remove";
+        return tasks.remove(taskIndex);
     }
 
     /** Returns the number of tasks in this list. */
@@ -43,11 +45,21 @@ public class TaskList {
     /** Returns the one-based numbers of tasks whose descriptions contain the keyword. */
     public List<Integer> findTaskNumbers(String keyword) {
         List<Integer> matchingNumbers = new ArrayList<>();
-        for (int taskNumber = 1; taskNumber <= tasks.size(); taskNumber++) {
-            if (tasks.get(taskNumber - 1).hasDescriptionContaining(keyword)) {
+        for (int taskNumber = FIRST_TASK_NUMBER; taskNumber <= tasks.size(); taskNumber++) {
+            if (tasks.get(toTaskIndex(taskNumber)).hasDescriptionContaining(keyword)) {
                 matchingNumbers.add(taskNumber);
             }
         }
         return matchingNumbers;
+    }
+
+    /** Returns whether a number identifies a task currently in this list. */
+    private boolean isValidTaskNumber(int taskNumber) {
+        return taskNumber >= FIRST_TASK_NUMBER && taskNumber <= tasks.size();
+    }
+
+    /** Converts a validated one-based task number to its zero-based list index. */
+    private int toTaskIndex(int taskNumber) {
+        return taskNumber - FIRST_TASK_NUMBER;
     }
 }

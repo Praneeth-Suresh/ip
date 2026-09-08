@@ -10,6 +10,17 @@ import javafx.scene.paint.Color;
 
 /** Controls the JavaFX conversation view for Odysseus. */
 public class MainWindow {
+    private static final double FIRST_DIALOG_POSITION = 1.0;
+    private static final double MASTHEAD_LINE_INSET = 84;
+    private static final double ROUTE_LINE_HEIGHT = 11;
+    private static final double ROUTE_LINE_PRIMARY_WAVE_LENGTH = 31;
+    private static final double ROUTE_LINE_PRIMARY_AMPLITUDE = 3;
+    private static final double ROUTE_LINE_SECONDARY_WAVE_LENGTH = 11;
+    private static final double ROUTE_LINE_SECONDARY_AMPLITUDE = 0.8;
+    private static final int ROUTE_LINE_STEP = 4;
+    private static final int ROUTE_MARKER_DIAMETER = 8;
+    private static final int ROUTE_MARKER_VERTICAL_POSITION = 7;
+    private static final double ROUTE_LINE_WIDTH = 1.1;
     private static final String WELCOME_MESSAGE = "Ahoy, traveler. I keep the small obligations that"
             + " would otherwise drift away. Tell me what belongs in the ship's log.";
     private static final Color ROUTE_COLOR = Color.web("#A7442B");
@@ -30,9 +41,10 @@ public class MainWindow {
     /** Sets up automatic scrolling and the masthead's voyage route. */
     @FXML
     public void initialize() {
-        dialogContainer.heightProperty().addListener((observable, oldHeight, newHeight) -> scrollPane.setVvalue(1.0));
+        dialogContainer.heightProperty().addListener((observable, oldHeight, newHeight) ->
+                scrollPane.setVvalue(FIRST_DIALOG_POSITION));
         voyageLine.widthProperty().addListener((observable, oldWidth, newWidth) -> drawVoyageLine());
-        voyageLine.widthProperty().bind(masthead.widthProperty().subtract(84));
+        voyageLine.widthProperty().bind(masthead.widthProperty().subtract(MASTHEAD_LINE_INSET));
         drawVoyageLine();
     }
 
@@ -72,10 +84,12 @@ public class MainWindow {
         graphics.clearRect(0, 0, width, voyageLine.getHeight());
         graphics.setStroke(ROUTE_COLOR);
         graphics.setFill(ROUTE_COLOR);
-        graphics.setLineWidth(1.1);
+        graphics.setLineWidth(ROUTE_LINE_WIDTH);
         graphics.beginPath();
-        for (int position = 0; position <= width; position += 4) {
-            double height = 11 + Math.sin(position / 31) * 3 + Math.sin(position / 11) * 0.8;
+        for (int position = 0; position <= width; position += ROUTE_LINE_STEP) {
+            double height = ROUTE_LINE_HEIGHT
+                    + Math.sin(position / ROUTE_LINE_PRIMARY_WAVE_LENGTH) * ROUTE_LINE_PRIMARY_AMPLITUDE
+                    + Math.sin(position / ROUTE_LINE_SECONDARY_WAVE_LENGTH) * ROUTE_LINE_SECONDARY_AMPLITUDE;
             if (position == 0) {
                 graphics.moveTo(position, height);
             } else {
@@ -83,7 +97,8 @@ public class MainWindow {
             }
         }
         graphics.stroke();
-        graphics.fillOval(0, 7, 8, 8);
-        graphics.fillOval(Math.max(0, width - 8), 7, 8, 8);
+        graphics.fillOval(0, ROUTE_MARKER_VERTICAL_POSITION, ROUTE_MARKER_DIAMETER, ROUTE_MARKER_DIAMETER);
+        graphics.fillOval(Math.max(0, width - ROUTE_MARKER_DIAMETER), ROUTE_MARKER_VERTICAL_POSITION,
+                ROUTE_MARKER_DIAMETER, ROUTE_MARKER_DIAMETER);
     }
 }
