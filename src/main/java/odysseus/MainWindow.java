@@ -62,6 +62,7 @@ public class MainWindow {
     /** Adds the traveler command and Odysseus response to the conversation. */
     @FXML
     private void handleUserInput() {
+        assert odysseus != null : "Odysseus must be injected before user input is handled";
         String command = userInput.getText().trim();
         if (command.isEmpty()) {
             return;

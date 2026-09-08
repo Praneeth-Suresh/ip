@@ -31,8 +31,10 @@ public class TaskList {
 
     /** Removes and returns the requested one-based task number. */
     public Task deleteTask(int taskNumber) throws OdysseusException {
-        getTask(taskNumber);
-        return tasks.remove(toTaskIndex(taskNumber));
+        Task task = getTask(taskNumber);
+        int taskIndex = toTaskIndex(taskNumber);
+        assert task == tasks.get(taskIndex) : "A validated task number identifies the task to remove";
+        return tasks.remove(taskIndex);
     }
 
     /** Returns the number of tasks in this list. */
