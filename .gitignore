@@ -22,3 +22,8 @@ _temp/
 text-ui-test/EXPECTED-UNIX.TXT
 
 .beryl/agent/session-state.md
+!/build/
+/build/*
+!/build/libs/
+/build/libs/*
+!/build/libs/odysseus.jar

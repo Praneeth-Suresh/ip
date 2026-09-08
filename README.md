@@ -106,3 +106,13 @@ root:
 
 Alternatively, in IntelliJ, open `src/main/java/odysseus/Launcher.java` and run
 `Launcher.main()`. This opens the Odysseus JavaFX conversation window.
+
+## Building the JAR
+
+With JDK 25 installed, run this from the project root:
+
+```powershell
+.\gradlew.bat shadowJar
+```
+
+Retrieve the bundled application JAR from `build\libs\odysseus.jar`.
