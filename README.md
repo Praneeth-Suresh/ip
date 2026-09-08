@@ -95,6 +95,22 @@ Odysseus keeps sailing after a mistake and explains how to correct it. For
 example, enter `todo borrow book` rather than `todo`, and use `mark 2` rather
 than `mark` when marking the second task complete.
 
+## Studying the Odyssey with Athena's Archive
+
+Odysseus can retain Odyssey-related vocabulary and revision questions between
+conversations. Create a card with `learn`, then use `review` to study it:
+
+```text
+learn nostos /answer homecoming /topic Greek terms
+review Greek terms
+answer homecoming
+```
+
+Use `cards [topic]` to view the archive and its mastery levels. During an
+active review, `reveal` shows the expected answer; follow it with `mastered`
+when you recalled it or `again` when it needs another voyage. Use
+`forget <card number>` to remove a card.
+
 ## Launching the JavaFX GUI
 
 Make sure JDK 25 is configured, then run the following command from the project

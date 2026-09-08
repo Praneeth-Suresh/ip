@@ -43,6 +43,19 @@ validation, and deletion. `OdysseusException` represents user-correctable comman
 the console entry point catches it per command so one mistake cannot end the
 conversation or partially mutate the task list.
 
+## Athena's Archive
+
+`LearningDeck` owns user-authored `LearningCard` values, their one-based archive
+numbers, topic filtering, and deterministic review selection. A card owns its
+prompt, expected answer, topic, mastery, and review count. `Odysseus` keeps at
+most one active card as conversation state; that temporary state is never
+persisted.
+
+`LearningStorage` is the archive's file adapter. It stores a versioned,
+Base64-encoded sidecar file adjacent to the task log, so learning-card text
+cannot corrupt the existing task-file format. The frontend continues to use
+only `Odysseus#getResponse(String)` and must not access the deck or storage.
+
 ## JavaFX Presentation Adapter
 
 `HelloWorld` loads the FXML view and injects the `Odysseus` public entry point

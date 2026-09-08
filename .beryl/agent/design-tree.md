@@ -10,8 +10,7 @@ categories, storage, and interaction rules remain open.
 
 | Decision | Options | Current Lean | Why |
 | --- | --- | --- | --- |
-| What things should the chatbot track? | Tasks, events, notes, other | Not decided | Requirements have not specified categories. |
-| How should tracked information persist? | In memory, local file, other | Not decided | No persistence requirement exists yet. |
+| How should Athena's Archive schedule reviews? | Deterministic mastery queue, time-based spaced repetition | Deterministic mastery queue | It gives useful repeat practice without clock or scheduling complexity. |
 
 ## Settled Decisions
 
@@ -24,6 +23,8 @@ categories, storage, and interaction rules remain open.
 | Task states and existing-task actions are closed sets. | `TaskStatus` and `TaskAction` enums | 2026-08-20 | n/a |
 | The chatbot has a native conversation frontend. | JavaFX FXML views styled by one local CSS stylesheet | 2026-09-02 | n/a |
 | The console and JavaFX frontend share command behavior. | `Odysseus#getResponse(String)` owns command execution and reply text | 2026-09-02 | n/a |
+| Odyssey-focused recall is user-authored and persistent. | Athena's Archive stores prompt-and-answer learning cards in a separate local sidecar file. | 2026-09-08 | [ADR 0003](adr/0003-add-athenas-archive.md) |
+| First-release card selection favors weak cards predictably. | Select lowest mastery, then fewest reviews, then insertion order. | 2026-09-08 | n/a |
 
 ## Pressure Points
 
