@@ -17,6 +17,7 @@ public class OdysseusTest {
         savesAndLoadsTasksAcrossConversations();
         startsWithAnEmptyLogWhenNoSaveFileExists();
         respondsToGuiCommandsAndKeepsGoingAfterAnError();
+        learnsReviewsAndReloadsCardsAcrossConversations();
     }
 
     private static void printsIntroArtAndAcceptsDateTimeDeadlines() throws Exception {
@@ -134,6 +135,23 @@ public class OdysseusTest {
         assertContains(rejectedTask, "Use a task number after mark");
         assertContains(listedTasks, "1. [T][ ] mend the sail");
         assertContains(Files.readString(storagePath), "T | 0 | mend the sail");
+    }
+
+    private static void learnsReviewsAndReloadsCardsAcrossConversations() throws Exception {
+        Path storagePath = Files.createTempDirectory("odysseus-test").resolve("tasks.txt");
+        Odysseus odysseus = new Odysseus(storagePath);
+
+        String learned = odysseus.getResponse("learn nostos /answer homecoming /topic Greek terms");
+        String reviewed = odysseus.getResponse("review Greek terms");
+        String answered = odysseus.getResponse("answer homecoming");
+        String reloadedCards = new Odysseus(storagePath).getResponse("cards Greek terms");
+
+        assertContains(learned, "Athena has added this card");
+        assertContains(reviewed, "Athena offers a card from Greek terms");
+        assertContains(answered, "Well recalled");
+        assertContains(reloadedCards, "mastery: 1");
+        assertContains(Files.readString(storagePath.resolveSibling("odysseus-learning.txt")),
+                "ATHENA_ARCHIVE_V1");
     }
 
     private static String run(String commands) throws Exception {

@@ -5,6 +5,55 @@ import java.time.format.DateTimeParseException;
 
 /** Converts user command text into task operations and task values. */
 public class Parser {
+    private static final String DEFAULT_TOPIC = "Odyssey";
+
+    /** Parses a learning card from a learn command. */
+    public LearningCard parseLearningCard(String command) throws OdysseusException {
+        int answerIndex = command.indexOf(" /answer ");
+        if (answerIndex < 0) {
+            throw new OdysseusException("A learning card needs /answer <answer>. Try: learn nostos"
+                    + " /answer homecoming.");
+        }
+        int topicIndex = command.indexOf(" /topic ", answerIndex + 9);
+        String prompt = command.substring("learn".length(), answerIndex).trim();
+        String answer = command.substring(answerIndex + " /answer ".length(),
+                topicIndex < 0 ? command.length() : topicIndex).trim();
+        String topic = topicIndex < 0 ? DEFAULT_TOPIC
+                : command.substring(topicIndex + " /topic ".length()).trim();
+        if (prompt.isBlank() || answer.isBlank() || topic.isBlank()) {
+            throw new OdysseusException("A learning card needs a prompt, answer, and non-empty topic.");
+        }
+        return new LearningCard(prompt, answer, topic);
+    }
+
+    /** Parses an optional topic following a learning-list or review command. */
+    public String parseOptionalTopic(String command, String commandWord) {
+        String topic = command.substring(commandWord.length()).trim();
+        return topic.isEmpty() ? null : topic;
+    }
+
+    /** Parses the non-empty answer following an answer command. */
+    public String parseAnswer(String command) throws OdysseusException {
+        String answer = command.substring("answer".length()).trim();
+        if (answer.isEmpty()) {
+            throw new OdysseusException("Offer an answer after answer, or use reveal to see Athena's answer.");
+        }
+        return answer;
+    }
+
+    /** Parses the one-based learning-card number after forget. */
+    public int parseCardNumber(String command) throws OdysseusException {
+        String numberText = command.substring("forget".length()).trim();
+        if (numberText.isEmpty()) {
+            throw new OdysseusException("Name the card to forget, for example: forget 2.");
+        }
+        try {
+            return Integer.parseInt(numberText);
+        } catch (NumberFormatException exception) {
+            throw new OdysseusException("Use a card number after forget, for example: forget 2.");
+        }
+    }
+
     /**
      * Parses the non-empty keyword that follows a find command.
      *
@@ -111,6 +160,6 @@ public class Parser {
             return new Event(description, from, to);
         }
         throw new OdysseusException("I cannot chart a course from that command. Try todo, deadline,"
-                + " event, list, mark, unmark, or bye.");
+                + " event, learn, review, cards, list, mark, unmark, or bye.");
     }
 }

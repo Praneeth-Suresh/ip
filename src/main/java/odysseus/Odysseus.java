@@ -15,9 +15,12 @@ public class Odysseus {
             " \\___/  |____/   |_|   |____/ |____/|_____| \\___/ |____/");
     private static final Path DEFAULT_STORAGE_PATH = Path.of("data", "odysseus.txt");
     private final Storage storage;
+    private final LearningStorage learningStorage;
     private final Parser parser;
     private final TaskList tasks;
+    private final LearningDeck learningDeck;
     private final String loadingMessage;
+    private LearningCard activeCard;
 
     /** Creates Odysseus using the standard voyage-log location. */
     public Odysseus() {
@@ -31,8 +34,10 @@ public class Odysseus {
      */
     public Odysseus(Path storagePath) {
         storage = new Storage(storagePath);
+        learningStorage = new LearningStorage(storagePath.resolveSibling("odysseus-learning.txt"));
         parser = new Parser();
         TaskList loadedTasks;
+        LearningDeck loadedLearningDeck;
         String recoveredLoadingMessage = "";
         try {
             loadedTasks = storage.load();
@@ -41,6 +46,14 @@ public class Odysseus {
             recoveredLoadingMessage = "I could not load the ship's log. Starting with an empty log.";
         }
         tasks = loadedTasks;
+        try {
+            loadedLearningDeck = learningStorage.load();
+        } catch (OdysseusException exception) {
+            loadedLearningDeck = new LearningDeck();
+            recoveredLoadingMessage += (recoveredLoadingMessage.isEmpty() ? "" : System.lineSeparator())
+                    + "I could not load Athena's Archive. Starting with an empty archive.";
+        }
+        learningDeck = loadedLearningDeck;
         loadingMessage = recoveredLoadingMessage;
     }
 
@@ -88,6 +101,41 @@ public class Odysseus {
             if (command.equals("list")) {
                 return taskListResponse();
             }
+            if (command.equals("cards") || command.startsWith("cards ")) {
+                return cardListResponse(parser.parseOptionalTopic(command, "cards"));
+            }
+            if (command.equals("review") || command.startsWith("review ")) {
+                activeCard = learningDeck.nextCard(parser.parseOptionalTopic(command, "review"));
+                return "Athena offers a card from " + activeCard.getTopic() + ":"
+                        + System.lineSeparator() + activeCard.getPrompt() + System.lineSeparator()
+                        + "answer <your response> | reveal";
+            }
+            if (command.equals("answer") || command.startsWith("answer ")) {
+                return answerActiveCard(parser.parseAnswer(command));
+            }
+            if (command.equals("reveal")) {
+                return revealActiveCard();
+            }
+            if (command.equals("mastered")) {
+                return markActiveCardMastered();
+            }
+            if (command.equals("again")) {
+                return markActiveCardForReview();
+            }
+            if (command.equals("forget") || command.startsWith("forget ")) {
+                LearningCard card = learningDeck.deleteCard(parser.parseCardNumber(command));
+                if (card == activeCard) {
+                    activeCard = null;
+                }
+                return saveLearningWarning() + "The sea has carried this card from Athena's Archive:"
+                        + System.lineSeparator() + "  " + card.getPrompt();
+            }
+            if (command.equals("learn") || command.startsWith("learn ")) {
+                LearningCard card = parser.parseLearningCard(command);
+                learningDeck.addCard(card);
+                return saveLearningWarning() + "Athena has added this card to her archive:"
+                        + System.lineSeparator() + "  [" + card.getTopic() + "] " + card.getPrompt();
+            }
             if (command.equals("find") || command.startsWith("find ")) {
                 return matchingTasksResponse(parser.parseFindKeyword(command));
             }
@@ -129,10 +177,84 @@ public class Odysseus {
         }
     }
 
+    /** Saves learning cards and reports a recoverable saving error. */
+    private String saveLearningWarning() {
+        try {
+            learningStorage.save(learningDeck);
+            return "";
+        } catch (OdysseusException exception) {
+            return "I could not save Athena's Archive." + System.lineSeparator();
+        }
+    }
+
+    /** Evaluates the traveler's answer for the active learning card. */
+    private String answerActiveCard(String response) throws OdysseusException {
+        LearningCard card = requireActiveCard();
+        activeCard = null;
+        if (card.answerMatches(response)) {
+            card.markMastered();
+            return saveLearningWarning() + "Well recalled. The answer is " + card.getAnswer() + "."
+                    + System.lineSeparator() + "Its mastery now stands at " + card.getMastery() + ".";
+        }
+        card.markForReview();
+        return saveLearningWarning() + "Not this time—the answer is " + card.getAnswer() + "."
+                + System.lineSeparator() + "The card remains close at hand for another voyage.";
+    }
+
+    /** Reveals the active answer while letting the traveler assess their recall. */
+    private String revealActiveCard() throws OdysseusException {
+        LearningCard card = requireActiveCard();
+        return "Athena's answer: " + card.getAnswer() + System.lineSeparator()
+                + "Use mastered if you recalled it, or again if it needs another voyage.";
+    }
+
+    /** Records a successful self-assessment for the active learning card. */
+    private String markActiveCardMastered() throws OdysseusException {
+        LearningCard card = requireActiveCard();
+        card.markMastered();
+        activeCard = null;
+        return saveLearningWarning() + "Well recalled. Its mastery now stands at " + card.getMastery() + ".";
+    }
+
+    /** Records that the active learning card should be presented again soon. */
+    private String markActiveCardForReview() throws OdysseusException {
+        LearningCard card = requireActiveCard();
+        card.markForReview();
+        activeCard = null;
+        return saveLearningWarning() + "The card remains close at hand for another voyage.";
+    }
+
+    /** Returns the active card or explains how to begin a study turn. */
+    private LearningCard requireActiveCard() throws OdysseusException {
+        if (activeCard == null) {
+            throw new OdysseusException("Choose a card with review before answering, revealing, or assessing it.");
+        }
+        return activeCard;
+    }
+
     /** Returns the task-count sentence for the current voyage log. */
     private String taskCountResponse() {
         int taskCount = tasks.getTaskCount();
         return "Our voyage now holds " + taskCount + " task" + (taskCount == 1 ? "." : "s.");
+    }
+
+    /** Returns a formatted rendering of learning cards in an optional topic. */
+    private String cardListResponse(String topic) throws OdysseusException {
+        var cardNumbers = learningDeck.findCardNumbers(topic);
+        if (cardNumbers.isEmpty()) {
+            if (topic == null) {
+                return "Athena's Archive is empty. Try: learn nostos /answer homecoming.";
+            }
+            return "Athena has no cards on " + topic + ".";
+        }
+        StringBuilder response = new StringBuilder("Here are Athena's learning cards:");
+        for (int cardNumber : cardNumbers) {
+            LearningCard card = learningDeck.getCard(cardNumber);
+            response.append(System.lineSeparator()).append(cardNumber).append(". [")
+                    .append(card.getTopic()).append("] ").append(card.getPrompt())
+                    .append(" (mastery: ").append(card.getMastery()).append(")");
+        }
+        return response.toString();
     }
 
     /** Returns a formatted rendering of every task in the voyage log. */
