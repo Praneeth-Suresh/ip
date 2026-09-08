@@ -42,6 +42,12 @@ Each commit boundary must:
 * Include the check command that validates it.
 * Avoid mixing generated output, docs, tests, and source unless one boundary genuinely requires them together.
 
+When a commit is authorized, implement the complete boundary and create one
+reviewable logical commit for it. Stage all and only the boundary's changes,
+verify them against the stated purpose and checks, and follow the full commit
+message rules in `.beryl/agent/style-policy.md`. Split an unfocused boundary
+before committing; never create a partial, placeholder, or message-less commit.
+
 If the approved plan has no commit boundaries, define them before coding. If a changed file falls outside the boundaries, either stop and ask for approval or flag it clearly in the final response.
 
 ## Process

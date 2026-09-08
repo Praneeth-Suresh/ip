@@ -10,7 +10,26 @@ Every production class belongs to the `odysseus` package. Related classes remain
 
 ## Git
 
-Commit subjects use imperative mood, begin with a capital letter, have a 50-character soft limit and a 72-character hard limit, and do not end with a period. An optional `<scope>:` or `<category>:` prefix is allowed. Non-trivial commits have a body separated from the subject by one blank line; body lines are at most 72 characters and paragraphs are separated by blank lines. The body explains the current situation in present tense, why change is needed, what is being done in imperative mood, why that approach is used, and relevant information. It explains what and why, not implementation mechanics.
+When a commit is authorized, create a complete, reviewable logical commit; do
+not create a partial, placeholder, or message-less commit. Write its message
+before committing and include all changes that belong to its stated boundary.
+Split unrelated changes into separate commits instead of obscuring the intent
+of either change.
+
+Every subject uses imperative mood, begins with a capital letter, has a
+50-character soft limit and a 72-character hard limit, and does not end with a
+period. An optional `<scope>:` or `<category>:` prefix is allowed. Non-trivial
+commits have a body separated from the subject by one blank line; body lines
+are at most 72 characters and paragraphs are separated by blank lines. The
+body explains the current situation in present tense, why change is needed,
+what is being done in imperative mood, why that approach is used, and relevant
+information. It explains what and why, not implementation mechanics; use
+bullets when they make the rationale clearer.
+
+If the explanation cannot fit a focused message, split the work into smaller
+logical commits. Do not repeat details already clear from code comments or the
+diff. Before committing, verify that the staged changes, commit boundary, and
+message agree.
 
 Gitlint enforces the 72-character limits, capitalization, optional-prefix structure, absence of a final period, and body line wrapping. Reviewers must verify imperative mood, the 50-character subject target, whether a body is needed, its what/why content, and branch names. Branches use meaningful kebab-case keywords; issue branches begin with the issue number followed by keywords from the title.
 

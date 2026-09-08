@@ -50,7 +50,12 @@ stakeholder.
 * Use Java 25 for application and build tasks. On macOS, use
   `sdk use java 25.0.3.fx-zulu` when a Java-version switch is needed.
 * Use lightweight Git tags unless the user requests an annotated tag.
-* Commit messages must explain the rationale for a change.
+* When a commit is authorized, create a complete, reviewable logical commit:
+  stage every change in its stated boundary, keep unrelated changes separate,
+  and write the full message required by `.beryl/agent/style-policy.md`.
+* Verify that the staged changes, boundary, and message agree before creating
+  the commit. If its rationale needs an unfocused or excessively long body,
+  split the work into smaller logical commits.
 * Do not commit or push unless the user explicitly asks.
 
 ## Before Coding
