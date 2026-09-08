@@ -2,6 +2,7 @@ package odysseus;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.IntStream;
 
 /** An in-memory collection of tasks for the current voyage. */
 public class TaskList {
@@ -41,12 +42,10 @@ public class TaskList {
 
     /** Returns the one-based numbers of tasks whose descriptions contain the keyword. */
     public List<Integer> findTaskNumbers(String keyword) {
-        List<Integer> matchingNumbers = new ArrayList<>();
-        for (int taskNumber = 1; taskNumber <= tasks.size(); taskNumber++) {
-            if (tasks.get(taskNumber - 1).hasDescriptionContaining(keyword)) {
-                matchingNumbers.add(taskNumber);
-            }
-        }
-        return matchingNumbers;
+        return IntStream.range(0, tasks.size())
+                .filter(index -> tasks.get(index).hasDescriptionContaining(keyword))
+                .map(index -> index + 1)
+                .boxed()
+                .toList();
     }
 }
