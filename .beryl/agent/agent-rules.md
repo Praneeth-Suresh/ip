@@ -15,6 +15,8 @@ These defaults apply in every agent session even when the user does not restate 
 9. For an explicit large or greenfield application request, load the `initial-build` workflow. Discover the repository, ask clarification questions one at a time, and obtain plan ratification before creating `.beryl/agent/hierarchy.md` or editing build code.
 10. Treat `.beryl/agent/hierarchy.md` as Git-tracked active-build state. Resume it when present, update it after each dependency-ordered slice, and delete it only after every node and check passes and durable context has been promoted.
 11. Follow `.beryl/agent/style-policy.md`; run the available style checks before finishing a change.
+12. Follow `.beryl/agent/code-quality-guidelines.md` when reviewing or changing
+    production Java code.
 
 ## Preserved Project Guidance
 

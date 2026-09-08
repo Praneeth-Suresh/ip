@@ -131,8 +131,8 @@ public class Odysseus {
 
     /** Returns the task-count sentence for the current voyage log. */
     private String taskCountResponse() {
-        return "Our voyage now holds " + tasks.getTaskCount() + " task"
-                + (tasks.getTaskCount() == 1 ? "." : "s.");
+        int taskCount = tasks.getTaskCount();
+        return "Our voyage now holds " + taskCount + " task" + (taskCount == 1 ? "." : "s.");
     }
 
     /** Returns a formatted rendering of every task in the voyage log. */
