@@ -63,6 +63,7 @@ public class DialogBox extends HBox {
 
     /** Applies the pottery-note treatment used for the traveler's entries. */
     private void configureTravelerEntry() {
+        assert getChildren().size() == 2 : "The dialog FXML must provide a monogram and message bubble";
         speaker.setText("TRAVELER");
         initial.setText("Y");
         Node monogram = getChildren().getFirst();
