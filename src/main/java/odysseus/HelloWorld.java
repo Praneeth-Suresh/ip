@@ -8,7 +8,9 @@ import javafx.scene.Scene;
 import javafx.scene.layout.BorderPane;
 import javafx.stage.Stage;
 
-/** Launches Odysseus's JavaFX conversation window. */
+/**
+ * Launches Odysseus's JavaFX conversation window.
+ */
 public class HelloWorld extends Application {
     private static final double INITIAL_WIDTH = 1040;
     private static final double INITIAL_HEIGHT = 720;
@@ -35,7 +37,9 @@ public class HelloWorld extends Application {
         }
     }
 
-    /** Launches the JavaFX application. */
+    /**
+     * Launches the JavaFX application.
+     */
     public static void main(String[] args) {
         launch(args);
     }

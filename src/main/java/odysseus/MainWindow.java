@@ -8,7 +8,9 @@ import javafx.scene.control.TextField;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 
-/** Controls the JavaFX conversation view for Odysseus. */
+/**
+ * Controls the JavaFX conversation view for Odysseus.
+ */
 public class MainWindow {
     private static final double FIRST_DIALOG_POSITION = 1.0;
     private static final double MASTHEAD_LINE_INSET = 84;
@@ -38,7 +40,9 @@ public class MainWindow {
 
     private Odysseus odysseus;
 
-    /** Sets up automatic scrolling and the masthead's voyage route. */
+    /**
+     * Sets up automatic scrolling and the masthead's voyage route.
+     */
     @FXML
     public void initialize() {
         dialogContainer.heightProperty().addListener((observable, oldHeight, newHeight) ->
@@ -48,18 +52,24 @@ public class MainWindow {
         drawVoyageLine();
     }
 
-    /** Injects the chatbot that answers commands entered in this window. */
+    /**
+     * Injects the chatbot that answers commands entered in this window.
+     */
     public void setOdysseus(Odysseus odysseus) {
         this.odysseus = odysseus;
     }
 
-    /** Shows the first Odysseus message once the chatbot has been injected. */
+    /**
+     * Shows the first Odysseus message once the chatbot has been injected.
+     */
     public void showWelcome() {
         addOdysseusDialog(WELCOME_MESSAGE);
         userInput.requestFocus();
     }
 
-    /** Adds the traveler command and Odysseus response to the conversation. */
+    /**
+     * Adds the traveler command and Odysseus response to the conversation.
+     */
     @FXML
     private void handleUserInput() {
         assert odysseus != null : "Odysseus must be injected before user input is handled";
@@ -72,12 +82,16 @@ public class MainWindow {
         userInput.clear();
     }
 
-    /** Adds a left-aligned Odysseus entry to the ship's log. */
+    /**
+     * Adds a left-aligned Odysseus entry to the ship's log.
+     */
     private void addOdysseusDialog(String message) {
         dialogContainer.getChildren().add(DialogBox.getOdysseusDialog(message));
     }
 
-    /** Draws the intentionally imperfect route line in the masthead. */
+    /**
+     * Draws the intentionally imperfect route line in the masthead.
+     */
     private void drawVoyageLine() {
         double width = voyageLine.getWidth();
         GraphicsContext graphics = voyageLine.getGraphicsContext2D();

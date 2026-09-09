@@ -7,7 +7,9 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.Scanner;
 
-/** Deterministic behavior tests for valid and invalid Odysseus commands. */
+/**
+ * Deterministic behavior tests for valid and invalid Odysseus commands.
+ */
 public class OdysseusTest {
     public static void main(String[] args) throws Exception {
         printsIntroArtAndAcceptsDateTimeDeadlines();

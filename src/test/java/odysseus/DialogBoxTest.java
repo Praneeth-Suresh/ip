@@ -12,7 +12,9 @@ import org.junit.jupiter.api.Test;
 import javafx.application.Platform;
 import javafx.scene.layout.VBox;
 
-/** Tests the layout of conversational entries. */
+/**
+ * Tests the layout of conversational entries.
+ */
 class DialogBoxTest {
     @BeforeAll
     static void initializeJavaFx() throws InterruptedException {

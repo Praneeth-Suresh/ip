@@ -3,11 +3,15 @@ package odysseus;
 import java.io.PrintStream;
 import java.util.List;
 
-/** Handles messages shown to the traveler. */
+/**
+ * Handles messages shown to the traveler.
+ */
 public class Ui {
     private final PrintStream output;
 
-    /** Creates a UI that writes to the given output stream. */
+    /**
+     * Creates a UI that writes to the given output stream.
+     */
     public Ui(PrintStream output) {
         this.output = output;
     }
@@ -15,8 +19,8 @@ public class Ui {
     /**
      * Shows a task list in its existing one-based order.
      *
-     * @param tasks tasks to display
-     * @throws OdysseusException if a task cannot be retrieved for display
+     * @param tasks tasks to display.
+     * @throws OdysseusException if a task cannot be retrieved for display.
      */
     public void showTaskList(TaskList tasks) throws OdysseusException {
         if (tasks.getTaskCount() == 0) {
@@ -29,7 +33,9 @@ public class Ui {
         }
     }
 
-    /** Shows the tasks that match a keyword, retaining their task numbers. */
+    /**
+     * Shows the tasks that match a keyword, retaining their task numbers.
+     */
     public void showMatchingTasks(TaskList tasks, List<Integer> matchingNumbers) throws OdysseusException {
         output.println("Here are the matching tasks in your list:");
         for (int taskNumber : matchingNumbers) {
@@ -37,12 +43,16 @@ public class Ui {
         }
     }
 
-    /** Shows a user-facing message. */
+    /**
+     * Shows a user-facing message.
+     */
     public void show(String message) {
         output.println(message);
     }
 
-    /** Shows a task with its preceding message. */
+    /**
+     * Shows a task with its preceding message.
+     */
     public void showTask(String message, Task task) {
         show(message);
         output.println("  " + task);

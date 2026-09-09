@@ -1,6 +1,8 @@
 package odysseus;
 
-/** The completion state of a task and its display marker. */
+/**
+ * The completion state of a task and its display marker.
+ */
 public enum TaskStatus {
     NOT_DONE("[ ]"),
     DONE("[X]");
@@ -11,7 +13,9 @@ public enum TaskStatus {
         this.marker = marker;
     }
 
-    /** Returns the marker used when displaying this status. */
+    /**
+     * Returns the marker used when displaying this status.
+     */
     public String getMarker() {
         return marker;
     }

@@ -4,24 +4,32 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.IntStream;
 
-/** An in-memory collection of tasks for the current voyage. */
+/**
+ * An in-memory collection of tasks for the current voyage.
+ */
 public class TaskList {
     private static final int FIRST_TASK_NUMBER = 1;
     private final List<Task> tasks = new ArrayList<>();
 
-    /** Adds a task to this list. */
+    /**
+     * Adds a task to this list.
+     */
     public void addTask(Task task) {
         tasks.add(task);
     }
 
-    /** Adds multiple tasks to this list using a variable number of arguments. */
+    /**
+     * Adds multiple tasks to this list using a variable number of arguments.
+     */
     public void addTasks(Task... tasksToAdd) {
         for (Task task : tasksToAdd) {
             addTask(task);
         }
     }
 
-    /** Returns the requested one-based task number. */
+    /**
+     * Returns the requested one-based task number.
+     */
     public Task getTask(int taskNumber) throws OdysseusException {
         if (!isValidTaskNumber(taskNumber)) {
             throw new OdysseusException("There is no task " + taskNumber
@@ -30,7 +38,9 @@ public class TaskList {
         return tasks.get(toTaskIndex(taskNumber));
     }
 
-    /** Removes and returns the requested one-based task number. */
+    /**
+     * Removes and returns the requested one-based task number.
+     */
     public Task deleteTask(int taskNumber) throws OdysseusException {
         Task task = getTask(taskNumber);
         int taskIndex = toTaskIndex(taskNumber);
@@ -38,12 +48,16 @@ public class TaskList {
         return tasks.remove(taskIndex);
     }
 
-    /** Returns the number of tasks in this list. */
+    /**
+     * Returns the number of tasks in this list.
+     */
     public int getTaskCount() {
         return tasks.size();
     }
 
-    /** Returns the one-based numbers of tasks whose descriptions contain the keyword. */
+    /**
+     * Returns the one-based numbers of tasks whose descriptions contain the keyword.
+     */
     public List<Integer> findTaskNumbers(String keyword) {
         return IntStream.range(0, tasks.size())
                 .filter(index -> tasks.get(index).hasDescriptionContaining(keyword))
@@ -52,12 +66,16 @@ public class TaskList {
                 .toList();
     }
 
-    /** Returns whether a number identifies a task currently in this list. */
+    /**
+     * Returns whether a number identifies a task currently in this list.
+     */
     private boolean isValidTaskNumber(int taskNumber) {
         return taskNumber >= FIRST_TASK_NUMBER && taskNumber <= tasks.size();
     }
 
-    /** Converts a validated one-based task number to its zero-based list index. */
+    /**
+     * Converts a validated one-based task number to its zero-based list index.
+     */
     private int toTaskIndex(int taskNumber) {
         return taskNumber - FIRST_TASK_NUMBER;
     }

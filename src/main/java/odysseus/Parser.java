@@ -3,11 +3,15 @@ package odysseus;
 import java.time.LocalDate;
 import java.time.format.DateTimeParseException;
 
-/** Converts user command text into task operations and task values. */
+/**
+ * Converts user command text into task operations and task values.
+ */
 public class Parser {
     private static final String DEFAULT_TOPIC = "Odyssey";
 
-    /** Parses a learning card from a learn command. */
+    /**
+     * Parses a learning card from a learn command.
+     */
     public LearningCard parseLearningCard(String command) throws OdysseusException {
         int answerIndex = command.indexOf(" /answer ");
         if (answerIndex < 0) {
@@ -26,13 +30,17 @@ public class Parser {
         return new LearningCard(prompt, answer, topic);
     }
 
-    /** Parses an optional topic following a learning-list or review command. */
+    /**
+     * Parses an optional topic following a learning-list or review command.
+     */
     public String parseOptionalTopic(String command, String commandWord) {
         String topic = command.substring(commandWord.length()).trim();
         return topic.isEmpty() ? null : topic;
     }
 
-    /** Parses the non-empty answer following an answer command. */
+    /**
+     * Parses the non-empty answer following an answer command.
+     */
     public String parseAnswer(String command) throws OdysseusException {
         String answer = command.substring("answer".length()).trim();
         if (answer.isEmpty()) {
@@ -41,7 +49,9 @@ public class Parser {
         return answer;
     }
 
-    /** Parses the one-based learning-card number after forget. */
+    /**
+     * Parses the one-based learning-card number after forget.
+     */
     public int parseCardNumber(String command) throws OdysseusException {
         String numberText = command.substring("forget".length()).trim();
         if (numberText.isEmpty()) {
@@ -57,9 +67,9 @@ public class Parser {
     /**
      * Parses the non-empty keyword that follows a find command.
      *
-     * @param command complete user command
-     * @return keyword to search for
-     * @throws OdysseusException if the command does not contain a keyword
+     * @param command complete user command.
+     * @return keyword to search for.
+     * @throws OdysseusException if the command does not contain a keyword.
      */
     public String parseFindKeyword(String command) throws OdysseusException {
         String keyword = command.substring("find".length()).trim();
@@ -72,10 +82,10 @@ public class Parser {
     /**
      * Parses the one-based task number that follows an existing-task action.
      *
-     * @param command complete user command
-     * @param action action that owns the command prefix
-     * @return validated one-based task number
-     * @throws OdysseusException if no valid task number follows the action
+     * @param command complete user command.
+     * @param action action that owns the command prefix.
+     * @return validated one-based task number.
+     * @throws OdysseusException if no valid task number follows the action.
      */
     public int parseTaskNumber(String command, TaskAction action) throws OdysseusException {
         String actionWord = action.getCommandWord();
@@ -94,8 +104,8 @@ public class Parser {
     /**
      * Parses the date portion of a deadline, accepting an optional trailing time.
      *
-     * @param by user-provided deadline value
-     * @return date represented by the deadline
+     * @param by user-provided deadline value.
+     * @return date represented by the deadline.
      */
     private LocalDate parseDeadlineDate(String by) {
         assert !by.isBlank() : "Deadline text must be present after command validation";
@@ -112,9 +122,9 @@ public class Parser {
     /**
      * Creates a task from a supported creation command.
      *
-     * @param command complete user command
-     * @return task described by the command
-     * @throws OdysseusException if the command is malformed or unsupported
+     * @param command complete user command.
+     * @return task described by the command.
+     * @throws OdysseusException if the command is malformed or unsupported.
      */
     public Task parseTask(String command) throws OdysseusException {
         if (command.equals("todo") || command.startsWith("todo ")) {

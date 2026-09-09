@@ -4,7 +4,9 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import org.junit.jupiter.api.Test;
 
-/** Tests task completion state rendering. */
+/**
+ * Tests task completion state rendering.
+ */
 class TaskTest {
     @Test
     void markAndUnmark_changeRenderedCompletionState() {

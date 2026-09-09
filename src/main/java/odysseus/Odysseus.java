@@ -4,7 +4,9 @@ import java.io.PrintStream;
 import java.nio.file.Path;
 import java.util.Scanner;
 
-/** A console personal assistant that records a traveler's tasks. */
+/**
+ * A console personal assistant that records a traveler's tasks.
+ */
 public class Odysseus {
     private static final String DIVIDER = "____________________________________________________________";
     private static final String INTRO_ART = String.join(System.lineSeparator(),
@@ -22,7 +24,9 @@ public class Odysseus {
     private final String loadingMessage;
     private LearningCard activeCard;
 
-    /** Creates Odysseus using the standard voyage-log location. */
+    /**
+     * Creates Odysseus using the standard voyage-log location.
+     */
     public Odysseus() {
         this(DEFAULT_STORAGE_PATH);
     }
@@ -30,7 +34,7 @@ public class Odysseus {
     /**
      * Creates Odysseus with the supplied voyage-log location.
      *
-     * @param storagePath location of the persistent voyage log
+     * @param storagePath location of the persistent voyage log.
      */
     public Odysseus(Path storagePath) {
         storage = new Storage(storagePath);
@@ -57,12 +61,16 @@ public class Odysseus {
         loadingMessage = recoveredLoadingMessage;
     }
 
-    /** Starts Odysseus and processes commands until the traveler says goodbye. */
+    /**
+     * Starts Odysseus and processes commands until the traveler says goodbye.
+     */
     public static void main(String[] args) {
         run(new Scanner(System.in), System.out, DEFAULT_STORAGE_PATH);
     }
 
-    /** Runs an Odysseus conversation using the supplied input, output, and storage path. */
+    /**
+     * Runs an Odysseus conversation using the supplied input, output, and storage path.
+     */
     static void run(Scanner scanner, PrintStream output, Path storagePath) {
         output.println(INTRO_ART);
         output.println("Ahoy, traveler! I am Odysseus, long tested by sea and fate.");
@@ -90,8 +98,8 @@ public class Odysseus {
     /**
      * Processes one traveler command and returns Odysseus's response.
      *
-     * @param command command to process
-     * @return a user-facing response in Odysseus's voice
+     * @param command command to process.
+     * @return a user-facing response in Odysseus's voice.
      */
     public String getResponse(String command) {
         try {
@@ -167,7 +175,9 @@ public class Odysseus {
         }
     }
 
-    /** Saves tasks through storage and reports a recoverable saving error. */
+    /**
+     * Saves tasks through storage and reports a recoverable saving error.
+     */
     private String saveWarning() {
         try {
             storage.save(tasks);
@@ -177,7 +187,9 @@ public class Odysseus {
         }
     }
 
-    /** Saves learning cards and reports a recoverable saving error. */
+    /**
+     * Saves learning cards and reports a recoverable saving error.
+     */
     private String saveLearningWarning() {
         try {
             learningStorage.save(learningDeck);
@@ -187,7 +199,9 @@ public class Odysseus {
         }
     }
 
-    /** Evaluates the traveler's answer for the active learning card. */
+    /**
+     * Evaluates the traveler's answer for the active learning card.
+     */
     private String answerActiveCard(String response) throws OdysseusException {
         LearningCard card = requireActiveCard();
         activeCard = null;
@@ -201,14 +215,18 @@ public class Odysseus {
                 + System.lineSeparator() + "The card remains close at hand for another voyage.";
     }
 
-    /** Reveals the active answer while letting the traveler assess their recall. */
+    /**
+     * Reveals the active answer while letting the traveler assess their recall.
+     */
     private String revealActiveCard() throws OdysseusException {
         LearningCard card = requireActiveCard();
         return "Athena's answer: " + card.getAnswer() + System.lineSeparator()
                 + "Use mastered if you recalled it, or again if it needs another voyage.";
     }
 
-    /** Records a successful self-assessment for the active learning card. */
+    /**
+     * Records a successful self-assessment for the active learning card.
+     */
     private String markActiveCardMastered() throws OdysseusException {
         LearningCard card = requireActiveCard();
         card.markMastered();
@@ -216,7 +234,9 @@ public class Odysseus {
         return saveLearningWarning() + "Well recalled. Its mastery now stands at " + card.getMastery() + ".";
     }
 
-    /** Records that the active learning card should be presented again soon. */
+    /**
+     * Records that the active learning card should be presented again soon.
+     */
     private String markActiveCardForReview() throws OdysseusException {
         LearningCard card = requireActiveCard();
         card.markForReview();
@@ -224,7 +244,9 @@ public class Odysseus {
         return saveLearningWarning() + "The card remains close at hand for another voyage.";
     }
 
-    /** Returns the active card or explains how to begin a study turn. */
+    /**
+     * Returns the active card or explains how to begin a study turn.
+     */
     private LearningCard requireActiveCard() throws OdysseusException {
         if (activeCard == null) {
             throw new OdysseusException("Choose a card with review before answering, revealing, or assessing it.");
@@ -232,13 +254,17 @@ public class Odysseus {
         return activeCard;
     }
 
-    /** Returns the task-count sentence for the current voyage log. */
+    /**
+     * Returns the task-count sentence for the current voyage log.
+     */
     private String taskCountResponse() {
         int taskCount = tasks.getTaskCount();
         return "Our voyage now holds " + taskCount + " task" + (taskCount == 1 ? "." : "s.");
     }
 
-    /** Returns a formatted rendering of learning cards in an optional topic. */
+    /**
+     * Returns a formatted rendering of learning cards in an optional topic.
+     */
     private String cardListResponse(String topic) throws OdysseusException {
         var cardNumbers = learningDeck.findCardNumbers(topic);
         if (cardNumbers.isEmpty()) {
@@ -257,7 +283,9 @@ public class Odysseus {
         return response.toString();
     }
 
-    /** Returns a formatted rendering of every task in the voyage log. */
+    /**
+     * Returns a formatted rendering of every task in the voyage log.
+     */
     private String taskListResponse() throws OdysseusException {
         if (tasks.getTaskCount() == 0) {
             return "My ship's log is clear, traveler.";
@@ -269,7 +297,9 @@ public class Odysseus {
         return response.toString();
     }
 
-    /** Returns a formatted rendering of every task matching a keyword. */
+    /**
+     * Returns a formatted rendering of every task matching a keyword.
+     */
     private String matchingTasksResponse(String keyword) throws OdysseusException {
         StringBuilder response = new StringBuilder("Here are the matching tasks in your list:");
         for (int taskNumber : tasks.findTaskNumbers(keyword)) {

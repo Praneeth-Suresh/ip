@@ -7,7 +7,9 @@ import java.util.List;
 
 import org.junit.jupiter.api.Test;
 
-/** Tests task-list indexing and deletion behavior. */
+/**
+ * Tests task-list indexing and deletion behavior.
+ */
 class TaskListTest {
     @Test
     void deleteTask_removesRequestedTaskAndRenumbersList() throws OdysseusException {

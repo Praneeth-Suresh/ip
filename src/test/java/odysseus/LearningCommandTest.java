@@ -7,7 +7,9 @@ import java.nio.file.Path;
 
 import org.junit.jupiter.api.Test;
 
-/** Tests Athena's Archive through Odysseus's public conversation interface. */
+/**
+ * Tests Athena's Archive through Odysseus's public conversation interface.
+ */
 class LearningCommandTest {
     @Test
     void learningCard_correctAnswer_persistsMasteryAcrossConversations() throws Exception {

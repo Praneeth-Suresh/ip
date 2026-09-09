@@ -10,7 +10,9 @@ import javafx.scene.control.Label;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 
-/** Represents one styled conversational entry in Odysseus's ship log. */
+/**
+ * Represents one styled conversational entry in Odysseus's ship log.
+ */
 public class DialogBox extends HBox {
     @FXML
     private VBox messageBubble;
@@ -31,17 +33,23 @@ public class DialogBox extends HBox {
         }
     }
 
-    /** Creates a right-aligned entry for a traveler command. */
+    /**
+     * Creates a right-aligned entry for a traveler command.
+     */
     public static DialogBox getUserDialog(String text) {
         return new DialogBox(text, true);
     }
 
-    /** Creates a left-aligned entry for Odysseus's response. */
+    /**
+     * Creates a left-aligned entry for Odysseus's response.
+     */
     public static DialogBox getOdysseusDialog(String text) {
         return new DialogBox(text, false);
     }
 
-    /** Loads this reusable control from its FXML view. */
+    /**
+     * Loads this reusable control from its FXML view.
+     */
     private void loadView() {
         try {
             FXMLLoader loader = new FXMLLoader(DialogBox.class.getResource("/view/DialogBox.fxml"));
@@ -53,7 +61,9 @@ public class DialogBox extends HBox {
         }
     }
 
-    /** Applies the restrained editorial treatment used for Odysseus's entries. */
+    /**
+     * Applies the restrained editorial treatment used for Odysseus's entries.
+     */
     private void configureOdysseusEntry() {
         speaker.setText("ODYSSEUS");
         initial.setText("O");
@@ -61,7 +71,9 @@ public class DialogBox extends HBox {
         messageBubble.getStyleClass().add("odysseus-bubble");
     }
 
-    /** Applies the pottery-note treatment used for the traveler's entries. */
+    /**
+     * Applies the pottery-note treatment used for the traveler's entries.
+     */
     private void configureTravelerEntry() {
         assert getChildren().size() == 2 : "The dialog FXML must provide a monogram and message bubble";
         speaker.setText("TRAVELER");

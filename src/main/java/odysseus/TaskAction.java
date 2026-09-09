@@ -1,6 +1,8 @@
 package odysseus;
 
-/** A command that targets an existing task by its one-based number. */
+/**
+ * A command that targets an existing task by its one-based number.
+ */
 public enum TaskAction {
     MARK("mark"),
     UNMARK("unmark"),
@@ -12,12 +14,16 @@ public enum TaskAction {
         this.commandWord = commandWord;
     }
 
-    /** Returns whether the input begins this action command. */
+    /**
+     * Returns whether the input begins this action command.
+     */
     public boolean matches(String command) {
         return command.equals(commandWord) || command.startsWith(commandWord + " ");
     }
 
-    /** Returns the command word entered by the user. */
+    /**
+     * Returns the command word entered by the user.
+     */
     public String getCommandWord() {
         return commandWord;
     }

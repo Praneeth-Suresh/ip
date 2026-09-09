@@ -8,17 +8,23 @@ import java.util.ArrayList;
 import java.util.Base64;
 import java.util.List;
 
-/** Loads and saves Athena's Archive without changing the existing task log. */
+/**
+ * Loads and saves Athena's Archive without changing the existing task log.
+ */
 public class LearningStorage {
     private static final String HEADER = "ATHENA_ARCHIVE_V1";
     private final Path filePath;
 
-    /** Creates storage for the supplied learning-data path. */
+    /**
+     * Creates storage for the supplied learning-data path.
+     */
     public LearningStorage(Path filePath) {
         this.filePath = filePath;
     }
 
-    /** Loads a learning deck or an empty deck when the archive is absent. */
+    /**
+     * Loads a learning deck or an empty deck when the archive is absent.
+     */
     public LearningDeck load() throws OdysseusException {
         LearningDeck deck = new LearningDeck();
         if (Files.notExists(filePath)) {
@@ -38,7 +44,9 @@ public class LearningStorage {
         }
     }
 
-    /** Saves every learning card in a delimiter-safe, versioned format. */
+    /**
+     * Saves every learning card in a delimiter-safe, versioned format.
+     */
     public void save(LearningDeck deck) throws OdysseusException {
         List<String> lines = new ArrayList<>();
         lines.add(HEADER);
@@ -56,7 +64,9 @@ public class LearningStorage {
         }
     }
 
-    /** Reconstructs one validated card from its saved fields. */
+    /**
+     * Reconstructs one validated card from its saved fields.
+     */
     private LearningCard readCard(String line) throws OdysseusException {
         String[] parts = line.split("\\|", -1);
         if (parts.length != 6 || !parts[0].equals("C")) {
@@ -77,18 +87,24 @@ public class LearningStorage {
         }
     }
 
-    /** Converts a card into one portable saved line. */
+    /**
+     * Converts a card into one portable saved line.
+     */
     private String writeCard(LearningCard card) {
         return "C|" + card.getMastery() + "|" + card.getReviewCount() + "|" + encode(card.getTopic())
                 + "|" + encode(card.getPrompt()) + "|" + encode(card.getAnswer());
     }
 
-    /** Encodes user-provided text so it cannot interfere with the file format. */
+    /**
+     * Encodes user-provided text so it cannot interfere with the file format.
+     */
     private String encode(String text) {
         return Base64.getEncoder().encodeToString(text.getBytes(StandardCharsets.UTF_8));
     }
 
-    /** Decodes a user-provided text field from the file format. */
+    /**
+     * Decodes a user-provided text field from the file format.
+     */
     private String decode(String text) {
         return new String(Base64.getDecoder().decode(text), StandardCharsets.UTF_8);
     }

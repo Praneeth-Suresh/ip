@@ -12,7 +12,9 @@ import java.util.Scanner;
 
 import org.junit.jupiter.api.Test;
 
-/** Tests keyword search through the console command path. */
+/**
+ * Tests keyword search through the console command path.
+ */
 class FindCommandTest {
     @Test
     void find_matchingKeyword_showsOriginalTaskNumbers() throws Exception {
