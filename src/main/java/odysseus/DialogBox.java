@@ -5,9 +5,9 @@ import java.io.IOException;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.geometry.Pos;
-import javafx.scene.Node;
 import javafx.scene.control.Label;
 import javafx.scene.layout.HBox;
+import javafx.scene.layout.Priority;
 import javafx.scene.layout.VBox;
 
 /**
@@ -76,6 +76,10 @@ public class DialogBox extends HBox {
     private void configureOdysseusEntry() {
         speaker.setText("ODYSSEUS");
         initial.setText("O");
+        setMaxWidth(Double.MAX_VALUE);
+        messageBubble.setMaxWidth(Double.MAX_VALUE);
+        message.setMaxWidth(Double.MAX_VALUE);
+        HBox.setHgrow(messageBubble, Priority.ALWAYS);
         getStyleClass().add("odysseus-dialog");
         messageBubble.getStyleClass().add("odysseus-bubble");
     }
@@ -86,9 +90,7 @@ public class DialogBox extends HBox {
     private void configureTravelerEntry() {
         assert getChildren().size() == 2 : "The dialog FXML must provide a monogram and message bubble";
         speaker.setText("TRAVELER");
-        initial.setText("Y");
-        Node monogram = getChildren().getFirst();
-        getChildren().setAll(messageBubble, monogram);
+        getChildren().setAll(messageBubble);
         setAlignment(Pos.TOP_RIGHT);
         getStyleClass().add("user-dialog");
         messageBubble.getStyleClass().add("user-bubble");

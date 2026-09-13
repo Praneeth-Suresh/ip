@@ -1,5 +1,5 @@
 .app-shell {
-    -fx-background-color: #F8F0DD;
+    -fx-background-color: #FFF9EC;
     -fx-font-family: "Segoe UI";
 }
 
@@ -7,7 +7,7 @@
     -fx-background-color: #F1E1C4;
     -fx-border-color: transparent transparent #C2924A transparent;
     -fx-border-width: 0 0 1 0;
-    -fx-padding: 26 42 19 42;
+    -fx-padding: 16 24 13 24;
 }
 
 .brand {
@@ -20,7 +20,7 @@
 
 .headline {
     -fx-font-family: "Palatino Linotype";
-    -fx-font-size: 29px;
+    -fx-font-size: 24px;
     -fx-text-fill: #302A20;
 }
 
@@ -37,19 +37,19 @@
 }
 
 .conversation-scroll {
-    -fx-background: #F8F0DD;
+    -fx-background: #FFF9EC;
     -fx-background-color: transparent;
     -fx-border-color: transparent;
     -fx-padding: 0;
 }
 
 .conversation-scroll > .viewport {
-    -fx-background-color: #F8F0DD;
+    -fx-background-color: #FFF9EC;
 }
 
 .dialog-container {
-    -fx-padding: 28 42 28 42;
-    -fx-spacing: 22;
+    -fx-padding: 18 24 18 24;
+    -fx-spacing: 14;
 }
 
 .odysseus-dialog, .user-dialog {
@@ -59,51 +59,73 @@
 .odysseus-dialog {
     -fx-border-color: transparent transparent transparent #C2924A;
     -fx-border-width: 0 0 0 1;
-    -fx-padding: 0 0 0 15;
+    -fx-padding: 0 0 0 12;
 }
 
 .monogram {
     -fx-alignment: center;
     -fx-background-color: #495F42;
-    -fx-min-height: 30;
-    -fx-min-width: 30;
-    -fx-pref-height: 30;
-    -fx-pref-width: 30;
-}
-
-.user-dialog .monogram {
-    -fx-background-color: #A7442B;
+    -fx-background-radius: 999;
+    -fx-min-height: 24;
+    -fx-min-width: 24;
+    -fx-pref-height: 24;
+    -fx-pref-width: 24;
 }
 
 .monogram-letter {
     -fx-font-family: "Palatino Linotype";
-    -fx-font-size: 15px;
+    -fx-font-size: 13px;
     -fx-font-weight: bold;
     -fx-text-fill: #F8F0DD;
 }
 
 .message-bubble {
-    -fx-max-width: 480;
     -fx-padding: 2 0 2 0;
 }
 
 .user-bubble {
     -fx-alignment: top-right;
-    -fx-background-color: #E7C59A;
-    -fx-padding: 13 16 13 16;
+    -fx-background-color: #302A20;
+    -fx-background-radius: 12 2 12 12;
+    -fx-max-width: 420;
+    -fx-padding: 10 13 10 13;
 }
 
 .message-text {
     -fx-font-size: 14px;
-    -fx-line-spacing: 3px;
+    -fx-line-spacing: 2px;
     -fx-text-fill: #302A20;
+}
+
+.user-bubble .message-text, .user-bubble .speaker-label {
+    -fx-text-fill: #FFF9EC;
+}
+
+.error-dialog {
+    -fx-border-color: transparent transparent transparent #A7442B;
+}
+
+.error-dialog .monogram {
+    -fx-background-color: #A7442B;
+}
+
+.error-bubble {
+    -fx-background-color: #F9E2D9;
+    -fx-background-radius: 0 8 8 0;
+    -fx-border-color: #D87A61;
+    -fx-border-width: 1;
+    -fx-padding: 10 12 10 12;
+}
+
+.error-bubble .speaker-label {
+    -fx-text-fill: #8B2D1B;
 }
 
 .composer-area {
     -fx-background-color: #F1E1C4;
     -fx-border-color: #C2924A transparent transparent transparent;
     -fx-border-width: 1 0 0 0;
-    -fx-padding: 16 42 22 42;
+    -fx-padding: 10 24 14 24;
 }
 
 .text-field {
@@ -123,12 +145,12 @@
 
 .send-button {
     -fx-background-color: #A7442B;
-    -fx-background-radius: 0;
+    -fx-background-radius: 6;
     -fx-font-family: "Segoe UI";
     -fx-font-size: 13px;
     -fx-font-weight: bold;
     -fx-text-fill: #FFF9EC;
-    -fx-padding: 11 18 11 18;
+    -fx-padding: 10 15 10 15;
 }
 
 .send-button:hover {
