@@ -48,6 +48,15 @@ public class DialogBox extends HBox {
     }
 
     /**
+     * Creates a left-aligned correction entry for an invalid command.
+     */
+    public static DialogBox getErrorDialog(String text) {
+        DialogBox dialog = new DialogBox(text, false);
+        dialog.configureErrorEntry();
+        return dialog;
+    }
+
+    /**
      * Loads this reusable control from its FXML view.
      */
     private void loadView() {
@@ -83,5 +92,15 @@ public class DialogBox extends HBox {
         setAlignment(Pos.TOP_RIGHT);
         getStyleClass().add("user-dialog");
         messageBubble.getStyleClass().add("user-bubble");
+    }
+
+    /**
+     * Emphasizes the correction while preserving Odysseus's side of the conversation.
+     */
+    private void configureErrorEntry() {
+        speaker.setText("COURSE CORRECTION");
+        initial.setText("!");
+        getStyleClass().add("error-dialog");
+        messageBubble.getStyleClass().add("error-bubble");
     }
 }

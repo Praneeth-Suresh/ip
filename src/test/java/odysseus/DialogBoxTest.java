@@ -1,6 +1,7 @@
 package odysseus;
 
 import static org.junit.jupiter.api.Assertions.assertInstanceOf;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.junit.jupiter.api.Assertions.fail;
 
 import java.util.concurrent.CountDownLatch;
@@ -32,6 +33,15 @@ class DialogBoxTest {
         runOnJavaFxThread(() -> {
             DialogBox dialog = DialogBox.getUserDialog("todo mend sail");
             assertInstanceOf(VBox.class, dialog.getChildren().getFirst());
+        });
+    }
+
+    @Test
+    void getErrorDialog_marksEntryForCorrectionStyling() throws InterruptedException {
+        runOnJavaFxThread(() -> {
+            DialogBox dialog = DialogBox.getErrorDialog("Use a task number after mark.");
+
+            assertTrue(dialog.getStyleClass().contains("error-dialog"));
         });
     }
 

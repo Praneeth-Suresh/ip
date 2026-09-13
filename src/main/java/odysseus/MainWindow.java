@@ -78,7 +78,7 @@ public class MainWindow {
             return;
         }
         dialogContainer.getChildren().add(DialogBox.getUserDialog(command));
-        addOdysseusDialog(odysseus.getResponse(command));
+        addOdysseusDialog(odysseus.getConversationResponse(command));
         userInput.clear();
     }
 
@@ -86,7 +86,17 @@ public class MainWindow {
      * Adds a left-aligned Odysseus entry to the ship's log.
      */
     private void addOdysseusDialog(String message) {
-        dialogContainer.getChildren().add(DialogBox.getOdysseusDialog(message));
+        addOdysseusDialog(new ConversationResponse(message, false));
+    }
+
+    /**
+     * Adds an Odysseus entry using the response's presentation intent.
+     */
+    private void addOdysseusDialog(ConversationResponse response) {
+        DialogBox dialog = response.isCommandError()
+                ? DialogBox.getErrorDialog(response.message())
+                : DialogBox.getOdysseusDialog(response.message());
+        dialogContainer.getChildren().add(dialog);
     }
 
     /**
