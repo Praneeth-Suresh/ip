@@ -102,77 +102,94 @@ public class Odysseus {
      * @return a user-facing response in Odysseus's voice.
      */
     public String getResponse(String command) {
+        return getConversationResponse(command).message();
+    }
+
+    /**
+     * Processes one traveler command and describes how its reply should be presented.
+     *
+     * @param command command to process.
+     * @return a user-facing response and whether it corrects a command error.
+     */
+    public ConversationResponse getConversationResponse(String command) {
         try {
             if (command.equals("bye")) {
-                return "Farewell, traveler. May Athena guide your voyage until we meet again.";
+                return standardResponse("Farewell, traveler. May Athena guide your voyage until we meet again.");
             }
             if (command.equals("list")) {
-                return taskListResponse();
+                return standardResponse(taskListResponse());
             }
             if (command.equals("cards") || command.startsWith("cards ")) {
-                return cardListResponse(parser.parseOptionalTopic(command, "cards"));
+                return standardResponse(cardListResponse(parser.parseOptionalTopic(command, "cards")));
             }
             if (command.equals("review") || command.startsWith("review ")) {
                 activeCard = learningDeck.nextCard(parser.parseOptionalTopic(command, "review"));
-                return "Athena offers a card from " + activeCard.getTopic() + ":"
+                return standardResponse("Athena offers a card from " + activeCard.getTopic() + ":"
                         + System.lineSeparator() + activeCard.getPrompt() + System.lineSeparator()
-                        + "answer <your response> | reveal";
+                        + "answer <your response> | reveal");
             }
             if (command.equals("answer") || command.startsWith("answer ")) {
-                return answerActiveCard(parser.parseAnswer(command));
+                return standardResponse(answerActiveCard(parser.parseAnswer(command)));
             }
             if (command.equals("reveal")) {
-                return revealActiveCard();
+                return standardResponse(revealActiveCard());
             }
             if (command.equals("mastered")) {
-                return markActiveCardMastered();
+                return standardResponse(markActiveCardMastered());
             }
             if (command.equals("again")) {
-                return markActiveCardForReview();
+                return standardResponse(markActiveCardForReview());
             }
             if (command.equals("forget") || command.startsWith("forget ")) {
                 LearningCard card = learningDeck.deleteCard(parser.parseCardNumber(command));
                 if (card == activeCard) {
                     activeCard = null;
                 }
-                return saveLearningWarning() + "The sea has carried this card from Athena's Archive:"
-                        + System.lineSeparator() + "  " + card.getPrompt();
+                return standardResponse(saveLearningWarning() + "The sea has carried this card from Athena's Archive:"
+                        + System.lineSeparator() + "  " + card.getPrompt());
             }
             if (command.equals("learn") || command.startsWith("learn ")) {
                 LearningCard card = parser.parseLearningCard(command);
                 learningDeck.addCard(card);
-                return saveLearningWarning() + "Athena has added this card to her archive:"
-                        + System.lineSeparator() + "  [" + card.getTopic() + "] " + card.getPrompt();
+                return standardResponse(saveLearningWarning() + "Athena has added this card to her archive:"
+                        + System.lineSeparator() + "  [" + card.getTopic() + "] " + card.getPrompt());
             }
             if (command.equals("find") || command.startsWith("find ")) {
-                return matchingTasksResponse(parser.parseFindKeyword(command));
+                return standardResponse(matchingTasksResponse(parser.parseFindKeyword(command)));
             }
             if (TaskAction.MARK.matches(command)) {
                 Task task = tasks.getTask(parser.parseTaskNumber(command, TaskAction.MARK));
                 task.markAsDone();
-                return saveWarning() + "Well sailed! I've marked this task as done:"
-                        + System.lineSeparator() + "  " + task;
+                return standardResponse(saveWarning() + "Well sailed! I've marked this task as done:"
+                        + System.lineSeparator() + "  " + task);
             }
             if (TaskAction.UNMARK.matches(command)) {
                 Task task = tasks.getTask(parser.parseTaskNumber(command, TaskAction.UNMARK));
                 task.markAsNotDone();
-                return saveWarning() + "This task awaits its hour again:"
-                        + System.lineSeparator() + "  " + task;
+                return standardResponse(saveWarning() + "This task awaits its hour again:"
+                        + System.lineSeparator() + "  " + task);
             }
             if (TaskAction.DELETE.matches(command)) {
                 Task task = tasks.deleteTask(parser.parseTaskNumber(command, TaskAction.DELETE));
-                return saveWarning() + "The waves have carried this task from our log:"
+                return standardResponse(saveWarning() + "The waves have carried this task from our log:"
                         + System.lineSeparator() + "  " + task
-                        + System.lineSeparator() + taskCountResponse();
+                        + System.lineSeparator() + taskCountResponse());
             }
             Task task = parser.parseTask(command);
             tasks.addTask(task);
-            return saveWarning() + "Well charted. I've added this task:"
+            return standardResponse(saveWarning() + "Well charted. I've added this task:"
                     + System.lineSeparator() + "  " + task
-                    + System.lineSeparator() + taskCountResponse();
+                    + System.lineSeparator() + taskCountResponse());
         } catch (OdysseusException exception) {
-            return exception.getMessage();
+            return new ConversationResponse(exception.getMessage(), true);
         }
+    }
+
+    /**
+     * Marks an ordinary command outcome for the presentation adapter.
+     */
+    private ConversationResponse standardResponse(String message) {
+        return new ConversationResponse(message, false);
     }
 
     /**

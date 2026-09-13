@@ -23,6 +23,7 @@ categories, storage, and interaction rules remain open.
 | Task states and existing-task actions are closed sets. | `TaskStatus` and `TaskAction` enums | 2026-08-20 | n/a |
 | The chatbot has a native conversation frontend. | JavaFX FXML views styled by one local CSS stylesheet | 2026-09-02 | n/a |
 | The console and JavaFX frontend share command behavior. | `Odysseus#getResponse(String)` owns command execution and reply text | 2026-09-02 | n/a |
+| The conversation distinguishes commands, replies, and corrections. | The JavaFX adapter uses typed `ConversationResponse` metadata for error styling; traveler commands are compact and right aligned, while Odysseus replies use the available reading width. | 2026-09-13 | n/a |
 | Odyssey-focused recall is user-authored and persistent. | Athena's Archive stores prompt-and-answer learning cards in a separate local sidecar file. | 2026-09-08 | [ADR 0003](adr/0003-add-athenas-archive.md) |
 | First-release card selection favors weak cards predictably. | Select lowest mastery, then fewest reviews, then insertion order. | 2026-09-08 | n/a |
 

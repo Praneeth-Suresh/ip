@@ -12,8 +12,10 @@ import javafx.stage.Stage;
  * Launches Odysseus's JavaFX conversation window.
  */
 public class HelloWorld extends Application {
-    private static final double INITIAL_WIDTH = 1040;
-    private static final double INITIAL_HEIGHT = 720;
+    private static final double INITIAL_WIDTH = 780;
+    private static final double INITIAL_HEIGHT = 640;
+    private static final double MINIMUM_WIDTH = 480;
+    private static final double MINIMUM_HEIGHT = 440;
 
     @Override
     public void start(Stage stage) {
@@ -28,8 +30,9 @@ public class HelloWorld extends Application {
             mainWindow.showWelcome();
 
             stage.setTitle("Odysseus — Ship's Log");
-            stage.setMinWidth(680);
-            stage.setMinHeight(560);
+            stage.setResizable(true);
+            stage.setMinWidth(MINIMUM_WIDTH);
+            stage.setMinHeight(MINIMUM_HEIGHT);
             stage.setScene(scene);
             stage.show();
         } catch (IOException exception) {

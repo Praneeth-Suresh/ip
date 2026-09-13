@@ -60,7 +60,8 @@ only `Odysseus#getResponse(String)` and must not access the deck or storage.
 
 `HelloWorld` loads the FXML view and injects the `Odysseus` public entry point
 into `MainWindow`. `MainWindow` owns only JavaFX event handling and rendering;
-it delegates every command to `Odysseus#getResponse(String)`. `DialogBox` is a
+it delegates every command to `Odysseus#getConversationResponse(String)` and
+uses the response metadata only for presentation. `DialogBox` is a
 reusable FXML control for one ship-log entry, while `odysseus.css` owns the
 warm editorial visual system. The frontend must not access `TaskList`,
 `Parser`, or `Storage` directly.
